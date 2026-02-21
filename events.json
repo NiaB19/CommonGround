@@ -1,0 +1,91 @@
+[
+  {
+    "event_id": 1,
+    "title": "Pickleball Mixer",
+    "location_name": "Veterans Park",
+    "date": "2026-03-01",
+    "time": "10:00 AM",
+    "type": "Sports",
+    "description": "Open play for all skill levels. Meet at the courts!"
+  },
+
+  {
+    "event_id": 2,
+    "title": "Silent Reading Hour",
+    "location_name": "New Brunswick Free Public Library",
+    "date": "2026-03-01",
+    "time": "2:00 PM",
+    "type": "Social",
+    "description": "Bring your current read and enjoy some quiet company."
+  },
+
+  {
+    "event_id": 3,
+    "title": "Geology 101: Rocks & Fossils",
+    "location_name": "Rutgers Geology Museum",
+    "date": "2026-03-02",
+    "time": "11:00 AM",
+    "type": "Education",
+    "description": "A guided tour of the local fossil collection."
+  },
+
+  {
+    "event_id": 4,
+    "title": "Geology 101: Rocks & Fossils",
+    "location_name": "Rutgers Geology Museum",
+    "date": "2026-03-02",
+    "time": "11:00 AM",
+    "type": "Education",
+    "description": "A guided tour of the local fossil collection."
+  },
+
+  {
+    "event_id": 5,
+    "title": "Geology 101: Rocks & Fossils",
+    "location_name": "Rutgers Geology Museum",
+    "date": "2026-03-02",
+    "time": "11:00 AM",
+    "type": "Education",
+    "description": "A guided tour of the local fossil collection."
+  },
+
+  {
+    "event_id": 7,
+    "title": "Geology 101: Rocks & Fossils",
+    "location_name": "Rutgers Geology Museum",
+    "date": "2026-03-02",
+    "time": "11:00 AM",
+    "type": "Entertainment",
+    "description": "A guided tour of the local fossil collection."
+  },
+
+  {
+    "event_id": 8,
+    "title": "Geology 101: Rocks & Fossils",
+    "location_name": "Rutgers Geology Museum",
+    "date": "2026-03-02",
+    "time": "11:00 AM",
+    "type": "Social",
+    "description": "A guided tour of the local fossil collection."
+  },
+
+  {
+    "event_id": 9,
+    "title": "Geology 101: Rocks & Fossils",
+    "location_name": "Rutgers Geology Museum",
+    "date": "2026-03-02",
+    "time": "11:00 AM",
+    "type": "Creative",
+    "description": "A guided tour of the local fossil collection."
+  },
+
+  {
+    "event_id": 10,
+    "title": "Geology 101: Rocks & Fossils",
+    "location_name": "Rutgers Geology Museum",
+    "date": "2026-03-02",
+    "time": "11:00 AM",
+    "type": "Sports",
+    "description": "A guided tour of the local fossil collection."
+  }
+]
