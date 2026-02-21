@@ -1,120 +1,164 @@
-{
-  "name": "Veterans Park",
-  "lat": 40.4507, "lng": 74.4720,
-  "tags": ["Quiet", "Free", "ADA", "Solo-Friendly", "Eco-Friendly", "Kid-friendly"],
-  "is_alcoholic": false,
-  "description": "Great for pickeball sessions, picnics, walks, and volleyball."
-}
+[
+    {
+    "name": "Veterans Park",
+    "lat": 40.3970518, "lng": -74.3573709,
+    "is_quiet": false,
+    "is_free": true,
+    "_kid-friendly": false,
+    "is_ada": true,
+    "solo_friendly": true,
+    "description": "Great for pickeball sessions, picnics, walks, and volleyball."
+    },
 
+    {
+    "name": "New Brunswick Free Public Library",
+    "lat": 40.4913782, "lng": -74.4453930,
+    "is_quiet": false,
+    "is_free": true,
+    "_kid-friendly": true,
+    "is_ada": true,
+    "solo_friendly": false,
+    "description": "Good place for meet ups, browsing, and activities for kids"
+    },
 
-{
-  "name": "New Brunswick Free Public Library",
-  "lat": 40.4914, "lng": -74.4458,
-  "tags": ["Quiet", "Free", "ADA", "Solo-Friendly", "Eco-Friendly", "Kid-friendly"],
-  "is_alcoholic": false,
-  "description": "Good place for meet ups, browsing, and activities for kids"
-}
- 
-{
-  "name": "New Brunswick Free Public Library",
-  "lat": 40.4914, "lng": -74.4458,
-  "tags": ["Quiet", "Free", "ADA", "Solo-Friendly", "Eco-Friendly", "Kid-friendly"],
-  "is_alcoholic": false,
-  "description": "Good place for meet ups, browsing, and activities for kids"
-}
+    {
+    "name": "Buccleuch Park",
+    "lat": 40.5048264, "lng": -74.4595969,
+    "is_quiet": false,
+    "is_free": false,
+    "_kid-friendly": false,
+    "is_ada": true,
+    "solo_friendly": false,
+    "description": "Good place walks and looking at flowers"
+    },
 
-{
-  "name": "New Brunswick Free Public Library",
-  "lat": 40.4914, "lng": -74.4458,
-  "tags": ["Quiet", "Free", "ADA", "Solo-Friendly", "Eco-Friendly", "Kid-friendly"],
-  "is_alcoholic": false,
-  "description": "Good place for meet ups, browsing, and activities for kids"
-}
+    {
+    "name": "Rutgers Geology Museum",
+    "lat": 40.4986490, "lng": -74.4466806,
+    "is_quiet": false,
+    "is_free": true,
+    "_kid-friendly": false,
+    "is_ada": false,
+    "solo_friendly": false,
+    "description": "Good place for meet ups, browsing, and activities for kids"
+    },
 
-{
-  "name": "New Brunswick Free Public Library",
-  "lat": 40.4914, "lng": -74.4458,
-  "tags": ["Quiet", "Free", "ADA", "Solo-Friendly", "Eco-Friendly", "Kid-friendly"],
-  "is_alcoholic": false,
-  "description": "Good place for meet ups, browsing, and activities for kids"
-}
+    {
+    "name": "Semicolon Cafe",
+    "lat": 40.486667, "lng": -74.444444,
+    "is_quiet": true,
+    "is_free": true,
+    "_kid-friendly": false,
+    "is_ada": true,
+    "solo_friendly": false,
+    "description": "Good place for meet ups, browsing, and activities for kids"
+    },
 
-{
-  "name": "New Brunswick Free Public Library",
-  "lat": 40.4914, "lng": -74.4458,
-  "tags": ["Quiet", "Free", "ADA", "Solo-Friendly", "Eco-Friendly", "Kid-friendly"],
-  "is_alcoholic": false,
-  "description": "Good place for meet ups, browsing, and activities for kids"
-}
+    {
+    "name": "Delaware & Raritan Canal State Park Trail",
+    "lat": 40.5389923, "lng": -74.5721009,
+    "is_quiet": false,
+    "is_free": true,
+    "_kid-friendly": true,
+    "is_ada": true,
+    "solo_friendly": false,
+    "description": "Good place for meet ups, browsing, and activities for kids"
+    },
 
-{
-  "name": "New Brunswick Free Public Library",
-  "lat": 40.4914, "lng": -74.4458,
-  "tags": ["Quiet", "Free", "ADA", "Solo-Friendly", "Eco-Friendly", "Kid-friendly"],
-  "is_alcoholic": false,
-  "description": "Good place for meet ups, browsing, and activities for kids"
-}
+    {
+    "name": "State Theatre New Jersey",
+    "lat": 40.493341, "lng": -74.44462,
+    "is_quiet": false,
+    "is_free": true,
+    "_kid-friendly": false,
+    "is_ada": true,
+    "solo_friendly": true,
+    "description": "Good place for meet ups, browsing, and activities for kids"
+    },
 
-{
-  "name": "New Brunswick Free Public Library",
-  "lat": 40.4914, "lng": -74.4458,
-  "tags": ["Quiet", "Free", "ADA", "Solo-Friendly", "Eco-Friendly", "Kid-friendly"],
-  "is_alcoholic": false,
-  "description": "Good place for meet ups, browsing, and activities for kids"
-}
+    {
+    "name": "Sentirsi Pilates Studio",
+    "lat": 40.54207127548425, "lng": -74.3606030999999,
+    "is_quiet": false,
+    "is_free": false,
+    "_kid-friendly": false,
+    "is_ada": true,
+    "solo_friendly": false,
+    "description": "Good place for meet ups, browsing, and activities for kids"
+    },
 
-{
-  "name": "New Brunswick Free Public Library",
-  "lat": 40.4914, "lng": -74.4458,
-  "tags": ["Quiet", "Free", "ADA", "Solo-Friendly", "Eco-Friendly", "Kid-friendly"],
-  "is_alcoholic": false,
-  "description": "Good place for meet ups, browsing, and activities for kids"
-}
+    {
+    "name": "The Canvas & Grapes Experience",
+    "lat": 40.508614, "lng": -74.372064,"is_quiet": false,
+    "is_free": false,
+    "_kid-friendly": false,
+    "is_ada": true,
+    "solo_friendly": false,
+    "description": "Good place for meet ups, browsing, and activities for kids"
+    },
 
-{
-  "name": "New Brunswick Free Public Library",
-  "lat": 40.4914, "lng": -74.4458,
-  "tags": ["Quiet", "Free", "ADA", "Solo-Friendly", "Eco-Friendly", "Kid-friendly"],
-  "is_alcoholic": false,
-  "description": "Good place for meet ups, browsing, and activities for kids"
-}
+    {
+    "name": "Palmer Square",
+    "lat": 40.350, "lng": -74.661,
+    "is_quiet": false,
+    "is_free": true,
+    "_kid-friendly": true,
+    "is_ada": true,
+    "solo_friendly": false,
+    "description": "Good place for meet ups, browsing, and activities for kids"
+    },
 
-{
-  "name": "New Brunswick Free Public Library",
-  "lat": 40.4914, "lng": -74.4458,
-  "tags": ["Quiet", "Free", "ADA", "Solo-Friendly", "Eco-Friendly", "Kid-friendly"],
-  "is_alcoholic": false,
-  "description": "Good place for meet ups, browsing, and activities for kids"
-}
+    {
+    "name": "Pink Pistachio Cafe",
+    "lat": 40.5294098, "lng": -74.5569183,
+    "is_quiet": false,
+    "is_free": true,
+    "_kid-friendly": false,
+    "is_ada": true,
+    "solo_friendly": true,
+    "description": "Good place for meet ups, browsing, and activities for kids"
+    },
 
-{
-  "name": "New Brunswick Free Public Library",
-  "lat": 40.4914, "lng": -74.4458,
-  "tags": ["Quiet", "Free", "ADA", "Solo-Friendly", "Eco-Friendly", "Kid-friendly"],
-  "is_alcoholic": false,
-  "description": "Good place for meet ups, browsing, and activities for kids"
-}
+    {
+    "name": "Hex and Company",
+    "lat": 40.73263, "lng": -73.99141,"is_quiet": false,
+    "is_free": true,
+    "_kid-friendly": false,
+    "is_ada": false,
+    "solo_friendly": false,
+    "description": "Good place for meet ups, browsing, and activities for kids"
+    },
 
-{
-  "name": "New Brunswick Free Public Library",
-  "lat": 40.4914, "lng": -74.4458,
-  "tags": ["Quiet", "Free", "ADA", "Solo-Friendly", "Eco-Friendly", "Kid-friendly"],
-  "is_alcoholic": false,
-  "description": "Good place for meet ups, browsing, and activities for kids"
-}
+    {
+    "name": "Marlboro Meadows Farm",
+    "lat": 40.3629483, "lng": -74.2095475,
+    "is_quiet": false,
+    "is_free": false,
+    "_kid-friendly": false,
+    "is_ada": true,
+    "solo_friendly": false,
+    "description": "Good place for meet ups, browsing, and activities for kids"
+    },
 
-{
-  "name": "New Brunswick Free Public Library",
-  "lat": 40.4914, "lng": -74.4458,
-  "tags": ["Quiet", "Free", "ADA", "Solo-Friendly", "Eco-Friendly", "Kid-friendly"],
-  "is_alcoholic": false,
-  "description": "Good place for meet ups, browsing, and activities for kids"
-}
+    {
+    "name": "Pier C Park",
+    "lat": 40.7401224, "lng": -74.0259351,
+    "is_quiet": false,
+    "is_free": true,
+    "_kid-friendly": true,
+    "is_ada": true,
+    "solo_friendly": false,
+    "description": "Good place for meet ups, browsing, and activities for kids"
+    },
 
-{
-  "name": "New Brunswick Free Public Library",
-  "lat": 40.4914, "lng": -74.4458,
-  "tags": ["Quiet", "Free", "ADA", "Solo-Friendly", "Eco-Friendly", "Kid-friendly"],
-  "is_alcoholic": false,
-  "description": "Good place for meet ups, browsing, and activities for kids"
-}
+    {
+    "name": "Grounds For Sculpture",
+    "lat": 40.23678, "lng": -74.71889,
+    "is_quiet": false,
+    "is_free": true,
+    "_kid-friendly": false,
+    "is_ada": true,
+    "solo_friendly": true,
+    "description": "Good place for meet ups, browsing, and activities for kids"
+    }
+]
