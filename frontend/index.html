@@ -489,6 +489,7 @@ const events = [
       "time": "10:00 AM",
       "type": "Sports",
       "description": "Open play for all skill levels. Meet at the courts!",
+      "target_communities": ["Active","Interests"],
       postedBy: 2
     },
   
@@ -501,6 +502,7 @@ const events = [
       "time": "2:00 PM",
       "type": "Social",
       "description": "Bring your current read and enjoy some quiet company.",
+      "target_communities": ["Quiet","Academic/Career"],
       postedBy: 1
     },
   
@@ -513,6 +515,7 @@ const events = [
       "time": "11:00 AM",
       "type": "Education",
       "description": "A guided tour of the local fossil collection.",
+      "target_communities": ["Women-only"],
       postedBy: 2
     },
   
@@ -525,6 +528,7 @@ const events = [
       "time": "11:00 AM",
       "type": "Education",
       "description": "A guided tour of the local fossil collection.",
+      "target_communities": ["LGBTQ+","Academic/Career"],
       postedBy: 4
     },
   
@@ -549,6 +553,7 @@ const events = [
       "time": "11:00 AM",
       "type": "Entertainment",
       "description": "A guided tour of the local fossil collection.",
+      "target_communities": ["Interests","LGBTQ+"],
       postedBy: 5
     },
   
@@ -674,12 +679,28 @@ function renderEvents() {
   events.forEach((ev, index) => {
     const user = getUser(ev.postedBy);
 
+    // build tags row including target communities
+    let tagsHTML = `<div class="tag-container"><span class="tag">${ev.type}</span>`;
+    if(ev.target_communities) {
+      ev.target_communities.forEach(tc=>{
+        // determine color class based on keywords (women, lgbt, academic, interests, etc.)
+        let extraClass = '';
+        const lower = tc.toLowerCase();
+        if(lower.includes('women') || lower.includes('gender')) extraClass = 'tag-gender';
+        else if(lower.includes('lgbt') || lower.includes('identity')) extraClass = 'tag-identity';
+        else if(lower.includes('academic')) extraClass = 'tag-academic';
+        else if(lower.includes('interest')) extraClass = 'tag-interest';
+        tagsHTML += `<span class="tag ${extraClass}">${tc}</span>`;
+      });
+    }
+    tagsHTML += `</div>`;
+
     container.innerHTML += `
       <div class="card" onclick="openDetail('event', ${index})">
         <img src="${ev.image}" alt="${ev.title}">
         <div class="card-content">
           <h3>${ev.title}</h3>
-          <div class="tag-container"><span class="tag">${ev.type}</span></div>
+          ${tagsHTML}
           <p>${ev.description}</p>
           <div class="posted-by">
             Posted by <span onclick="event.stopPropagation(); openProfile(${user.id})">${user.name}</span>
@@ -710,13 +731,25 @@ function openDetail(type, index) {
     `;
   } else {
     data = events[index];
+    // build additional tags for target communities
+    let detailTags = `<div class="tag-container"><span class="tag">${data.type}</span>`;
+    if(data.target_communities) {
+      data.target_communities.forEach(tc=>{
+        let extraClass = '';
+        const lower = tc.toLowerCase();
+        if(lower.includes('women') || lower.includes('gender')) extraClass = 'tag-gender';
+        else if(lower.includes('lgbt') || lower.includes('identity')) extraClass = 'tag-identity';
+        else if(lower.includes('academic')) extraClass = 'tag-academic';
+        else if(lower.includes('interest')) extraClass = 'tag-interest';
+        detailTags += `<span class="tag ${extraClass}">${tc}</span>`;
+      });
+    }
+    detailTags += `</div>`;
     content.innerHTML = `
       <button class="close-btn" onclick="closeDetail()" style="float:right; cursor:pointer; border:none; background:none; font-size:20px;">×</button>
       <img src="${data.image}" style="width:100%; border-radius:10px; height:220px; object-fit:cover;">
       <h2 style="margin-top:15px;">${data.title}</h2>
-      <div class="tag-container"><span class="tag">${data.type}</span></div>
-      <p><strong>Where:</strong> ${data.location_name}</p>
-      <p><strong>When:</strong> ${data.date} at ${data.time}</p>
+      ${detailTags}
       <p>${data.description}</p>
       <button class="add-space" style="width:100%;" onclick="alert('RSVP Sent!')">RSVP Now</button>
     `;
