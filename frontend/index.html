@@ -176,7 +176,12 @@ body{
   <button class="category-tab" data-category="Other" title="Other" style="margin-right: 10px; width: 100px; height: 43px; font-size: 16px; background-color: #0688d4; color: whitesmoke; font-family:monospace; border-color: black; padding: 10px; border-radius: 10px;">
     Other
 </div>
-  <div class="profile-btn" id="myProfileBtn">My Profile</div>
+  <button class="profile-btn" id="myProfileBtn" type="button" aria-label="Open my profile">My Profile</button>
+</div>
+
+<!-- quick profile summary for logged in user -->
+<div id="currentUserProfile" style="padding:10px 20px; background:#eef2ff; display:flex; align-items:center; gap:10px;">
+  <!-- populated by script -->
 </div>
 
 <main class="container">
@@ -222,31 +227,41 @@ const users = [
   id:1,
   name:"Alex Rivera",
   bio:"Community builder & coffee lover",
-  avatar:"https://images.unsplash.com/photo-1534614971-6be99a7a3ffd?w=900&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8d2hpdGUlMjBtYWxlfGVufDB8fDB8fHwy"
+  avatar:"https://images.unsplash.com/photo-1534614971-6be99a7a3ffd?w=900&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8d2hpdGUlMjBtYWxlfGVufDB8fDB8fHwy",
+  gender:"Male",
+  age:27
 },
 {
   id:2,
   name:"Jamie Chen",
   bio:"Outdoor enthusiast & event host",
-  avatar:"https://images.unsplash.com/photo-1616325629936-99a9013c29c6?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8YXNpYW4lMjBsYWR5fGVufDB8fDB8fHww"
+  avatar:"https://images.unsplash.com/photo-1616325629936-99a9013c29c6?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8YXNpYW4lMjBsYWR5fGVufDB8fDB8fHww",
+  gender:"Female",
+  age:24
 },
 {
   id:3,
   name:"Arthur Murray",
   bio:"Part-time author who loves to talk books",
-  avatar:"https://images.unsplash.com/photo-1531384441138-2736e62e0919?q=80&w=387&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+  avatar:"https://images.unsplash.com/photo-1531384441138-2736e62e0919?q=80&w=387&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+  gender:"Male",
+  age:32
 },
 {
   id:4,
   name:"Melissa Miller",
   bio:"Movie lover and film expert",
-  avatar:"https://images.unsplash.com/photo-1567173152334-40c73f5f6d58?q=80&w=400&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+  avatar:"https://images.unsplash.com/photo-1567173152334-40c73f5f6d58?q=80&w=400&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+  gender:"Female",
+  age:29
 },
 {
   id:5,
   name:"Martin Rodriguez",
   bio:"Cooking enthusiast and amateur chef",
-  avatar:"https://plus.unsplash.com/premium_photo-1661722605170-f950f82fe53e?q=80&w=870&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+  avatar:"https://plus.unsplash.com/premium_photo-1661722605170-f950f82fe53e?q=80&w=870&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+  gender:"Male",
+  age:35
 }
 
 
@@ -571,32 +586,8 @@ const events = [
     }
   ]
 
-function renderEvents(){
-  const container = document.getElementById("eventContainer");
-  container.innerHTML = "";
+// old renderEvents definition removed (replaced by updated version later)
 
-  events.forEach(event=>{
-    const user = getUser(event.postedBy);
-
-    container.innerHTML += `
-      <div class="card">
-        <img src="${event.image}">
-        <div class="card-content">
-          <h3>${event.title}</h3>
-          <p>${event.description}</p>
-          <div class="posted-by">
-            Posted by <span onclick="openProfile(${user.id})">${user.name}</span>
-          </div>
-          <br>
-          <button class="like-btn">❤️ Like <span class="like-count"></span></button>
-        </div>
-      </div>
-    `;
-  });
-
-  setupLikeButtons(); // <-- add here too
-}
-///-------------  
 
 /* ================= RENDER ================= */
 
@@ -640,7 +631,7 @@ function renderThirdspaces() {
           ${tagsHTML}
           <p>${space.description}</p>
           <div class="posted-by">
-            Posted by <span onclick="event.stopPropagation(); openProfile(${user.id})">${user.name}</span>
+            Posted by <span class="posted-by-name" data-user="${user.id}" onclick="openProfileHandler(event, ${user.id})">${user.name}</span>
           </div>
         </div>
       </div>`;
@@ -680,7 +671,7 @@ function renderEvents() {
           ${tagsHTML}
           <p>${ev.description}</p>
           <div class="posted-by">
-            Posted by <span onclick="event.stopPropagation(); openProfile(${user.id})">${user.name}</span>
+            Posted by <span class="posted-by-name" data-user="${user.id}" onclick="openProfileHandler(event, ${user.id})">${user.name}</span>
           </div>
         </div>
       </div>`;
@@ -688,6 +679,12 @@ function renderEvents() {
 }
 
 /* ================= MODAL & INTERACTION LOGIC ================= */
+
+// helper to open profile from inline click handlers
+function openProfileHandler(e, userId) {
+  if (e && e.stopPropagation) e.stopPropagation();
+  openProfile(userId);
+}
 
 // Combined detail opener for both Spaces and Events
 function openDetail(type, index) {
@@ -745,65 +742,91 @@ function closeDetail() {
 function openProfile(userId) {
   const modal = document.getElementById("profileModal");
   const content = document.getElementById("profileContent");
+  const user = getUser(userId);
+  const isMe = userId === currentUser.id;
 
-
-function createTag(text, color="#f0f0f0") {
-  return `<span style="
-    display:inline-block;
-    background-color:${color};
-    color:#333;
-    border-radius:12px;
-    padding:4px 10px;
-    margin:2px;
-    font-size:0.9em;
-  ">${text}</span>`;
-}
-  const now = new Date();
-
-  // User events
-  const userEvents = events.filter(e => e.postedBy === userId);
-  const pastEvents = userEvents.filter(e => new Date(e.date) < now);
-  const upcomingEvents = userEvents.filter(e => new Date(e.date) >= now);
-  const likedEvents = userEvents.filter(e => user.likedEvents?.includes(e.id));
-
-  // User spaces
-  const userSpaces = thirdspaces.filter(s => s.postedBy === userId);
-  const pastSpaces = userSpaces.filter(s => s.date && new Date(s.date) < now);
-  const upcomingSpaces = userSpaces.filter(s => s.date && new Date(s.date) >= now);
-
-  // Helper to create tag HTML
-  const tag = text => `<span style="
+  function createTag(text, color="#f0f0f0") {
+    return `<span style="
       display:inline-block;
-      background-color:#f0f0f0;
+      background-color:${color};
       color:#333;
       border-radius:12px;
       padding:4px 10px;
       margin:2px;
       font-size:0.9em;
-  ">${text}</span>`;
+    ">${text}</span>`;
+  }
 
-  const renderList = list => list.length ? list.map(i => `<p>• ${i.name}</p>`).join("") : "<p>None yet</p>";
+  const now = new Date();
 
-  content.innerHTML = `
-    <button onclick="closeProfile()">X</button>
-    <div style="text-align:center">
-      <img src="${user.avatar}" style="width:80px;border-radius:50%">
-      <h3>${user.name}</h3>
-      <p>${user.bio || ""}</p>
-      <div>
-        ${user.gender ? tag(user.gender) : ""}
-        ${user.age ? tag(user.age) : ""}
-        ${user.interests?.map(tag).join("") || ""}
+  // event & space lists
+  const userEvents = events.filter(e => e.postedBy === userId);
+  const pastEvents = userEvents.filter(e => new Date(e.date) < now);
+  const upcomingEvents = userEvents.filter(e => new Date(e.date) >= now);
+  const likedEvents = userEvents.filter(e => user.likedEvents?.includes(e.id));
+  const userSpaces = thirdspaces.filter(s => s.postedBy === userId);
+  const pastSpaces = userSpaces.filter(s => s.date && new Date(s.date) < now);
+  const upcomingSpaces = userSpaces.filter(s => s.date && new Date(s.date) >= now);
+
+  const renderList = list => list.length ? list.map(i => {
+    // events use "title" while spaces use "name"
+    const label = i.title || i.name || "(untitled)";
+    return `<p>• ${label}</p>`;
+  }).join("") : "<p>None yet</p>";
+
+  function renderView() {
+    content.innerHTML = `
+      <button onclick="closeProfile()">X</button>
+      <div style="text-align:center">
+        <img src="${user.avatar}" style="width:80px;border-radius:50%">
+        <h3>${user.name}</h3>
+        <p>${user.bio || ""}</p>
+        <div>
+          ${user.gender ? createTag(user.gender) : ""}
+          ${user.age ? createTag(user.age) : ""}
+          ${user.interests?.map(createTag).join("") || ""}
+        </div>
       </div>
-    </div>
-    <hr>
-    <h4>Liked Events</h4>
-    ${renderList(likedEvents)}
-    <h4>Past Events</h4>
-    ${renderList(pastEvents)}
-    <h4>Upcoming Events</h4>
-    ${renderList(upcomingEvents)}
-  `;
+      ${isMe ? '<button id="editProfileBtn">Edit Profile</button>' : ''}
+      <hr>
+      <h4>Liked Events</h4>
+      ${renderList(likedEvents)}
+      <h4>Past Events</h4>
+      ${renderList(pastEvents)}
+      <h4>Upcoming Events</h4>
+      ${renderList(upcomingEvents)}
+    `;
+    if (isMe) {
+      document.getElementById('editProfileBtn').onclick = () => {
+        user.editing = true;
+        openProfile(userId);
+      };
+    }
+  }
+
+  function renderEdit() {
+    content.innerHTML = `
+      <button onclick="closeProfile()">X</button>
+      <h3>Edit Profile</h3>
+      <label>Gender:<br><input id="editGender" value="${user.gender||''}"></label><br>
+      <label>Age:<br><input id="editAge" type="number" value="${user.age||''}"></label><br>
+      <button id="saveProfileBtn">Save</button>
+      <button id="cancelProfileBtn">Cancel</button>
+    `;
+    document.getElementById('saveProfileBtn').onclick = () => {
+      user.gender = document.getElementById('editGender').value.trim();
+      user.age = parseInt(document.getElementById('editAge').value) || user.age;
+      user.editing = false;
+      openProfile(userId);
+    };
+    document.getElementById('cancelProfileBtn').onclick = () => {
+      user.editing = false;
+      openProfile(userId);
+    };
+  }
+
+  // choose view or edit
+  if (isMe && user.editing) renderEdit(); else renderView();
 
   modal.style.display = "flex";
 }
@@ -833,11 +856,31 @@ window.onclick = function(event) {
 }
 
 /* ================= INITIALIZE ================= */
-document.getElementById("myProfileBtn").onclick = () => openProfile(currentUser.id);
+const profileBtn = document.getElementById("myProfileBtn");
+if (profileBtn) {
+  profileBtn.onclick = () => openProfile(currentUser.id);
+  profileBtn.addEventListener('keyup', e => {
+    if (e.key === 'Enter' || e.key === ' ') {
+      openProfile(currentUser.id);
+    }
+  });
+}
+
+// render current user summary
+function renderCurrentUserProfile() {
+  const div = document.getElementById('currentUserProfile');
+  if (!div) return;
+  const u = currentUser;
+  div.innerHTML = `
+    <img src="${u.avatar}" style="width:40px;height:40px;border-radius:50%;object-fit:cover;">
+    <span style="font-weight:bold;">${u.name}</span>
+    <span style="flex:1;font-size:0.9em;color:#555;">${u.gender || ''} ${u.age?'- '+u.age:''}</span>
+    `;}
+
+renderCurrentUserProfile();
 
 // Load new spaces from server and add to hardcoded list
 fetch('/api/spaces')
-  .then(r => r.json())
   .then(data => {
     if (data.spaces && data.spaces.length > 0) {
       data.spaces.forEach(s => {
