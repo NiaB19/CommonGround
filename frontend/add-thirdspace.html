@@ -90,7 +90,7 @@
   <form id="thirdspaceForm" novalidate>
     <!-- basics -->
     <label for="name">
-      Space name <span aria-hidden="true" style="color:red">*</span>
+      Space name <span aria-hidden="true" style="color:#4f46e5">*</span>
       <input id="name" name="name" type="text" required aria-required="true" />
     </label>
 
@@ -98,16 +98,16 @@
       Category
       <select id="category" name="category" required>
         <option value="">Select one</option>
-        <option value="cafe">Cafe</option>
-        <option value="library">Library</option>
-        <option value="park">Public Park</option>
-        <option value="community">Community Center</option>
+        <option value="Creative">Creative</option>
+        <option value="Quiet">Quiet</option>
+        <option value="Active">Active</option>
+        <option value="Social">Social</option>
         <option value="other">Other</option>
       </select>
     </label>
 
     <label for="location">
-      Location / address <span aria-hidden="true" style="color:red">*</span>
+      Location / address <span aria-hidden="true" style="color:#4f46e5">*</span>
       <input id="location" name="location" type="text" required aria-required="true" />
     </label>
 
@@ -121,28 +121,19 @@
       <input id="amenities" name="amenities" type="text" placeholder="Wi-Fi, Outdoor seating, Dog-friendly…" />
     </label>
 
-    <!-- essentials -->
-    <fieldset>
-      <legend>The essentials</legend>
-      <div class="checkbox-group">
-        <label><input type="checkbox" name="essentials" value="wifi" />High‑speed Wi‑Fi</label>
-        <label><input type="checkbox" name="essentials" value="outlets" />Power outlets</label>
-        <label><input type="checkbox" name="essentials" value="outdoor" />Outdoor seating</label>
-        <label><input type="checkbox" name="essentials" value="restrooms" />All‑gender restrooms</label>
-      </div>
-    </fieldset>
+
 
     <!-- vibe -->
     <fieldset>
-      <legend>The vibe</legend>
-      <div class="vibe-group">
-        <label><input type="checkbox" name="vibe" value="silent" />Silent / library</label>
-        <label><input type="checkbox" name="vibe" value="studious" />Studious</label>
-        <label><input type="checkbox" name="vibe" value="balanced" />Balanced</label>
-        <label><input type="checkbox" name="vibe" value="social" />Social</label>
-        <label><input type="checkbox" name="vibe" value="high-energy" />High‑energy</label>
+      <legend>The Atmosphere</legend>
+      <div class="checkbox-group">
+        <label><input type="checkbox" name="Atmosphere" value="silent" />Silent / library</label>
+        <label><input type="checkbox" name="Atmosphere" value="studious" />Studious</label>
+        <label><input type="checkbox" name="Atmosphere" value="balanced" />Balanced</label>
+        <label><input type="checkbox" name="Atmosphere" value="social" />Social</label>
+        <label><input type="checkbox" name="Atmosphere" value="high-energy" />High‑energy</label>
       </div>
-      <label for="vibeslider">Energy slider</label>
+      <label for="energyslider">Energy slider</label>
       <input id="vibeslider" name="vibeslider" type="range" min="1" max="5" value="3" aria-valuemin="1" aria-valuemax="5" aria-valuenow="3" />
     </fieldset>
 

@@ -161,7 +161,7 @@ body{
   </div>
 <!-- CATEGORY FILTER TABS -->
 <div class="category-tabs" style="display:flex;justify-content:center;gap:16px;margin:16px 0;">
-  <button class="category-tab" data-category="Creative" title="Creative" style="margin-right: 10px; width: 100px; font-size: 16px; background-color: #0688d4; color: whitesmoke; font-family:monospace; border-color: black; padding: 10px; border-radius: 10px">
+  <button class="category-tab active" data-category="Creative" title="Creative" style="margin-right: 10px; width: 100px; font-size: 16px; background-color: #0688d4; color: whitesmoke; font-family:monospace; border-color: black; padding: 10px; border-radius: 10px">
     Creative
   </button>
   <button class="category-tab" data-category="Quiet" title="Quiet" style="margin-right: 10px; width: 100px; font-size: 16px; background-color: #0688d4; color: whitesmoke; font-family:monospace; border-color: black; padding: 10px; border-radius: 10px">
@@ -289,7 +289,7 @@ const thirdspaces =
     image:"https://images.unsplash.com/photo-1519331379826-f10be5486c6f?w=900&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8cGFya3xlbnwwfHwwfHx8Mg%3D%3D",
     postedBy:3,
     "lat": 40.5048264, "lng": -74.4595969,
-    "is_creative": true,
+    "is_creative": false,
     "is_quiet": true,
     "is_active": false,
     "is_social": true,
@@ -317,7 +317,7 @@ const thirdspaces =
     postedBy:5,
     "lat": 40.486667, "lng": -74.444444,
     "is_quiet": true,
-    "is_active": true,
+    "is_active": false,
     "is_social": true,
     "is_other": true,
     "money_required": "Free",
@@ -632,30 +632,26 @@ function getUser(id){
   return users.find(u=>u.id===id);
 }
 
-// Render Thirdspaces (filtered by current category when a nav link is selected)
+// Render Thirdspaces
 function renderThirdspaces() {
   const container = document.getElementById("thirdspaceContainer");
   if (!container) return;
   container.innerHTML = "";
 
-  const prop = currentCategoryFilter ? categoryToProp[currentCategoryFilter] : null;
-  const toShow = thirdspaces
-    .map((space, originalIndex) => ({ space, originalIndex }))
-    .filter(({ space }) => !prop || space[prop] === true);
-
-  toShow.forEach(({ space, originalIndex }) => {
+  thirdspaces.forEach((space, index) => {
     const user = getUser(space.postedBy);
-
+    
+    // Generate Red Tags
     let tagsHTML = `<div class="tag-container">`;
-    if (space.is_creative) tagsHTML += `<span class="tag">Creative</span>`;
-    if (space.is_quiet) tagsHTML += `<span class="tag">Quiet</span>`;
-    if (space.is_active) tagsHTML += `<span class="tag">Active</span>`;
-    if (space.is_social) tagsHTML += `<span class="tag">Social</span>`;
-    if (space.is_other) tagsHTML += `<span class="tag">Other</span>`;
+    if(space.is_creative) tagsHTML += `<span class="tag">Creative</span>`;
+    if(space.is_quiet)    tagsHTML += `<span class="tag">Quiet</span>`;
+    if(space.is_active)   tagsHTML += `<span class="tag">Active</span>`;
+    if(space.is_social)   tagsHTML += `<span class="tag">Social</span>`;
+    if(space.is_other)    tagsHTML += `<span class="tag">Other</span>`;
     tagsHTML += `</div>`;
 
     container.innerHTML += `
-      <div class="card" onclick="openDetail('space', ${originalIndex})">
+      <div class="card" onclick="openDetail('space', ${index})">
         <img src="${space.image}" alt="${space.name}">
         <div class="card-content">
           <h3>${space.name}</h3>
@@ -667,15 +663,6 @@ function renderThirdspaces() {
         </div>
       </div>`;
   });
-}
-
-// Category tab click: filter thirdspaces; clicking same tab again clears filter
-function setCategoryFilter(category) {
-  currentCategoryFilter = currentCategoryFilter === category ? null : category;
-  document.querySelectorAll(".category-tab").forEach((tab) => {
-    tab.classList.toggle("active", tab.dataset.category === currentCategoryFilter);
-  });
-  renderThirdspaces();
 }
 
 // Render Events
