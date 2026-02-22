@@ -159,3 +159,47 @@ body{
     color: #ba0000;      /* Deep red text */
     border: 1px solid #ffc1c1;
   }
+
+/* Card Hover Effect */
+.card {
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    cursor: pointer;
+  }
+  
+  .card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 24px rgba(0,0,0,0.15);
+  }
+  
+  /* Detail Modal Styling (Similar to your Profile Modal) */
+  .detail-modal {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.6);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    z-index: 3000;
+  }
+  
+  .detail-content {
+    background: white;
+    padding: 30px;
+    border-radius: 15px;
+    width: 90%;
+    max-width: 500px;
+    position: relative;
+    font-family: monospace;
+  }
+  
+  .close-detail {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    cursor: pointer;
+    border: none;
+    background: #eee;
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+  }
