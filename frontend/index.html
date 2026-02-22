@@ -123,6 +123,37 @@ body{
   max-height:80vh;
   overflow:auto;
 }
+
+/* blue button used in a couple of places */
+.add-space {
+  background: #4f46e5;         /* blue */
+  color: #fff;
+  padding: 6px 12px;
+  font-size: 0.9rem;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+.add-space:hover,
+.add-space:focus { background: #3730a3; }
+
+/* ensure the category row and button stay aligned */
+.category-tabs {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 16px;
+  margin: 16px 0;
+}
+
+/* header for each section – title + optional action button */
+.section-header {
+  display: flex;          /* keep title & button on one line */
+  align-items: center;
+  gap: 8px;               /* space between title and button */
+  margin-bottom: 12px;    /* optional extra breathing room */
+}
+.section-header h2 { margin: 0; font-size: 1.2rem; }
 </style>
 </head>
 
@@ -135,6 +166,7 @@ body{
   </div>
 <!-- CATEGORY FILTER TABS -->
 <div class="category-tabs" style="display:flex;justify-content:center;gap:16px;margin:16px 0;">
+<<<<<<< HEAD
   <button class="category-tab active" data-category="Creative" title="Creative" style="margin-right: 10px; width: 100px; font-size: 16px; background-color: #0688d4; color: whitesmoke; font-family:monospace; border-color: black;">
     Creative
   </button>
@@ -148,6 +180,21 @@ body{
     Social
   </button>
   <button class="category-tab" data-category="Other" title="Other" style="margin-right: 10px; width: 100px; font-size: 16px; background-color: #0688d4; color: whitesmoke; font-family:monospace; border-color: black;">
+=======
+  <button class="category-tab active" data-category="Creative" title="Creative" style="margin-right: 10px; width: 100px; font-size: 16px;">
+    Creative
+  </button>
+  <button class="category-tab" data-category="Quiet" title="Quiet" style="margin-right: 10px; width: 100px; height: 50px; font-size: 16px;">
+    Quiet
+  </button>
+  <button class="category-tab" data-category="Active" title="Active" style="margin-right: 10px; width: 100px; font-size: 16px;">
+    Active
+  </button>
+  <button class="category-tab" data-category="Social" title="Social" style="margin-right: 10px; width: 100px; font-size: 16px;">
+    Social
+  </button>
+  <button class="category-tab" data-category="Other" title="Other" style="margin-right: 10px; width: 100px; font-size: 16px;">
+>>>>>>> 69f258faf256e2944f6fbf415e685c38dce8e784
     Other
   </button>
 </div>
@@ -157,12 +204,24 @@ body{
 <main class="container">
 
   <section class="section">
-    <h2>Thirdspaces</h2>
+    <div class="section-header">
+      <h2>Thirdspaces</h2>
+      <button class="add-space" type="button"
+              onclick="window.location.href='./add-thirdspace.html'">
+        Add a Thirdspace
+      </button>
+    </div>
+
     <div class="cards" id="thirdspaceContainer"></div>
   </section>
 
   <section class="section">
-    <h2>Events</h2>
+    <div class="section-header">
+      <h2>Events</h2>
+      <button class="add-space" onclick="window.location.href='./add-event.html'">
+        Post an Event
+      </button>
+    </div>
     <div class="cards" id="eventContainer"></div>
   </section>
 
