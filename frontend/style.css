@@ -131,6 +131,10 @@
     gap: 16px;
     margin: 16px 0;
   }
+  .category-tab.active {
+    background-color: #045a8a !important;
+    box-shadow: 0 0 0 2px #fff;
+  }
   
   /* header for each section – title + optional action button */
   .section-header {
