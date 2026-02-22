@@ -185,35 +185,44 @@
   </form>
 
   <script>
-    document.getElementById('thirdspaceForm').addEventListener('submit', function (e) {
-      e.preventDefault();
-      const form = e.target;
-      if (!form.checkValidity()) {
-        form.reportValidity();
-        return;
+  document.getElementById('thirdspaceForm').addEventListener('submit', async function (e) {
+    e.preventDefault();
+    const form = e.target;
+    if (!form.checkValidity()) { form.reportValidity(); return; }
+
+    const data = {
+      name: form.name.value.trim(),
+      category: form.category.value,
+      location: form.location.value.trim(),
+      description: form.description.value.trim(),
+      amenities: form.amenities.value.split(',').map(s => s.trim()).filter(Boolean),
+      essentials: Array.from(form.elements['essentials']).filter(i => i.checked).map(i => i.value),
+      vibe: Array.from(form.elements['vibe']).filter(i => i.checked).map(i => i.value),
+      vibeslider: form.vibeslider.value,
+      cost: form.cost.value,
+      studentPerk: form.studentPerk.value,
+      transit: form.transit.value.trim(),
+      protip: form.protip.value.trim(),
+      submittedAt: new Date().toISOString()
+    };
+
+    try {
+      const response = await fetch('/api/spaces', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data)
+      });
+      const result = await response.json();
+      if (result.status === 'success') {
+        alert('Space added! Redirecting...');
+        window.location.href = '/';
+      } else {
+        alert('Error: ' + result.message);
       }
-      const data = {
-        name: form.name.value.trim(),
-        category: form.category.value,
-        location: form.location.value.trim(),
-        description: form.description.value.trim(),
-        amenities: form.amenities.value.split(',').map(s => s.trim()).filter(Boolean),
-        essentials: Array.from(form.elements['essentials'])
-                         .filter(i => i.checked).map(i => i.value),
-        vibe: Array.from(form.elements['vibe'])
-                   .filter(i => i.checked).map(i => i.value),
-        vibeslider: form.vibeslider.value,
-        cost: form.cost.value,
-        studentPerk: form.studentPerk.value,
-        transit: form.transit.value.trim(),
-        protip: form.protip.value.trim(),
-        submittedAt: new Date().toISOString()
-      };
-      console.log('thirdspace submission', JSON.stringify(data, null, 2));
-      // TODO: POST to backend endpoint
-      alert('Thank you! see console for JSON.');
-      form.reset();
-    });
-  </script>
+    } catch (err) {
+      alert('Network error. Is the server running?');
+    }
+  });
+</script>
 </body>
 </html>
