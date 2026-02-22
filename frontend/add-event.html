@@ -26,6 +26,21 @@ button.submit{background:var(--accent);color:#fff;}
 button.reset{background:transparent;border:1px solid var(--muted);color:var(--muted);}
 .form-footer{display:flex;justify-content:flex-end;gap:10px;}
 @media(max-width:480px){.checkbox-group label,.radio-group label,.vibe-group label{flex:1 1 100%;}}
+
+/* tag colors for target community categories */
+.tag {display:inline-block;padding:4px 8px;border-radius:8px;margin:2px;font-size:0.8rem;color:#fff;}
+.tag-gender{background:#6b7280;}
+.tag-identity{background:#10b981;}
+.tag-academic{background:#3b82f6;}
+.tag-interest{background:#f59e0b;}
+
+/* category text input spacing */
+}.category-item {display:flex; flex-direction:column; margin-bottom:20px;}
+.category-input {margin-left:24px; margin-top:2px; width:calc(100% - 24px); padding:4px;}
+
+/* safe space label alignment fix if needed */
+.safe-space-label {display:flex; align-items:center;}
+.safe-space-label input {margin-right:4px;}
 </style>
 </head>
 <body>
@@ -84,13 +99,57 @@ button.reset{background:transparent;border:1px solid var(--muted);color:var(--mu
   </fieldset>
 
   <fieldset>
-    <legend>Vibe</legend>
-    <div class="vibe-group">
+    <legend>Atmosphere</legend>
+    <div class="checkbox-group">
       <label><input type="checkbox" name="vibe" value="quiet"> Quiet</label>
       <label><input type="checkbox" name="vibe" value="high-energy"> High‑energy</label>
       <label><input type="checkbox" name="vibe" value="beginner-friendly"> Beginner‑friendly</label>
       <label><input type="checkbox" name="vibe" value="student-only"> Student‑only</label>
     </div>
+  </fieldset>
+
+  <!-- target community / inclusivity (updated UI) -->
+  <fieldset>
+    <legend>Who is this for?<br><small>Help people find their community.</small></legend>
+    <div class="checkbox-group" id="targetCheckboxes">
+      <div class="category-item">
+        <label><input type="checkbox" class="cat-checkbox" value="Gender-Based" data-category="gender"> Gender-Based</label>
+        <input class="category-input" data-cat="Gender-Based" type="text" placeholder="e.g. Women-only, Non-binary/Trans" style="display:none;" />
+      </div>
+      <div class="category-item">
+        <label><input type="checkbox" class="cat-checkbox" value="Identity-Based" data-category="identity"> Identity-Based</label>
+        <input class="category-input" data-cat="Identity-Based" type="text" placeholder="e.g. LGBTQ+, BIPOC, Int'l students" style="display:none;" />
+      </div>
+      <div class="category-item">
+        <label><input type="checkbox" class="cat-checkbox" value="Academic/Career" data-category="academic"> Academic/Career</label>
+        <input class="category-input" data-cat="Academic/Career" type="text" placeholder="e.g. Economics, STEM, Creatives" style="display:none;" />
+      </div>
+      <div class="category-item">
+        <label><input type="checkbox" class="cat-checkbox" value="Interests" data-category="interest"> Interests</label>
+        <input class="category-input" data-cat="Interests" type="text" placeholder="e.g. Gaming, Book club" style="display:none;" />
+      </div>
+      <div class="category-item">
+        <label><input type="checkbox" class="cat-checkbox" value="Other" data-category="other"> Other</label>
+        <input class="category-input" data-cat="Other" type="text" placeholder="Describe other community" style="display:none;" />
+      </div>
+    </div>
+    <div id="selectedTags" style="margin-top:6px;"></div>
+
+    <div style="margin-top:8px;">
+      <label class="safe-space-label"><input type="checkbox" id="safeSpace" name="safeSpace"> Safe Space (will moderate for inclusivity)</label>
+    </div>
+    <div style="margin-top:8px;">
+      <label>Access level:
+        <select id="accessLevel" name="accessLevel">
+          <option value="open">Open to All</option>
+          <option value="exclusive">Exclusive to Target Community</option>
+        </select>
+      </label>
+    </div>
+    <label for="requirements" id="reqLabel" style="display:none; margin-top:8px;">
+      Specific Entry Requirements
+      <input type="text" id="requirements" name="requirements" placeholder="e.g. Must be a member of X club">
+    </label>
   </fieldset>
 
   <label for="description">Description
@@ -126,6 +185,64 @@ imageInput.addEventListener('change', e => {
   }
 });
 
+// helper to get selected community values (category or custom text)
+function getSelectedTargets() {
+  return Array.from(document.querySelectorAll('.cat-checkbox:checked')).map(cb => {
+    const cat = cb.value;
+    const input = document.querySelector(`.category-input[data-cat="${cat}"] input`);
+    const custom = input && input.value.trim();
+    return custom || cat;
+  });
+}
+
+// show/hide custom input when checkbox toggles
+document.querySelectorAll('.cat-checkbox').forEach(cb => {
+  cb.addEventListener('change', () => {
+    const cat = cb.value;
+    const wrapper = document.querySelector(`.category-input[data-cat="${cat}"]`);
+    if (wrapper) wrapper.style.display = cb.checked ? 'block' : 'none';
+    updateTags();
+  });
+});
+
+// render tags beneath selections
+function updateTags() {
+  const container = document.getElementById('selectedTags');
+  container.innerHTML = '';
+  document.querySelectorAll('.cat-checkbox:checked').forEach(cb=>{
+    const cat = cb.dataset.category || '';
+    const catName = cb.value;
+    const input = document.querySelector(`.category-input[data-cat="${catName}"] input`);
+    const label = input && input.value.trim() ? input.value.trim() : catName;
+    const span = document.createElement('span');
+    span.textContent = label;
+    span.className = `tag tag-${cat}`;
+    container.appendChild(span);
+  });
+  // show requirements input if any target chosen
+  document.getElementById('reqLabel').style.display = document.querySelectorAll('.cat-checkbox:checked').length ? 'block' : 'none';
+}
+
+// initialize tags and input visibility on load
+updateTags();
+// also ensure inputs visibility corresponds to checked state
+document.querySelectorAll('.cat-checkbox').forEach(cb => {
+  const cat = cb.value;
+  const wrapper = document.querySelector(`.category-input[data-cat="${cat}"]`);
+  if (wrapper) wrapper.style.display = cb.checked ? 'block' : 'none';
+});
+// update tags when custom label changes
+document.querySelectorAll('.category-input input').forEach(inp=>{
+  inp.addEventListener('input', updateTags);
+});
+
+// access level/requirements logic
+const accessEl = document.getElementById('accessLevel');
+accessEl.addEventListener('change', () => {
+  // nothing extra needed; visibility handled in updateTags
+});
+
+// submit listener
 document.getElementById('eventForm').addEventListener('submit', function(e){
   e.preventDefault();
   const f = e.target;
@@ -152,6 +269,11 @@ document.getElementById('eventForm').addEventListener('submit', function(e){
     description: f.description.value.trim(),
     cta: f.cta.value.trim(),
     imageFile: f.imageUpload.files[0]?.name || null,
+    // new inclusivity fields
+    target_communities: getSelectedTargets(),
+    safe_space: f.safeSpace.checked,
+    accessLevel: f.accessLevel.value,
+    requirements: f.requirements?.value.trim() || '',
     postedAt: new Date().toISOString()
   };
   console.log('event submission', JSON.stringify(data,null,2));
@@ -159,6 +281,7 @@ document.getElementById('eventForm').addEventListener('submit', function(e){
   f.reset();
   preview.src = '';
   preview.style.display = 'none';
+  updateTags(); // clear tags
 });
 </script>
 

@@ -217,7 +217,11 @@ const users = [
   id:1,
   name:"Alex Rivera",
   bio:"Community builder & coffee lover",
+<<<<<<< HEAD
   avatar:"alex.png"
+=======
+  avatar:"https://images.unsplash.com/photo-1534614971-6be99a7a3ffd?w=900&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8d2hpdGUlMjBtYWxlfGVufDB8fDB8fHwy"
+>>>>>>> 2c9ef179751289ec9e819b8a24481ddd34aaaa29
 },
 {
   id:2,
@@ -284,11 +288,20 @@ const thirdspaces =
     image:"https://images.unsplash.com/photo-1519331379826-f10be5486c6f?w=900&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8cGFya3xlbnwwfHwwfHx8Mg%3D%3D",
     postedBy:3,
     "lat": 40.5048264, "lng": -74.4595969,
+<<<<<<< HEAD
     "is_quiet": false,
     "is_free": false,
     "_kid-friendly": false,
     "is_ada": true,
     "solo_friendly": false,
+=======
+    "is_creative": false,
+    "is_quiet": true,
+    "is_active": false,
+    "is_social": true,
+    "is_other": true,
+    "money_required": "Free",
+>>>>>>> 2c9ef179751289ec9e819b8a24481ddd34aaaa29
     "description": "Good place walks and looking at flowers"
     },
 
@@ -311,10 +324,17 @@ const thirdspaces =
     postedBy:5,
     "lat": 40.486667, "lng": -74.444444,
     "is_quiet": true,
+<<<<<<< HEAD
     "is_free": true,
     "_kid-friendly": false,
     "is_ada": true,
     "solo_friendly": false,
+=======
+    "is_active": false,
+    "is_social": true,
+    "is_other": true,
+    "money_required": "Free",
+>>>>>>> 2c9ef179751289ec9e819b8a24481ddd34aaaa29
     "description": "Good place for meet ups, browsing, and activities for kids"
     },
 
@@ -483,6 +503,7 @@ const events = [
       "time": "10:00 AM",
       "type": "Sports",
       "description": "Open play for all skill levels. Meet at the courts!",
+      "target_communities": ["Active","Interests"],
       postedBy: 2
     },
   
@@ -495,6 +516,7 @@ const events = [
       "time": "2:00 PM",
       "type": "Social",
       "description": "Bring your current read and enjoy some quiet company.",
+      "target_communities": ["Quiet","Academic/Career"],
       postedBy: 1
     },
   
@@ -507,6 +529,7 @@ const events = [
       "time": "11:00 AM",
       "type": "Education",
       "description": "A guided tour of the local fossil collection.",
+      "target_communities": ["Women-only"],
       postedBy: 2
     },
   
@@ -519,6 +542,7 @@ const events = [
       "time": "11:00 AM",
       "type": "Education",
       "description": "A guided tour of the local fossil collection.",
+      "target_communities": ["LGBTQ+","Academic/Career"],
       postedBy: 4
     },
   
@@ -543,6 +567,7 @@ const events = [
       "time": "11:00 AM",
       "type": "Entertainment",
       "description": "A guided tour of the local fossil collection.",
+      "target_communities": ["Interests","LGBTQ+"],
       postedBy: 5
     },
   
@@ -584,6 +609,7 @@ const events = [
   ]
 
 function renderEvents(){
+<<<<<<< HEAD
     const container = document.getElementById("eventContainer");
     container.innerHTML = "";
   
@@ -599,29 +625,86 @@ function renderEvents(){
             <div class="posted-by">
               Posted by <span onclick="openProfile(${user.id})">${user.name}</span>
             </div>
+=======
+  const container = document.getElementById("eventContainer");
+  container.innerHTML = "";
+
+  events.forEach(event=>{
+    const user = getUser(event.postedBy);
+
+    container.innerHTML += `
+      <div class="card">
+        <img src="${event.image}">
+        <div class="card-content">
+          <h3>${event.title}</h3>
+          <p>${event.description}</p>
+          <div class="posted-by">
+            Posted by <span onclick="openProfile(${user.id})">${user.name}</span>
+>>>>>>> 2c9ef179751289ec9e819b8a24481ddd34aaaa29
           </div>
+          <br>
+          <button class="like-btn">❤️ Like <span class="like-count"></span></button>
         </div>
-      `;
-    });
-  }
+      </div>
+    `;
+  });
+
+  setupLikeButtons(); // <-- add here too
+}
 ///-------------  
 
 /* ================= RENDER ================= */
 
+<<<<<<< HEAD
+=======
+// Category filter: null = show all, otherwise "Creative" | "Quiet" | "Active" | "Social" | "Other"
+let currentCategoryFilter = null;
+const categoryToProp = {
+  Creative: "is_creative",
+  Quiet: "is_quiet",
+  Active: "is_active",
+  Social: "is_social",
+  Other: "is_other"
+};
+
+>>>>>>> 2c9ef179751289ec9e819b8a24481ddd34aaaa29
 function getUser(id){
   return users.find(u=>u.id===id);
 }
 
+<<<<<<< HEAD
 function renderThirdspaces(){
+=======
+// Render Thirdspaces
+function renderThirdspaces() {
+>>>>>>> 2c9ef179751289ec9e819b8a24481ddd34aaaa29
   const container = document.getElementById("thirdspaceContainer");
   container.innerHTML = "";
 
+<<<<<<< HEAD
   thirdspaces.forEach(space=>{
     const user = getUser(space.postedBy);
 
     container.innerHTML += `
       <div class="card">
         <img src="${space.image}">
+=======
+  thirdspaces.forEach((space, index) => {
+    const user = getUser(space.postedBy);
+    
+    // Generate Red Tags
+    let tagsHTML = `<div class="tag-container">`;
+    if(space.is_creative) tagsHTML += `<span class="tag">Creative</span>`;
+    if(space.is_quiet)    tagsHTML += `<span class="tag">Quiet</span>`;
+    if(space.is_active)   tagsHTML += `<span class="tag">Active</span>`;
+    if(space.is_social)   tagsHTML += `<span class="tag">Social</span>`;
+    if(space.is_other)    tagsHTML += `<span class="tag">Other</span>`;
+    tagsHTML += `</div>`;
+
+    container.innerHTML += `
+      <div class="card" onclick="openDetail('space', ${index})">
+        <img src="${space.image}" alt="${space.name}">
+>>>>>>> 2c9ef179751289ec9e819b8a24481ddd34aaaa29
         <div class="card-content">
           <h3>${space.name}</h3>
           <p>${space.description}</p>
@@ -629,9 +712,103 @@ function renderThirdspaces(){
             Posted by <span onclick="openProfile(${user.id})">${user.name}</span>
           </div>
         </div>
+<<<<<<< HEAD
       </div>
     `;
   });
+=======
+      </div>`;
+  });
+}
+
+// Render Events
+function renderEvents() {
+  const container = document.getElementById("eventContainer");
+  if (!container) return;
+  container.innerHTML = "";
+
+  events.forEach((ev, index) => {
+    const user = getUser(ev.postedBy);
+
+    // build tags row including target communities
+    let tagsHTML = `<div class="tag-container"><span class="tag">${ev.type}</span>`;
+    if(ev.target_communities) {
+      ev.target_communities.forEach(tc=>{
+        // determine color class based on keywords (women, lgbt, academic, interests, etc.)
+        let extraClass = '';
+        const lower = tc.toLowerCase();
+        if(lower.includes('women') || lower.includes('gender')) extraClass = 'tag-gender';
+        else if(lower.includes('lgbt') || lower.includes('identity')) extraClass = 'tag-identity';
+        else if(lower.includes('academic')) extraClass = 'tag-academic';
+        else if(lower.includes('interest')) extraClass = 'tag-interest';
+        tagsHTML += `<span class="tag ${extraClass}">${tc}</span>`;
+      });
+    }
+    tagsHTML += `</div>`;
+
+    container.innerHTML += `
+      <div class="card" onclick="openDetail('event', ${index})">
+        <img src="${ev.image}" alt="${ev.title}">
+        <div class="card-content">
+          <h3>${ev.title}</h3>
+          ${tagsHTML}
+          <p>${ev.description}</p>
+          <div class="posted-by">
+            Posted by <span onclick="event.stopPropagation(); openProfile(${user.id})">${user.name}</span>
+          </div>
+        </div>
+      </div>`;
+  });
+}
+
+/* ================= MODAL & INTERACTION LOGIC ================= */
+
+// Combined detail opener for both Spaces and Events
+function openDetail(type, index) {
+  const modal = document.getElementById("detailModal");
+  const content = document.getElementById("detailContent");
+  let data;
+
+  if (type === 'space') {
+    data = thirdspaces[index];
+    content.innerHTML = `
+      <button class="close-btn" onclick="closeDetail()" style="float:right; cursor:pointer; border:none; background:none; font-size:20px;">×</button>
+      <img src="${data.image}" style="width:100%; border-radius:10px; height:220px; object-fit:cover;">
+      <h2 style="margin-top:15px;">${data.name}</h2>
+      <p><strong>Cost:</strong> ${data.money_required || "Free"}</p>
+      <p><strong>About:</strong> ${data.description}</p>
+      <hr>
+      <p style="font-size:0.8em; color:gray;">Location: ${data.lat}, ${data.lng}</p>
+    `;
+  } else {
+    data = events[index];
+    // build additional tags for target communities
+    let detailTags = `<div class="tag-container"><span class="tag">${data.type}</span>`;
+    if(data.target_communities) {
+      data.target_communities.forEach(tc=>{
+        let extraClass = '';
+        const lower = tc.toLowerCase();
+        if(lower.includes('women') || lower.includes('gender')) extraClass = 'tag-gender';
+        else if(lower.includes('lgbt') || lower.includes('identity')) extraClass = 'tag-identity';
+        else if(lower.includes('academic')) extraClass = 'tag-academic';
+        else if(lower.includes('interest')) extraClass = 'tag-interest';
+        detailTags += `<span class="tag ${extraClass}">${tc}</span>`;
+      });
+    }
+    detailTags += `</div>`;
+    content.innerHTML = `
+      <button class="close-btn" onclick="closeDetail()" style="float:right; cursor:pointer; border:none; background:none; font-size:20px;">×</button>
+      <img src="${data.image}" style="width:100%; border-radius:10px; height:220px; object-fit:cover;">
+      <h2 style="margin-top:15px;">${data.title}</h2>
+      ${detailTags}
+      <p>${data.description}</p>
+      <button class="add-space" style="width:100%;" onclick="alert('RSVP Sent!')">RSVP Now</button>
+    `;
+  }
+
+  modal.style.display = "flex";
+  document.body.style.overflow = "hidden"; // Stop background scroll
+>>>>>>> 2c9ef179751289ec9e819b8a24481ddd34aaaa29
 }
 
 
@@ -710,9 +887,100 @@ function closeProfile(){
 
 document.getElementById("myProfileBtn").onclick = ()=>openProfile(currentUser.id);
 
+<<<<<<< HEAD
 /* INITIAL */
 renderThirdspaces();
 renderEvents();
+=======
+function closeAddSpaceModal() {
+  document.getElementById('addSpaceModal').style.display = 'none';
+}
+
+// Handle Background Clicks to close all modals
+window.onclick = function(event) {
+  const detailModal = document.getElementById("detailModal");
+  const profileModal = document.getElementById("profileModal");
+  const addSpaceModal = document.getElementById("addSpaceModal");
+
+  if (event.target === detailModal) closeDetail();
+  if (event.target === profileModal) closeProfile();
+  if (event.target === addSpaceModal) closeAddSpaceModal();
+}
+
+/* ================= INITIALIZE ================= */
+document.getElementById("myProfileBtn").onclick = () => openProfile(currentUser.id);
+
+// Load new spaces from server and add to hardcoded list
+fetch('/api/spaces')
+  .then(r => r.json())
+  .then(data => {
+    if (data.spaces && data.spaces.length > 0) {
+      data.spaces.forEach(s => {
+        if (!thirdspaces.find(t => t.name === s.name)) {
+          thirdspaces.push({
+            ...s,
+            image: 'https://images.unsplash.com/photo-1585938389612-a552a28d6914?w=900&auto=format&fit=crop&q=60',
+            postedBy: 1,
+            is_creative: s.vibe?.includes('creative') || false,
+            is_quiet: s.vibe?.includes('silent') || false,
+            is_active: false,
+            is_social: s.vibe?.includes('social') || false,
+            is_other: true,
+            money_required: s.is_free ? 'Free' : 'Paid'
+          });
+        }
+      });
+    }
+    renderThirdspaces();
+    renderEvents();
+  })
+  .catch(() => {
+    renderThirdspaces();
+    renderEvents();
+  });
+
+// CATEGORY FILTER
+let activeCategory = null; // null means no filter
+
+document.querySelectorAll('.category-tab').forEach(btn => {
+    btn.addEventListener('click', function() {
+        const category = this.dataset.category.toLowerCase();
+
+        // if user clicked the same tab again, clear filter
+        if (activeCategory === category) {
+            activeCategory = null;
+            document.querySelectorAll('.category-tab').forEach(b => b.style.opacity = '1');
+            document.querySelectorAll('#thirdspaceContainer .card, #eventContainer .card')
+                    .forEach(c => c.style.display = '');
+            return;
+        }
+
+        activeCategory = category;
+        document.querySelectorAll('.category-tab').forEach(b => b.style.opacity = '0.6');
+        this.style.opacity = '1';
+
+        document.querySelectorAll('#thirdspaceContainer .card').forEach((card, i) => {
+            const space = thirdspaces[i];
+            if (!space) return;
+            const match = category === 'all' ||
+                (category === 'creative' && space.is_creative) ||
+                (category === 'quiet'    && space.is_quiet)    ||
+                (category === 'active'   && space.is_active)   ||
+                (category === 'social'   && space.is_social)   ||
+                (category === 'other'    && space.is_other);
+            card.style.display = match ? '' : 'none';
+        });
+        document.querySelectorAll('#eventContainer .card').forEach((card, i) => {
+            const ev = events[i];
+            if (!ev) return;
+            const match = category === 'all' ||
+                ev.type.toLowerCase() === category ||
+                (category === 'active' && ev.type === 'Sports');
+            card.style.display = match ? '' : 'none';
+        });
+    });
+});
+>>>>>>> 2c9ef179751289ec9e819b8a24481ddd34aaaa29
 
 </script>
 
