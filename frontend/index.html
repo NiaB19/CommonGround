@@ -5,6 +5,151 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="stylesheet" href="style.css">
 <title>CommonGround — Thirdspace Finder</title>
+
+<style>
+:root{
+  --bg:#4de8af;
+  --card:#ffffff;
+  --accent:#4f46e5;
+  --muted:#6b7280;
+}
+
+*{box-sizing:border-box}
+body{
+  margin:0;
+  font-family:monospace;
+  font-size: 18px;
+  background:var(--bg);
+  color:#111;
+}
+
+/* NAVBAR */
+.navbar{
+  background:#aaf4d7;
+  border-bottom:1px solid #e6e6f0;
+  padding:12px 20px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 10px; /* space between logo and text */
+}
+
+.logo {
+  width: 80px;       /* adjust size as needed */
+  height: 80px;
+  object-fit: contain; 
+}
+
+.profile-btn{
+  background:#eef2ff;
+  padding:6px 10px;
+  border-radius:8px;
+  cursor:pointer;
+}
+
+/* LAYOUT */
+.container{
+  max-width:1100px;
+  margin:20px auto;
+  padding:0 20px;
+}
+
+.section{margin-bottom:40px}
+
+.cards{
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(260px,1fr));
+  gap:16px;
+}
+
+.card{
+  background:var(--card);
+  border-radius:12px;
+  overflow:hidden;
+  box-shadow:0 6px 18px rgba(0,0,0,0.06);
+}
+
+.card img{
+  width:100%;
+  height:150px;
+  object-fit:cover;
+}
+
+.card-content{padding:14px}
+
+.card h3{margin:0 0 6px}
+
+.card p{
+  margin:4px 0;
+  font-size:13px;
+  color:var(--muted);
+}
+
+.posted-by{
+  font-size:12px;
+  margin-top:6px;
+}
+
+.posted-by span{
+  color:var(--accent);
+  cursor:pointer;
+}
+
+/* MODAL */
+.modal{
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,0.4);
+  display:none;
+  align-items:center;
+  justify-content:center;
+}
+
+.modal-content{
+  background:#fff;
+  padding:20px;
+  border-radius:12px;
+  width:350px;
+  max-height:80vh;
+  overflow:auto;
+}
+
+/* blue button used in a couple of places */
+.add-space {
+  background: #4f46e5;         /* blue */
+  color: #fff;
+  padding: 6px 12px;
+  font-size: 0.9rem;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+.add-space:hover,
+.add-space:focus { background: #3730a3; }
+
+/* ensure the category row and button stay aligned */
+.category-tabs {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 16px;
+  margin: 16px 0;
+}
+
+/* header for each section – title + optional action button */
+.section-header {
+  display: flex;          /* keep title & button on one line */
+  align-items: center;
+  gap: 8px;               /* space between title and button */
+  margin-bottom: 12px;    /* optional extra breathing room */
+}
+.section-header h2 { margin: 0; font-size: 1.2rem; }
+</style>
 </head>
 
 <body>
@@ -118,12 +263,11 @@ const thirdspaces =
     image:"https://images.unsplash.com/photo-1585938389612-a552a28d6914?w=900&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8cGFya3xlbnwwfHwwfHx8Mg%3D%3D",
     postedBy:1,
     "lat": 40.3970518, "lng": -74.3573709,
-    "is_creative": false,
-    "is_quiet": true,
-    "is_active": false,
-    "is_social": true,
-    "is_other": true,
-    "money_required": "Free",
+    "is_quiet": false,
+    "is_free": true,
+    "_kid-friendly": false,
+    "is_ada": true,
+    "solo_friendly": true,
     "description": "Great for pickeball sessions, picnics, walks, and volleyball."
     },
 
@@ -132,12 +276,11 @@ const thirdspaces =
     image:"https://images.unsplash.com/photo-1521587760476-6c12a4b040da?w=900&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8bGlicmFyeXxlbnwwfHwwfHx8Mg%3D%3D",
     postedBy:2,
     "lat": 40.4913782, "lng": -74.4453930,
-    "is_creative": false,
-    "is_quiet": true,
-    "is_active": false,
-    "is_social": true,
-    "is_other": true,
-    "money_required": "Free",
+    "is_quiet": false,
+    "is_free": true,
+    "_kid-friendly": true,
+    "is_ada": true,
+    "solo_friendly": false,
     "description": "Good place for meet ups, browsing, and activities for kids"
     },
 
@@ -160,12 +303,11 @@ const thirdspaces =
     image:"https://images.unsplash.com/photo-1572953109213-3be62398eb95?w=900&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NHx8bXVzZXVtfGVufDB8fDB8fHwy",
     postedBy:4,
     "lat": 40.4986490, "lng": -74.4466806,
-    "is_creative": false,
-    "is_quiet": true,
-    "is_active": false,
-    "is_social": true,
-    "is_other": true,
-    "money_required": "Free",
+    "is_quiet": false,
+    "is_free": true,
+    "_kid-friendly": false,
+    "is_ada": false,
+    "solo_friendly": false,
     "description": "Good place for meet ups, browsing, and activities for kids"
     },
 
@@ -174,7 +316,6 @@ const thirdspaces =
     image:"https://images.unsplash.com/photo-1554118811-1e0d58224f24?w=900&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NHx8Y2FmZXxlbnwwfHwwfHx8Mg%3D%3D",
     postedBy:5,
     "lat": 40.486667, "lng": -74.444444,
-    "is_creative": false,
     "is_quiet": true,
     "is_active": true,
     "is_social": true,
@@ -188,12 +329,11 @@ const thirdspaces =
     image:"https://images.unsplash.com/photo-1592859600972-1b0834d83747?w=900&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NXx8dHJhaWx8ZW58MHx8MHx8fDI%3D",
     postedBy:4,
     "lat": 40.5389923, "lng": -74.5721009,
-    "is_creative": false,
-    "is_quiet": true,
-    "is_active": false,
-    "is_social": true,
-    "is_other": true,
-    "money_required": "Free",
+    "is_quiet": false,
+    "is_free": true,
+    "_kid-friendly": true,
+    "is_ada": true,
+    "solo_friendly": false,
     "description": "Good place for meet ups, browsing, and activities for kids"
     },
 
@@ -202,12 +342,11 @@ const thirdspaces =
     image:"https://images.unsplash.com/photo-1558970439-add78fc68990?w=900&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NXx8dGhlYXRyZXxlbnwwfHwwfHx8Mg%3D%3D",
     postedBy:2,
     "lat": 40.493341, "lng": -74.44462,
-    "is_creative": false,
-    "is_quiet": true,
-    "is_active": false,
-    "is_social": true,
-    "is_other": true,
-    "money_required": "Free",
+    "is_quiet": false,
+    "is_free": true,
+    "_kid-friendly": false,
+    "is_ada": true,
+    "solo_friendly": true,
     "description": "Good place for meet ups, browsing, and activities for kids"
     },
 
@@ -216,12 +355,11 @@ const thirdspaces =
     image:"https://images.unsplash.com/photo-1717500252709-05a73fc4f1da?w=900&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8cGlsYXRlcyUyMHN0dWRpb3xlbnwwfHwwfHx8Mg%3D%3D",
     postedBy:3,
     "lat": 40.54207127548425, "lng": -74.3606030999999,
-    "is_creative": false,
-    "is_quiet": true,
-    "is_active": false,
-    "is_social": true,
-    "is_other": true,
-    "money_required": "Free",
+    "is_quiet": false,
+    "is_free": false,
+    "_kid-friendly": false,
+    "is_ada": true,
+    "solo_friendly": false,
     "description": "Good place for meet ups, browsing, and activities for kids"
     },
 
@@ -230,12 +368,10 @@ const thirdspaces =
     image:"https://images.unsplash.com/photo-1491245338813-c6832976196e?w=900&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8cGFpbnQlMjBhbmQlMjBzaXB8ZW58MHx8MHx8fDI%3D",
     postedBy:1,
     "lat": 40.508614, "lng": -74.372064,"is_quiet": false,
-    "is_creative": false,
-    "is_quiet": true,
-    "is_active": false,
-    "is_social": true,
-    "is_other": true,
-    "money_required": "Free",
+    "is_free": false,
+    "_kid-friendly": false,
+    "is_ada": true,
+    "solo_friendly": false,
     "description": "Good place for meet ups, browsing, and activities for kids"
     },
 
@@ -244,12 +380,11 @@ const thirdspaces =
     image:"https://images.unsplash.com/photo-1604573332746-dd5b20e82aa6?w=900&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NXx8cGxhemF8ZW58MHx8MHx8fDI%3D",
     postedBy:1,
     "lat": 40.350, "lng": -74.661,
-    "is_creative": false,
-    "is_quiet": true,
-    "is_active": false,
-    "is_social": true,
-    "is_other": true,
-    "money_required": "Free",
+    "is_quiet": false,
+    "is_free": true,
+    "_kid-friendly": true,
+    "is_ada": true,
+    "solo_friendly": false,
     "description": "Good place for meet ups, browsing, and activities for kids"
     },
 
@@ -258,12 +393,11 @@ const thirdspaces =
     image:"https://images.unsplash.com/photo-1567880905822-56f8e06fe630?w=900&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8Y2FmZXxlbnwwfHwwfHx8Mg%3D%3D",
     postedBy:4,
     "lat": 40.5294098, "lng": -74.5569183,
-    "is_creative": false,
-    "is_quiet": true,
-    "is_active": false,
-    "is_social": true,
-    "is_other": true,
-    "money_required": "Free",
+    "is_quiet": false,
+    "is_free": true,
+    "_kid-friendly": false,
+    "is_ada": true,
+    "solo_friendly": true,
     "description": "Good place for meet ups, browsing, and activities for kids"
     },
 
@@ -272,12 +406,10 @@ const thirdspaces =
     image:"https://images.unsplash.com/photo-1677188010559-0667a1ed33a0?w=900&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8Ym9hcmQlMjBnYW1lc3xlbnwwfHwwfHx8Mg%3D%3D",
     postedBy:2,
     "lat": 40.73263, "lng": -73.99141,"is_quiet": false,
-    "is_creative": false,
-    "is_quiet": true,
-    "is_active": false,
-    "is_social": true,
-    "is_other": true,
-    "money_required": "Free",
+    "is_free": true,
+    "_kid-friendly": false,
+    "is_ada": false,
+    "solo_friendly": false,
     "description": "Good place for meet ups, browsing, and activities for kids"
     },
 
@@ -286,12 +418,11 @@ const thirdspaces =
     image:"https://images.unsplash.com/photo-1625923780302-53edca7b85f5?w=900&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8ZmFybSUyMGtpZHN8ZW58MHx8MHx8fDI%3D",
     postedBy:5,
     "lat": 40.3629483, "lng": -74.2095475,
-    "is_creative": false,
-    "is_quiet": true,
-    "is_active": false,
-    "is_social": true,
-    "is_other": true,
-    "money_required": "Free",
+    "is_quiet": false,
+    "is_free": false,
+    "_kid-friendly": false,
+    "is_ada": true,
+    "solo_friendly": false,
     "description": "Good place for meet ups, browsing, and activities for kids"
     },
 
@@ -300,12 +431,11 @@ const thirdspaces =
     image:"https://media.istockphoto.com/id/587540100/photo/new-york-city-brooklyn-bridge-park.webp?a=1&b=1&s=612x612&w=0&k=20&c=aqtowMnjAggiJgWuMSBVUelXAlz5pS9cOu4IR_CosAM=",
     postedBy:3,
     "lat": 40.7401224, "lng": -74.0259351,
-    "is_creative": false,
-    "is_quiet": true,
-    "is_active": false,
-    "is_social": true,
-    "is_other": true,
-    "money_required": "Free",
+    "is_quiet": false,
+    "is_free": true,
+    "_kid-friendly": true,
+    "is_ada": true,
+    "solo_friendly": false,
     "description": "Good place for meet ups, browsing, and activities for kids"
     },
 
@@ -314,12 +444,11 @@ const thirdspaces =
     image:"https://images.unsplash.com/photo-1692887526675-be36d4159dfd?w=900&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NHx8bmF0dXJhbCUyMHNjdWxwdHVyZXN8ZW58MHx8MHx8fDI%3D",
     postedBy:4,
     "lat": 40.23678, "lng": -74.71889,
-    "is_creative": false,
-    "is_quiet": true,
-    "is_active": false,
-    "is_social": true,
-    "is_other": true,
-    "money_required": "Free",
+    "is_quiet": false,
+    "is_free": true,
+    "_kid-friendly": false,
+    "is_ada": true,
+    "solo_friendly": true,
     "description": "Good place for meet ups, browsing, and activities for kids"
     }
 ];
@@ -460,31 +589,31 @@ const events = [
     }
   ]
 
+function renderEvents(){
+  const container = document.getElementById("eventContainer");
+  container.innerHTML = "";
 
-  function renderEvents(){
-    const container = document.getElementById("eventContainer");
-    container.innerHTML = "";
-  
-    events.forEach(event=>{
-      const user = getUser(event.postedBy);
-  
-      container.innerHTML += `
-        <div class="card">
-          <img src="${event.image}">
-          <div class="card-content">
-            <h3>${event.title}</h3>
-            <div class="tag-container">
-              <span class="tag">${event.type}</span>
-            </div>
-            <p>${event.description}</p>
-            <div class="posted-by">
-              Posted by <span onclick="openProfile(${user.id})">${user.name}</span>
-            </div>
+  events.forEach(event=>{
+    const user = getUser(event.postedBy);
+
+    container.innerHTML += `
+      <div class="card">
+        <img src="${event.image}">
+        <div class="card-content">
+          <h3>${event.title}</h3>
+          <p>${event.description}</p>
+          <div class="posted-by">
+            Posted by <span onclick="openProfile(${user.id})">${user.name}</span>
           </div>
+          <br>
+          <button class="like-btn">❤️ Like <span class="like-count"></span></button>
         </div>
-      `;
-    });
-  }
+      </div>
+    `;
+  });
+
+  setupLikeButtons(); // <-- add here too
+}
 ///-------------  
 
 /* ================= RENDER ================= */
@@ -499,8 +628,8 @@ const categoryToProp = {
   Other: "is_other"
 };
 
-function getUser(id) {
-  return users.find(u => u.id === id) || users[0];
+function getUser(id){
+  return users.find(u=>u.id===id);
 }
 
 // Render Thirdspaces (filtered by current category when a nav link is selected)
@@ -619,24 +748,71 @@ function closeDetail() {
 function openProfile(userId) {
   const modal = document.getElementById("profileModal");
   const content = document.getElementById("profileContent");
-  const user = getUser(userId);
+
+
+function createTag(text, color="#f0f0f0") {
+  return `<span style="
+    display:inline-block;
+    background-color:${color};
+    color:#333;
+    border-radius:12px;
+    padding:4px 10px;
+    margin:2px;
+    font-size:0.9em;
+  ">${text}</span>`;
+}
+  const now = new Date();
+
+  // User events
+  const userEvents = events.filter(e => e.postedBy === userId);
+  const pastEvents = userEvents.filter(e => new Date(e.date) < now);
+  const upcomingEvents = userEvents.filter(e => new Date(e.date) >= now);
+  const likedEvents = userEvents.filter(e => user.likedEvents?.includes(e.id));
+
+  // User spaces
+  const userSpaces = thirdspaces.filter(s => s.postedBy === userId);
+  const pastSpaces = userSpaces.filter(s => s.date && new Date(s.date) < now);
+  const upcomingSpaces = userSpaces.filter(s => s.date && new Date(s.date) >= now);
+
+  // Helper to create tag HTML
+  const tag = text => `<span style="
+      display:inline-block;
+      background-color:#f0f0f0;
+      color:#333;
+      border-radius:12px;
+      padding:4px 10px;
+      margin:2px;
+      font-size:0.9em;
+  ">${text}</span>`;
+
+  const renderList = list => list.length ? list.map(i => `<p>• ${i.name}</p>`).join("") : "<p>None yet</p>";
 
   content.innerHTML = `
-    <button onclick="closeProfile()" style="float:right; cursor:pointer; border:none; background:none; font-size:20px;">×</button>
+    <button onclick="closeProfile()">X</button>
     <div style="text-align:center">
-      <img src="${user.avatar}" style="width:100px; height:100px; border-radius:50%; object-fit:cover; border:3px solid #0688d4;">
+      <img src="${user.avatar}" style="width:80px;border-radius:50%">
       <h3>${user.name}</h3>
-      <p><em>${user.bio}</em></p>
+      <p>${user.bio || ""}</p>
+      <div>
+        ${user.gender ? tag(user.gender) : ""}
+        ${user.age ? tag(user.age) : ""}
+        ${user.interests?.map(tag).join("") || ""}
+      </div>
     </div>
     <hr>
-    <h4>Activity</h4>
-    <p>Member since 2024</p>
+    <h4>Liked Events</h4>
+    ${renderList(likedEvents)}
+    <h4>Past Events</h4>
+    ${renderList(pastEvents)}
+    <h4>Upcoming Events</h4>
+    ${renderList(upcomingEvents)}
   `;
+
   modal.style.display = "flex";
 }
 
-function closeProfile() {
-  document.getElementById("profileModal").style.display = "none";
+function closeProfile(){
+  document.getElementById("profileModal").style.display="none";
 }
 
 // Add Space Modal Logic
@@ -663,11 +839,14 @@ window.onclick = function(event) {
 document.getElementById("myProfileBtn").onclick = () => openProfile(currentUser.id);
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 document.querySelectorAll(".category-tab").forEach((tab) => {
   tab.addEventListener("click", () => setCategoryFilter(tab.dataset.category));
 });
 
 =======
+=======
+>>>>>>> 3292ccf634cd01aa2ee2e85af433ef011580eccd
 // Load new spaces from server and add to hardcoded list
 fetch('/api/spaces')
   .then(r => r.json())
@@ -696,7 +875,6 @@ fetch('/api/spaces')
     renderThirdspaces();
     renderEvents();
   });
->>>>>>> 93fdabae8883bf9a46dde4af2bf72084982ad39b
 
 // CATEGORY FILTER
 document.querySelectorAll('.category-tab').forEach(btn => {
