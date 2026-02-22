@@ -7,7 +7,7 @@
 
 <style>
 :root{
-  --bg:#f7f7fb;
+  --bg:#4de8af;
   --card:#ffffff;
   --accent:#4f46e5;
   --muted:#6b7280;
@@ -16,14 +16,15 @@
 *{box-sizing:border-box}
 body{
   margin:0;
-  font-family:Inter, system-ui, -apple-system, sans-serif;
+  font-family:monospace;
+  font-size: 18px;
   background:var(--bg);
   color:#111;
 }
 
 /* NAVBAR */
 .navbar{
-  background:#fff;
+  background:#aaf4d7;
   border-bottom:1px solid #e6e6f0;
   padding:12px 20px;
   display:flex;
@@ -122,6 +123,37 @@ body{
   max-height:80vh;
   overflow:auto;
 }
+
+/* blue button used in a couple of places */
+.add-space {
+  background: #4f46e5;         /* blue */
+  color: #fff;
+  padding: 6px 12px;
+  font-size: 0.9rem;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+.add-space:hover,
+.add-space:focus { background: #3730a3; }
+
+/* ensure the category row and button stay aligned */
+.category-tabs {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 16px;
+  margin: 16px 0;
+}
+
+/* header for each section – title + optional action button */
+.section-header {
+  display: flex;          /* keep title & button on one line */
+  align-items: center;
+  gap: 8px;               /* space between title and button */
+  margin-bottom: 12px;    /* optional extra breathing room */
+}
+.section-header h2 { margin: 0; font-size: 1.2rem; }
 </style>
 </head>
 
@@ -134,21 +166,20 @@ body{
   </div>
 <!-- CATEGORY FILTER TABS -->
 <div class="category-tabs" style="display:flex;justify-content:center;gap:16px;margin:16px 0;">
-  <button class="category-tab active" data-category="Creative" title="Creative" style="margin-right: 10px; width: 100px; font-size: 16px;">
+  <button class="category-tab active" data-category="Creative" title="Creative" style="margin-right: 10px; width: 100px; font-size: 16px; background-color: #0688d4; color: whitesmoke; font-family:monospace; border-color: black; padding: 10px; border-radius: 10px">
     Creative
   </button>
-  <button class="category-tab" data-category="Quiet" title="Quiet" style="margin-right: 10px; width: 100px; height: 50px; font-size: 16px;">
+  <button class="category-tab" data-category="Quiet" title="Quiet" style="margin-right: 10px; width: 100px; font-size: 16px; background-color: #0688d4; color: whitesmoke; font-family:monospace; border-color: black; padding: 10px; border-radius: 10px">
     Quiet
   </button>
-  <button class="category-tab" data-category="Active" title="Active" style="margin-right: 10px; width: 100px; font-size: 16px;">
+  <button class="category-tab" data-category="Active" title="Active" style="margin-right: 10px; width: 100px; font-size: 16px; background-color: #0688d4; color: whitesmoke; font-family:monospace; border-color: black; padding: 10px; border-radius: 10px">
     Active
   </button>
-  <button class="category-tab" data-category="Social" title="Social" style="margin-right: 10px; width: 100px; font-size: 16px;">
+  <button class="category-tab" data-category="Social" title="Social" style="margin-right: 10px; width: 100px; font-size: 16px; background-color: #0688d4; color: whitesmoke; font-family:monospace; border-color: black; padding: 10px; border-radius: 10px">
     Social
   </button>
-  <button class="category-tab" data-category="Other" title="Other" style="margin-right: 10px; width: 100px; font-size: 16px;">
+  <button class="category-tab" data-category="Other" title="Other" style="margin-right: 10px; width: 100px; height: 43px; font-size: 16px; background-color: #0688d4; color: whitesmoke; font-family:monospace; border-color: black; padding: 10px; border-radius: 10px;">
     Other
-  </button>
 </div>
   <div class="profile-btn" id="myProfileBtn">My Profile</div>
 </div>
@@ -156,12 +187,24 @@ body{
 <main class="container">
 
   <section class="section">
-    <h2>Thirdspaces</h2>
+    <div class="section-header">
+      <h2>Thirdspaces</h2>
+      <button class="add-space" type="button" style="font-family: monospace;"
+              onclick="window.location.href='./add-thirdspace.html'">
+        Add a Thirdspace
+      </button>
+    </div>
+
     <div class="cards" id="thirdspaceContainer"></div>
   </section>
 
   <section class="section">
-    <h2>Events</h2>
+    <div class="section-header">
+      <h2>Events</h2>
+      <button class="add-space" onclick="window.location.href='./add-event.html'" style="font-family: monospace;">
+        Post an Event
+      </button>
+    </div>
     <div class="cards" id="eventContainer"></div>
   </section>
 
