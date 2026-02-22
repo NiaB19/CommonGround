@@ -584,27 +584,29 @@ const events = [
   ]
 
 function renderEvents(){
-    const container = document.getElementById("eventContainer");
-    container.innerHTML = "";
-  
-    events.forEach(event=>{
-      const user = getUser(event.postedBy);
-  
-      container.innerHTML += `
-        <div class="card">
-          <img src="${event.image}">
-          <div class="card-content">
-            <h3>${event.title}</h3>
-            <p>${event.description}</p>
-            <div class="posted-by">
-              Posted by <span onclick="openProfile(${user.id})">${user.name}</span>
-            </div>
+  const container = document.getElementById("eventContainer");
+  container.innerHTML = "";
+
+  events.forEach(event=>{
+    const user = getUser(event.postedBy);
+
+    container.innerHTML += `
+      <div class="card">
+        <img src="${event.image}">
+        <div class="card-content">
+          <h3>${event.title}</h3>
+          <p>${event.description}</p>
+          <div class="posted-by">
+            Posted by <span onclick="openProfile(${user.id})">${user.name}</span>
           </div>
+          <button class="like-btn">❤️ Like <span class="like-count">0</span></button>
         </div>
-      `;
-    });
-  }
-///-------------  
+      </div>
+    `;
+  });
+
+  setupLikeButtons(); // <-- add here too
+}  
 
 /* ================= RENDER ================= */
 
@@ -628,10 +630,13 @@ function renderThirdspaces(){
           <div class="posted-by">
             Posted by <span onclick="openProfile(${user.id})">${user.name}</span>
           </div>
+          <button class="like-btn">❤️ Like <span class="like-count"></span></button>
         </div>
       </div>
     `;
   });
+
+  setupLikeButtons(); // <-- THIS LINE is important
 }
 
 
@@ -641,16 +646,6 @@ function renderThirdspaces(){
 function openProfile(userId) {
   const modal = document.getElementById("profileModal");
   const content = document.getElementById("profileContent");
-
-  const user = {
-  name: "Alex Rivera",
-  avatar: "https://static.vecteezy.com/system/resources/thumbnails/047/649/410/small/an-asian-man-with-closed-arms-in-pink-dress-with-isolated-on-transparent-background-cut-out-free-png.png",
-  bio: "Love exploring and trying new things!",
-  age: 28,
-  gender: "Male",
-  interests: ["Music", "Hiking", "Photography"],
-  skills: ["Guitar", "Cooking"],
-};
 
 
 function createTag(text, color="#f0f0f0") {
@@ -723,6 +718,7 @@ document.getElementById("myProfileBtn").onclick = ()=>openProfile(currentUser.id
 /* INITIAL */
 renderThirdspaces();
 renderEvents();
+setupLikeButtons();
 
 </script>
 
