@@ -1,65 +1,154 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval'; connect-src 'self' http://localhost:8000; style-src 'self' 'unsafe-inline';">
-    
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CommonGround — Thirdspace Finder</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CommonGround — Thirdspace Finder</title>
 
-    <style>
-    /* 2. STYLE (Merged: Team Design + Your Variables) */
-    :root {
-      --bg: #4de8af; 
-      --card: #ffffff;
-      --accent: #4f46e5;
-      --muted: #6b7280;
-    }
+<style>
+:root{
+  --bg:#4de8af;
+  --card:#ffffff;
+  --accent:#4f46e5;
+  --muted:#6b7280;
+}
 
-    * { box-sizing: border-box; }
-    body {
-      margin: 0;
-      font-family: monospace;
-      font-size: 18px;
-      background: var(--bg);
-      color: #111;
-    }
+*{box-sizing:border-box}
+body{
+  margin:0;
+  font-family:monospace;
+  font-size: 18px;
+  background:var(--bg);
+  color:#111;
+}
 
-    /* NAVBAR */
-    .navbar {
-      background: #aaf4d7;
-      border-bottom: 1px solid #e6e6f0;
-      padding: 12px 20px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
+/* NAVBAR */
+.navbar{
+  background:#aaf4d7;
+  border-bottom:1px solid #e6e6f0;
+  padding:12px 20px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+}
 
-    .brand { display: flex; align-items: center; gap: 10px; }
-    .logo { width: 80px; height: 80px; object-fit: contain; }
-    .profile-btn { background: #eef2ff; padding: 6px 10px; border-radius: 8px; cursor: pointer; }
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 10px; /* space between logo and text */
+}
 
-    /* LAYOUT */
-    .container { max-width: 1100px; margin: 20px auto; padding: 0 20px; }
-    .section { margin-bottom: 40px; }
-    .cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 16px; }
-    .card { background: var(--card); border-radius: 12px; overflow: hidden; box-shadow: 0 6px 18px rgba(0,0,0,0.06); }
-    .card img { width: 100%; height: 150px; object-fit: cover; }
-    .card-content { padding: 14px; }
-    .card h3 { margin: 0 0 6px; }
-    .card p { margin: 4px 0; font-size: 13px; color: var(--muted); }
-    .posted-by { font-size: 12px; margin-top: 6px; }
-    .posted-by span { color: var(--accent); cursor: pointer; }
+.logo {
+  width: 80px;       /* adjust size as needed */
+  height: 80px;
+  object-fit: contain; 
+}
 
-    /* MODAL */
-    .modal { position: fixed; inset: 0; background: rgba(0,0,0,0.4); display: none; align-items: center; justify-content: center; }
-    .modal-content { background: #fff; padding: 20px; border-radius: 12px; width: 350px; max-height: 80vh; overflow: auto; }
-    
-    .add-space { background: #4f46e5; color: #fff; padding: 6px 12px; font-size: 0.9rem; border: none; border-radius: 6px; cursor: pointer; }
-    .category-tabs { display: flex; justify-content: center; align-items: center; gap: 16px; margin: 16px 0; }
-    .section-header { display: flex; align-items: center; gap: 8px; margin-bottom: 12px; }
-    .section-header h2 { margin: 0; font-size: 1.2rem; }
-    </style>
+.profile-btn{
+  background:#eef2ff;
+  padding:6px 10px;
+  border-radius:8px;
+  cursor:pointer;
+}
+
+/* LAYOUT */
+.container{
+  max-width:1100px;
+  margin:20px auto;
+  padding:0 20px;
+}
+
+.section{margin-bottom:40px}
+
+.cards{
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(260px,1fr));
+  gap:16px;
+}
+
+.card{
+  background:var(--card);
+  border-radius:12px;
+  overflow:hidden;
+  box-shadow:0 6px 18px rgba(0,0,0,0.06);
+}
+
+.card img{
+  width:100%;
+  height:150px;
+  object-fit:cover;
+}
+
+.card-content{padding:14px}
+
+.card h3{margin:0 0 6px}
+
+.card p{
+  margin:4px 0;
+  font-size:13px;
+  color:var(--muted);
+}
+
+.posted-by{
+  font-size:12px;
+  margin-top:6px;
+}
+
+.posted-by span{
+  color:var(--accent);
+  cursor:pointer;
+}
+
+/* MODAL */
+.modal{
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,0.4);
+  display:none;
+  align-items:center;
+  justify-content:center;
+}
+
+.modal-content{
+  background:#fff;
+  padding:20px;
+  border-radius:12px;
+  width:350px;
+  max-height:80vh;
+  overflow:auto;
+}
+
+/* blue button used in a couple of places */
+.add-space {
+  background: #4f46e5;         /* blue */
+  color: #fff;
+  padding: 6px 12px;
+  font-size: 0.9rem;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+.add-space:hover,
+.add-space:focus { background: #3730a3; }
+
+/* ensure the category row and button stay aligned */
+.category-tabs {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 16px;
+  margin: 16px 0;
+}
+
+/* header for each section – title + optional action button */
+.section-header {
+  display: flex;          /* keep title & button on one line */
+  align-items: center;
+  gap: 8px;               /* space between title and button */
+  margin-bottom: 12px;    /* optional extra breathing room */
+}
+.section-header h2 { margin: 0; font-size: 1.2rem; }
+</style>
 </head>
 
 <body>
@@ -69,98 +158,454 @@
     <img src="./logo.png" alt="CommonGround Logo" class="logo">
     <h1>CommonGround</h1>
   </div>
-
-  <div class="category-tabs">
-    <button class="category-tab active" data-category="Creative" style="background-color: #0688d4; color: white; border-radius: 10px; padding: 10px;">Creative</button>
-    <button class="category-tab" data-category="Quiet" style="background-color: #0688d4; color: white; border-radius: 10px; padding: 10px;">Quiet</button>
-    <button class="category-tab" data-category="Active" style="background-color: #0688d4; color: white; border-radius: 10px; padding: 10px;">Active</button>
-    <button class="category-tab" data-category="Social" style="background-color: #0688d4; color: white; border-radius: 10px; padding: 10px;">Social</button>
-    <button class="category-tab" data-category="Other" style="background-color: #0688d4; color: white; border-radius: 10px; padding: 10px;">Other</button>
-  </div>
-
+<!-- CATEGORY FILTER TABS -->
+<div class="category-tabs" style="display:flex;justify-content:center;gap:16px;margin:16px 0;">
+  <button class="category-tab active" data-category="Creative" title="Creative" style="margin-right: 10px; width: 100px; font-size: 16px; background-color: #0688d4; color: whitesmoke; font-family:monospace; border-color: black; padding: 10px; border-radius: 10px">
+    Creative
+  </button>
+  <button class="category-tab" data-category="Quiet" title="Quiet" style="margin-right: 10px; width: 100px; font-size: 16px; background-color: #0688d4; color: whitesmoke; font-family:monospace; border-color: black; padding: 10px; border-radius: 10px">
+    Quiet
+  </button>
+  <button class="category-tab" data-category="Active" title="Active" style="margin-right: 10px; width: 100px; font-size: 16px; background-color: #0688d4; color: whitesmoke; font-family:monospace; border-color: black; padding: 10px; border-radius: 10px">
+    Active
+  </button>
+  <button class="category-tab" data-category="Social" title="Social" style="margin-right: 10px; width: 100px; font-size: 16px; background-color: #0688d4; color: whitesmoke; font-family:monospace; border-color: black; padding: 10px; border-radius: 10px">
+    Social
+  </button>
+  <button class="category-tab" data-category="Other" title="Other" style="margin-right: 10px; width: 100px; height: 43px; font-size: 16px; background-color: #0688d4; color: whitesmoke; font-family:monospace; border-color: black; padding: 10px; border-radius: 10px;">
+    Other
+</div>
   <div class="profile-btn" id="myProfileBtn">My Profile</div>
 </div>
 
 <main class="container">
+
   <section class="section">
     <div class="section-header">
       <h2>Thirdspaces</h2>
-      <button class="add-space" type="button" onclick="window.location.href='./add-thirdspace.html'">Add a Thirdspace</button>
+      <button class="add-space" type="button" style="font-family: monospace;"
+              onclick="window.location.href='./add-thirdspace.html'">
+        Add a Thirdspace
+      </button>
     </div>
+
     <div class="cards" id="thirdspaceContainer"></div>
   </section>
 
   <section class="section">
     <div class="section-header">
       <h2>Events</h2>
-      <button class="add-space" onclick="window.location.href='./add-event.html'">Post an Event</button>
+      <button class="add-space" onclick="window.location.href='./add-event.html'" style="font-family: monospace;">
+        Post an Event
+      </button>
     </div>
     <div class="cards" id="eventContainer"></div>
   </section>
+
 </main>
 
+<!-- PROFILE MODAL -->
 <div class="modal" id="profileModal">
   <div class="modal-content" id="profileContent"></div>
 </div>
 
 <script>
-/* ================= USERS & DATA ================= */
+/* ================= USERS ================= */
+
 const users = [
-  { id:1, name:"Alex Rivera", bio:"Community builder & coffee lover", avatar:"https://randomuser.me/api/portraits/men/32.jpg" },
-  { id:2, name:"Jamie Chen", bio:"Outdoor enthusiast & event host", avatar:"https://randomuser.me/api/portraits/women/44.jpg" }
+{
+  id:1,
+  name:"Alex Rivera",
+  bio:"Community builder & coffee lover",
+  avatar:"https://randomuser.me/api/portraits/men/32.jpg"
+},
+{
+  id:2,
+  name:"Jamie Chen",
+  bio:"Outdoor enthusiast & event host",
+  avatar:"https://randomuser.me/api/portraits/women/44.jpg"
+}
 ];
 
 const currentUser = users[0];
 
-const thirdspaces = [
-    { "name": "Veterans Park", image:"https://images.unsplash.com/photo-1501339847302-ac426a4a7cbb", postedBy:1, description: "Great for pickeball sessions, picnics, walks, and volleyball." },
-    { "name": "New Brunswick Library", image:"https://images.unsplash.com/photo-1501339847302-ac426a4a7cbb", postedBy:1, description: "Good place for meet ups and browsing." }
-    // ... add your other data here
+/* ================= DATA ================= */
+
+const thirdspaces = 
+[
+    {
+    "name": "Veterans Park",
+    image:"https://images.unsplash.com/photo-1501339847302-ac426a4a7cbb",
+    postedBy:1,
+    "lat": 40.3970518, "lng": -74.3573709,
+    "is_quiet": false,
+    "is_free": true,
+    "_kid-friendly": false,
+    "is_ada": true,
+    "solo_friendly": true,
+    "description": "Great for pickeball sessions, picnics, walks, and volleyball."
+    },
+
+    {
+    "name": "New Brunswick Free Public Library",
+    image:"https://images.unsplash.com/photo-1501339847302-ac426a4a7cbb",
+    postedBy:1,
+    "lat": 40.4913782, "lng": -74.4453930,
+    "is_quiet": false,
+    "is_free": true,
+    "_kid-friendly": true,
+    "is_ada": true,
+    "solo_friendly": false,
+    "description": "Good place for meet ups, browsing, and activities for kids"
+    },
+
+    {
+    "name": "Buccleuch Park",
+    image:"https://images.unsplash.com/photo-1501339847302-ac426a4a7cbb",
+    postedBy:1,
+    "lat": 40.5048264, "lng": -74.4595969,
+    "is_quiet": false,
+    "is_free": false,
+    "_kid-friendly": false,
+    "is_ada": true,
+    "solo_friendly": false,
+    "description": "Good place walks and looking at flowers"
+    },
+
+    {
+    "name": "Rutgers Geology Museum",
+    image:"https://images.unsplash.com/photo-1501339847302-ac426a4a7cbb",
+    postedBy:1,
+    "lat": 40.4986490, "lng": -74.4466806,
+    "is_quiet": false,
+    "is_free": true,
+    "_kid-friendly": false,
+    "is_ada": false,
+    "solo_friendly": false,
+    "description": "Good place for meet ups, browsing, and activities for kids"
+    },
+
+    {
+    "name": "Semicolon Cafe",
+    image:"https://images.unsplash.com/photo-1501339847302-ac426a4a7cbb",
+    postedBy:1,
+    "lat": 40.486667, "lng": -74.444444,
+    "is_quiet": true,
+    "is_free": true,
+    "_kid-friendly": false,
+    "is_ada": true,
+    "solo_friendly": false,
+    "description": "Good place for meet ups, browsing, and activities for kids"
+    },
+
+    {
+    "name": "Delaware & Raritan Canal State Park Trail",
+    image:"https://images.unsplash.com/photo-1501339847302-ac426a4a7cbb",
+    postedBy:1,
+    "lat": 40.5389923, "lng": -74.5721009,
+    "is_quiet": false,
+    "is_free": true,
+    "_kid-friendly": true,
+    "is_ada": true,
+    "solo_friendly": false,
+    "description": "Good place for meet ups, browsing, and activities for kids"
+    },
+
+    {
+    "name": "State Theatre New Jersey",
+    image:"https://images.unsplash.com/photo-1501339847302-ac426a4a7cbb",
+    postedBy:1,
+    "lat": 40.493341, "lng": -74.44462,
+    "is_quiet": false,
+    "is_free": true,
+    "_kid-friendly": false,
+    "is_ada": true,
+    "solo_friendly": true,
+    "description": "Good place for meet ups, browsing, and activities for kids"
+    },
+
+    {
+    "name": "Sentirsi Pilates Studio",
+    image:"https://images.unsplash.com/photo-1501339847302-ac426a4a7cbb",
+    postedBy:1,
+    "lat": 40.54207127548425, "lng": -74.3606030999999,
+    "is_quiet": false,
+    "is_free": false,
+    "_kid-friendly": false,
+    "is_ada": true,
+    "solo_friendly": false,
+    "description": "Good place for meet ups, browsing, and activities for kids"
+    },
+
+    {
+    "name": "The Canvas & Grapes Experience",
+    image:"https://images.unsplash.com/photo-1501339847302-ac426a4a7cbb",
+    postedBy:1,
+    "lat": 40.508614, "lng": -74.372064,"is_quiet": false,
+    "is_free": false,
+    "_kid-friendly": false,
+    "is_ada": true,
+    "solo_friendly": false,
+    "description": "Good place for meet ups, browsing, and activities for kids"
+    },
+
+    {
+    "name": "Palmer Square",
+    image:"https://images.unsplash.com/photo-1501339847302-ac426a4a7cbb",
+    postedBy:1,
+    "lat": 40.350, "lng": -74.661,
+    "is_quiet": false,
+    "is_free": true,
+    "_kid-friendly": true,
+    "is_ada": true,
+    "solo_friendly": false,
+    "description": "Good place for meet ups, browsing, and activities for kids"
+    },
+
+    {
+    "name": "Pink Pistachio Cafe",
+    image:"https://images.unsplash.com/photo-1501339847302-ac426a4a7cbb",
+    postedBy:1,
+    "lat": 40.5294098, "lng": -74.5569183,
+    "is_quiet": false,
+    "is_free": true,
+    "_kid-friendly": false,
+    "is_ada": true,
+    "solo_friendly": true,
+    "description": "Good place for meet ups, browsing, and activities for kids"
+    },
+
+    {
+    "name": "Hex and Company",
+    image:"https://images.unsplash.com/photo-1501339847302-ac426a4a7cbb",
+    postedBy:1,
+    "lat": 40.73263, "lng": -73.99141,"is_quiet": false,
+    "is_free": true,
+    "_kid-friendly": false,
+    "is_ada": false,
+    "solo_friendly": false,
+    "description": "Good place for meet ups, browsing, and activities for kids"
+    },
+
+    {
+    "name": "Marlboro Meadows Farm",
+    image:"https://images.unsplash.com/photo-1501339847302-ac426a4a7cbb",
+    postedBy:1,
+    "lat": 40.3629483, "lng": -74.2095475,
+    "is_quiet": false,
+    "is_free": false,
+    "_kid-friendly": false,
+    "is_ada": true,
+    "solo_friendly": false,
+    "description": "Good place for meet ups, browsing, and activities for kids"
+    },
+
+    {
+    "name": "Pier C Park",
+    image:"https://images.unsplash.com/photo-1501339847302-ac426a4a7cbb",
+    postedBy:1,
+    "lat": 40.7401224, "lng": -74.0259351,
+    "is_quiet": false,
+    "is_free": true,
+    "_kid-friendly": true,
+    "is_ada": true,
+    "solo_friendly": false,
+    "description": "Good place for meet ups, browsing, and activities for kids"
+    },
+
+    {
+    "name": "Grounds For Sculpture",
+    image:"https://images.unsplash.com/photo-1501339847302-ac426a4a7cbb",
+    postedBy:1,
+    "lat": 40.23678, "lng": -74.71889,
+    "is_quiet": false,
+    "is_free": true,
+    "_kid-friendly": false,
+    "is_ada": true,
+    "solo_friendly": true,
+    "description": "Good place for meet ups, browsing, and activities for kids"
+    }
 ];
 
+[
+{
+  name:"Cafe Commons",
+  description:"Cozy cafe with WiFi",
+  image:"https://images.unsplash.com/photo-1501339847302-ac426a4a7cbb",
+  postedBy:1
+},
+{
+  name:"Riverside Park",
+  description:"Dog friendly outdoor space",
+  image:"https://images.unsplash.com/photo-1506744038136-46273834b3fb",
+  postedBy:2
+}
+];
+
+// const events = [
+// {
+//   name:"Open Mic Night",
+//   description:"Live music & community vibes",
+//   image:"https://images.unsplash.com/photo-1497032628192-86f99bcd76bc",
+//   postedBy:2
+// }
+// ];
+
+
+///------------------------------------------------------
 const events = [
-    { "event_id": 1, "title": "Pickleball Mixer", "image": "https://images.unsplash.com/photo-1501339847302-ac426a4a7cbb", "description": "Open play for all skill levels.", postedBy: 2 },
-    { "event_id": 2, "title": "Silent Reading Hour", "image": "https://images.unsplash.com/photo-1501339847302-ac426a4a7cbb", "description": "Bring your current read.", postedBy: 2 }
-];
+    {
+      "event_id": 1,
+      "title": "Pickleball Mixer",
+      "location_name": "Veterans Park",
+      "date": "2026-03-01",
+      "time": "10:00 AM",
+      "type": "Sports",
+      "description": "Open play for all skill levels. Meet at the courts!",
+      postedBy: 2
+    },
+  
+    {
+      "event_id": 2,
+      "title": "Silent Reading Hour",
+      "location_name": "New Brunswick Free Public Library",
+      "date": "2026-03-01",
+      "time": "2:00 PM",
+      "type": "Social",
+      "description": "Bring your current read and enjoy some quiet company.",
+      postedBy: 2
+    },
+  
+    {
+      "event_id": 3,
+      "title": "Geology 101: Rocks & Fossils",
+      "location_name": "Rutgers Geology Museum",
+      "date": "2026-03-02",
+      "time": "11:00 AM",
+      "type": "Education",
+      "description": "A guided tour of the local fossil collection.",
+      postedBy: 2
+    },
+  
+    {
+      "event_id": 4,
+      "title": "Geology 101: Rocks & Fossils",
+      "location_name": "Rutgers Geology Museum",
+      "date": "2026-03-02",
+      "time": "11:00 AM",
+      "type": "Education",
+      "description": "A guided tour of the local fossil collection.",
+      postedBy: 2
+    },
+  
+    {
+      "event_id": 5,
+      "title": "Geology 101: Rocks & Fossils",
+      "location_name": "Rutgers Geology Museum",
+      "date": "2026-03-02",
+      "time": "11:00 AM",
+      "type": "Education",
+      "description": "A guided tour of the local fossil collection.",
+      postedBy: 2
+    },
+  
+    {
+      "event_id": 7,
+      "title": "Geology 101: Rocks & Fossils",
+      "location_name": "Rutgers Geology Museum",
+      "date": "2026-03-02",
+      "time": "11:00 AM",
+      "type": "Entertainment",
+      "description": "A guided tour of the local fossil collection.",
+      postedBy: 2
+    },
+  
+    {
+      "event_id": 8,
+      "title": "Geology 101: Rocks & Fossils",
+      "location_name": "Rutgers Geology Museum",
+      "date": "2026-03-02",
+      "time": "11:00 AM",
+      "type": "Social",
+      "description": "A guided tour of the local fossil collection.",
+      postedBy: 2
+    },
+  
+    {
+      "event_id": 9,
+      "title": "Geology 101: Rocks & Fossils",
+      "location_name": "Rutgers Geology Museum",
+      "date": "2026-03-02",
+      "time": "11:00 AM",
+      "type": "Creative",
+      "description": "A guided tour of the local fossil collection.",
+      postedBy: 2
+    },
+  
+    {
+      "event_id": 10,
+      "title": "Geology 101: Rocks & Fossils",
+      "location_name": "Rutgers Geology Museum",
+      "date": "2026-03-02",
+      "time": "11:00 AM",
+      "type": "Sports",
+      "description": "A guided tour of the local fossil collection.",
+      postedBy: 2
+    }
+  ]
 
-/* ================= RENDER LOGIC ================= */
-function getUser(id) { return users.find(u => u.id === id); }
+function renderEvents(){
+    const container = document.getElementById("eventContainer");
+    container.innerHTML = "";
+  
+    events.forEach(event=>{
+      const user = getUser(event.postedBy);
+  
+      container.innerHTML += `
+        <div class="card">
+          <img src="${event.image}">
+          <div class="card-content">
+            <h3>${event.title}</h3>
+            <p>${event.description}</p>
+            <div class="posted-by">
+              Posted by <span onclick="openProfile(${user.id})">${user.name}</span>
+            </div>
+          </div>
+        </div>
+      `;
+    });
+  }
+///-------------  
 
-function renderThirdspaces() {
+/* ================= RENDER ================= */
+
+function getUser(id){
+  return users.find(u=>u.id===id);
+}
+
+function renderThirdspaces(){
   const container = document.getElementById("thirdspaceContainer");
   container.innerHTML = "";
-  thirdspaces.forEach(space => {
+
+  thirdspaces.forEach(space=>{
     const user = getUser(space.postedBy);
+
     container.innerHTML += `
       <div class="card">
         <img src="${space.image}">
         <div class="card-content">
           <h3>${space.name}</h3>
           <p>${space.description}</p>
-          <div class="posted-by">Posted by <span onclick="openProfile(${user.id})">${user.name}</span></div>
+          <div class="posted-by">
+            Posted by <span onclick="openProfile(${user.id})">${user.name}</span>
+          </div>
         </div>
-      </div>`;
+      </div>
+    `;
   });
 }
 
-function renderEvents() {
-  const container = document.getElementById("eventContainer");
-  container.innerHTML = "";
-  events.forEach(event => {
-    const user = getUser(event.postedBy);
-    container.innerHTML += `
-      <div class="card">
-        <img src="${event.image}">
-        <div class="card-content">
-          <h3>${event.title}</h3>
-          <p>${event.description}</p>
-          <div class="posted-by">Posted by <span onclick="openProfile(${user.id})">${user.name}</span></div>
-        </div>
-      </div>`;
-  });
-}
 
-<<<<<<< HEAD
 
 /* ================= PROFILE ================= */
 
@@ -215,12 +660,6 @@ function createTag(text, color="#f0f0f0") {
 
   const renderList = list => list.length ? list.map(i => `<p>• ${i.name}</p>`).join("") : "<p>None yet</p>";
 
-=======
-function openProfile(userId) {
-  const user = getUser(userId);
-  const modal = document.getElementById("profileModal");
-  const content = document.getElementById("profileContent");
->>>>>>> 23aca7b7d4042b1a4814506cd0fbeddc32175c98
   content.innerHTML = `
     <button onclick="closeProfile()">X</button>
     <div style="text-align:center">
@@ -233,7 +672,6 @@ function openProfile(userId) {
         ${user.interests?.map(tag).join("") || ""}
       </div>
     </div>
-<<<<<<< HEAD
     <hr>
     <h4>Liked Events</h4>
     ${renderList(likedEvents)}
@@ -243,18 +681,21 @@ function openProfile(userId) {
     ${renderList(upcomingEvents)}
   `;
 
-=======
-    <button onclick="closeProfile()">Close</button>`;
->>>>>>> 23aca7b7d4042b1a4814506cd0fbeddc32175c98
   modal.style.display = "flex";
 }
 
-function closeProfile() { document.getElementById("profileModal").style.display = "none"; }
+function closeProfile(){
+  document.getElementById("profileModal").style.display="none";
+}
 
-document.getElementById("myProfileBtn").onclick = () => openProfile(currentUser.id);
+document.getElementById("myProfileBtn").onclick = ()=>openProfile(currentUser.id);
 
+/* INITIAL */
 renderThirdspaces();
 renderEvents();
+
 </script>
+
+
 </body>
 </html>
