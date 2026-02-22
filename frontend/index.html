@@ -77,7 +77,8 @@ const users = [
   id:1,
   name:"Alex Rivera",
   bio:"Community builder & coffee lover",
-  avatar:"https://images.unsplash.com/photo-1534614971-6be99a7a3ffd?w=900&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8d2hpdGUlMjBtYWxlfGVufDB8fDB8fHwy"},
+  avatar:"https://images.unsplash.com/photo-1534614971-6be99a7a3ffd?w=900&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8d2hpdGUlMjBtYWxlfGVufDB8fDB8fHwy"
+},
 {
   id:2,
   name:"Jamie Chen",
@@ -459,12 +460,8 @@ const events = [
     }
   ]
 
-<<<<<<< HEAD
-function renderEvents(){
-=======
 
   function renderEvents(){
->>>>>>> 112066c80f10a475e9fc04f9b2d42696d9be598f
     const container = document.getElementById("eventContainer");
     container.innerHTML = "";
   
@@ -476,12 +473,9 @@ function renderEvents(){
           <img src="${event.image}">
           <div class="card-content">
             <h3>${event.title}</h3>
-<<<<<<< HEAD
-=======
             <div class="tag-container">
               <span class="tag">${event.type}</span>
             </div>
->>>>>>> 112066c80f10a475e9fc04f9b2d42696d9be598f
             <p>${event.description}</p>
             <div class="posted-by">
               Posted by <span onclick="openProfile(${user.id})">${user.name}</span>
@@ -668,8 +662,6 @@ window.onclick = function(event) {
 /* ================= INITIALIZE ================= */
 renderThirdspaces();
 renderEvents();
-<<<<<<< HEAD
-=======
 
 document.getElementById("myProfileBtn").onclick = () => openProfile(currentUser.id);
 
@@ -678,7 +670,6 @@ document.querySelectorAll(".category-tab").forEach((tab) => {
 });
 
 
->>>>>>> 112066c80f10a475e9fc04f9b2d42696d9be598f
 
 </script>
 
