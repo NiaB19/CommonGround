@@ -489,23 +489,31 @@ const events = [
 
 /* ================= RENDER ================= */
 
-function getUser(id) { return users.find(u => u.id === id); }
+function getUser(id) {
+  return users.find(u => u.id === id) || users[0];
+}
 
+// Render Thirdspaces
 function renderThirdspaces() {
   const container = document.getElementById("thirdspaceContainer");
+  if (!container) return;
   container.innerHTML = "";
+
   thirdspaces.forEach((space, index) => {
     const user = getUser(space.postedBy);
+    
+    // Generate Red Tags
     let tagsHTML = `<div class="tag-container">`;
     if(space.is_creative) tagsHTML += `<span class="tag">Creative</span>`;
-    if(space.is_quiet) tagsHTML += `<span class="tag">Quiet</span>`;
-    if(space.is_active) tagsHTML += `<span class="tag">Active</span>`;
-    if(space.is_social) tagsHTML += `<span class="tag">Social</span>`;
+    if(space.is_quiet)    tagsHTML += `<span class="tag">Quiet</span>`;
+    if(space.is_active)   tagsHTML += `<span class="tag">Active</span>`;
+    if(space.is_social)   tagsHTML += `<span class="tag">Social</span>`;
+    if(space.is_other)    tagsHTML += `<span class="tag">Other</span>`;
     tagsHTML += `</div>`;
 
     container.innerHTML += `
-      <div class="card" onclick="openDetail(${index})">
-        <img src="${space.image}">
+      <div class="card" onclick="openDetail('space', ${index})">
+        <img src="${space.image}" alt="${space.name}">
         <div class="card-content">
           <h3>${space.name}</h3>
           ${tagsHTML}
@@ -518,84 +526,124 @@ function renderThirdspaces() {
   });
 }
 
-/* ================= RENDERING EVENTS ================= */
+// Render Events
 function renderEvents() {
   const container = document.getElementById("eventContainer");
+  if (!container) return;
   container.innerHTML = "";
-  
+
   events.forEach((ev, index) => {
+    const user = getUser(ev.postedBy);
+
     container.innerHTML += `
-      <div class="card" onclick="openEventDetail(${index})">
-        <img src="${ev.image}">
+      <div class="card" onclick="openDetail('event', ${index})">
+        <img src="${ev.image}" alt="${ev.title}">
         <div class="card-content">
           <h3>${ev.title}</h3>
-          <div class="tag-container">
-            <span class="tag">${ev.type}</span>
-          </div>
+          <div class="tag-container"><span class="tag">${ev.type}</span></div>
           <p>${ev.description}</p>
           <div class="posted-by">
-            Posted by <span onclick="event.stopPropagation(); openProfile(${ev.postedBy})">
-              ${getUser(ev.postedBy).name}
-            </span>
+            Posted by <span onclick="event.stopPropagation(); openProfile(${user.id})">${user.name}</span>
           </div>
         </div>
       </div>`;
   });
 }
 
-/* ================= EVENT POPUP LOGIC ================= */
-function openEventDetail(index) {
-  const ev = events[index];
+/* ================= MODAL & INTERACTION LOGIC ================= */
+
+// Combined detail opener for both Spaces and Events
+function openDetail(type, index) {
   const modal = document.getElementById("detailModal");
   const content = document.getElementById("detailContent");
+  let data;
+
+  if (type === 'space') {
+    data = thirdspaces[index];
+    content.innerHTML = `
+      <button class="close-btn" onclick="closeDetail()" style="float:right; cursor:pointer; border:none; background:none; font-size:20px;">×</button>
+      <img src="${data.image}" style="width:100%; border-radius:10px; height:220px; object-fit:cover;">
+      <h2 style="margin-top:15px;">${data.name}</h2>
+      <p><strong>Cost:</strong> ${data.money_required || "Free"}</p>
+      <p><strong>About:</strong> ${data.description}</p>
+      <hr>
+      <p style="font-size:0.8em; color:gray;">Location: ${data.lat}, ${data.lng}</p>
+    `;
+  } else {
+    data = events[index];
+    content.innerHTML = `
+      <button class="close-btn" onclick="closeDetail()" style="float:right; cursor:pointer; border:none; background:none; font-size:20px;">×</button>
+      <img src="${data.image}" style="width:100%; border-radius:10px; height:220px; object-fit:cover;">
+      <h2 style="margin-top:15px;">${data.title}</h2>
+      <div class="tag-container"><span class="tag">${data.type}</span></div>
+      <p><strong>Where:</strong> ${data.location_name}</p>
+      <p><strong>When:</strong> ${data.date} at ${data.time}</p>
+      <p>${data.description}</p>
+      <button class="add-space" style="width:100%;" onclick="alert('RSVP Sent!')">RSVP Now</button>
+    `;
+  }
+
+  modal.style.display = "flex";
+  document.body.style.overflow = "hidden"; // Stop background scroll
+}
+
+function closeDetail() {
+  document.getElementById("detailModal").style.display = "none";
+  document.body.style.overflow = "auto";
+}
+
+// Profile Modal Logic
+function openProfile(userId) {
+  const modal = document.getElementById("profileModal");
+  const content = document.getElementById("profileContent");
+  const user = getUser(userId);
 
   content.innerHTML = `
-    <button style="float:right; border:none; background:none; font-size:20px; cursor:pointer;" onclick="closeDetail()">X</button>
-    <img src="${ev.image}" style="width:100%; border-radius:8px; height:200px; object-fit:cover;">
-    <h2 style="margin-top:15px;">${ev.title}</h2>
-    <div class="tag-container"><span class="tag">${ev.type}</span></div>
-    <p><strong>Location:</strong> ${ev.location_name || "TBA"}</p>
-    <p><strong>Date:</strong> ${ev.date || "Coming Soon"} at ${ev.time || ""}</p>
-    <p>${ev.description}</p>
-    <button class="add-space" style="width:100%; margin-top:10px;" onclick="alert('You are RSVP\'d!')">RSVP for Event</button>
+    <button onclick="closeProfile()" style="float:right; cursor:pointer; border:none; background:none; font-size:20px;">×</button>
+    <div style="text-align:center">
+      <img src="${user.avatar}" style="width:100px; height:100px; border-radius:50%; object-fit:cover; border:3px solid #0688d4;">
+      <h3>${user.name}</h3>
+      <p><em>${user.bio}</em></p>
+    </div>
+    <hr>
+    <h4>Activity</h4>
+    <p>Member since 2024</p>
   `;
-
   modal.style.display = "flex";
 }
 
-function closeDetail() { document.getElementById("detailModal").style.display = "none"; }
-
-function openAddSpaceModal() { document.getElementById("addSpaceModal").style.display = "flex"; }
-function closeAddSpaceModal() { document.getElementById("addSpaceModal").style.display = "none"; }
-
-function openProfile(userId) {
-  const user = getUser(userId);
-  document.getElementById("profileContent").innerHTML = `
-    <button style="float:right" onclick="closeProfile()">X</button>
-    <div style="text-align:center">
-      <img src="${user.avatar}" style="width:80px; border-radius:50%">
-      <h3>${user.name}</h3>
-      <p>${user.bio}</p>
-    </div>
-  `;
-  document.getElementById("profileModal").style.display = "flex";
+function closeProfile() {
+  document.getElementById("profileModal").style.display = "none";
 }
-function closeProfile() { document.getElementById("profileModal").style.display = "none"; }
 
-// Handle background clicks to close
-window.onclick = function(e) {
-  if (e.target.className.includes("modal")) {
-    closeDetail();
-    closeProfile();
-    closeAddSpaceModal();
-  }
+// Add Space Modal Logic
+function openAddSpaceModal() {
+  document.getElementById('addSpaceModal').style.display = 'flex';
 }
+
+function closeAddSpaceModal() {
+  document.getElementById('addSpaceModal').style.display = 'none';
+}
+
+// Handle Background Clicks to close all modals
+window.onclick = function(event) {
+  const detailModal = document.getElementById("detailModal");
+  const profileModal = document.getElementById("profileModal");
+  const addSpaceModal = document.getElementById("addSpaceModal");
+
+  if (event.target === detailModal) closeDetail();
+  if (event.target === profileModal) closeProfile();
+  if (event.target === addSpaceModal) closeAddSpaceModal();
+}
+
+/* ================= INITIALIZE ================= */
+renderThirdspaces();
+renderEvents();
 
 document.getElementById("myProfileBtn").onclick = () => openProfile(currentUser.id);
 
-/* INITIALIZE */
-renderThirdspaces();
-renderEvents();
+
+
 </script>
 
 </body>
