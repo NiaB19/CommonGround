@@ -599,14 +599,16 @@ function renderEvents(){
           <div class="posted-by">
             Posted by <span onclick="openProfile(${user.id})">${user.name}</span>
           </div>
-          <button class="like-btn">❤️ Like <span class="like-count">0</span></button>
+          <br>
+          <button class="like-btn">❤️ Like <span class="like-count"></span></button>
         </div>
       </div>
     `;
   });
 
   setupLikeButtons(); // <-- add here too
-}  
+}
+///-------------  
 
 /* ================= RENDER ================= */
 
@@ -630,14 +632,10 @@ function renderThirdspaces(){
           <div class="posted-by">
             Posted by <span onclick="openProfile(${user.id})">${user.name}</span>
           </div>
-          <br>
-          <button class="like-btn">❤️ Like <span class="like-count"></span></button>
         </div>
       </div>
     `;
   });
-
-  setupLikeButtons(); // <-- THIS LINE is important
 }
 
 
