@@ -1,229 +1,185 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval'; connect-src 'self' http://localhost:8000;">
-    <meta charset="UTF-8">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval'; connect-src 'self' http://localhost:8000; style-src 'self' 'unsafe-inline';">
+    
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CommonGround — Home</title>
+    <title>CommonGround — Thirdspace Finder</title>
+
     <style>
-        :root{ --bg:#f7f7fb; --card:#ffffff; --accent:#4f46e5; --muted:#6b7280 }
-        *{box-sizing:border-box}
-        body{margin:0;font-family:Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;background:var(--bg);color:#111}
-        /* Navbar */
-        .navbar{position:sticky;top:0;z-index:10;background:#fff;border-bottom:1px solid #e6e6f0;display:flex;align-items:center;justify-content:space-between;padding:12px 20px}
-        .brand{display:flex;align-items:center;gap:12px}
-        .brand .logo{width:36px;height:36px;border-radius:8px;background:linear-gradient(135deg,var(--accent),#06b6d4)}
-        .brand h1{font-size:16px;margin:0}
-        .nav-actions{display:flex;align-items:center;gap:12px}
-        .nav-tabs{display:flex;gap:10px;margin-left:18px}
-        .nav-tabs a{color:#374151;text-decoration:none;padding:8px 12px;border-radius:8px;font-size:14px}
-        .nav-tabs a:hover{background:#f3f4f6}
-        .nav-tabs a.active{background:var(--accent);color:#fff}
-        .login-btn{background:transparent;border:1px solid #e6e6f0;padding:6px 10px;border-radius:8px;cursor:pointer;color:#374151}
-        .login-btn:hover{background:#f3f4f6}
-        .search{position:relative;display:flex;align-items:center;gap:8px;background:#f1f2fb;padding:6px 8px;border-radius:10px}
-        .search .search-icon{position:absolute;left:10px;top:50%;transform:translateY(-50%);width:18px;height:18px;color:#6b7280;pointer-events:none;display:block}
-        .search input{padding-left:36px;border:0;background:transparent;outline:none;width:220px}
-        .filter-btn{position:absolute;right:92px;top:50%;transform:translateY(-50%);background:transparent;border:0;padding:6px;border-radius:6px;cursor:pointer;display:inline-flex;align-items:center;justify-content:center}
-        .filter-panel{position:absolute;top:calc(100% + 8px);right:0;width:320px;background:#fff;border:1px solid #e6e6f0;padding:12px;border-radius:8px;box-shadow:0 12px 30px rgba(2,6,23,0.08);display:none;z-index:60}
-        .filter-panel.show{display:block}
-        .filter-panel label{display:block;font-size:13px;color:#374151;margin-bottom:8px}
-        .filter-panel select{width:100%;padding:8px;border-radius:6px;border:1px solid #e6e6f0;background:#fff}
-        .profile-link{display:inline-block;width:36px;height:36px;margin-left:4px}
-        .profile-pic{width:100%;height:100%;border-radius:50%;object-fit:cover;border:1px solid rgba(0,0,0,0.08);display:block}
-        .btn{background:var(--accent);color:#fff;padding:8px 12px;border-radius:8px;border:0;cursor:pointer}
-        .profile-btn{display:flex;align-items:center;gap:8px;background:transparent;border:1px solid #e6e6f0;padding:6px 10px;border-radius:8px;cursor:pointer}
+    /* 2. STYLE (Merged: Team Design + Your Variables) */
+    :root {
+      --bg: #4de8af; 
+      --card: #ffffff;
+      --accent: #4f46e5;
+      --muted: #6b7280;
+    }
 
-        /* Page layout */
-        .container{max-width:1100px;margin:20px auto;padding:0 20px}
-        .section{margin:20px 0}
-        .section h2{margin:0 0 12px 0;font-size:18px}
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: monospace;
+      font-size: 18px;
+      background: var(--bg);
+      color: #111;
+    }
 
-        /* Horizontal card rows */
-        .cards-row{display:flex;gap:16px;overflow-x:auto;padding-bottom:8px;padding-top:8px;scroll-snap-type:x mandatory}
-        .cards-row::-webkit-scrollbar{height:10px}
-        .cards-row::-webkit-scrollbar-thumb{background:#d1d5db;border-radius:6px}
-        .card{flex:0 0 260px;background:var(--card);border-radius:12px;padding:14px;box-shadow:0 6px 18px rgba(15,23,42,0.06);scroll-snap-align:start}
-        .card .thumb{height:120px;border-radius:10px;background:linear-gradient(135deg,#a78bfa,#60a5fa);display:flex;align-items:flex-end;color:#fff;padding:12px;font-weight:700}
-        .card h3{margin:10px 0 6px;font-size:16px}
-        .card p{margin:0;color:var(--muted);font-size:13px}
+    /* NAVBAR */
+    .navbar {
+      background: #aaf4d7;
+      border-bottom: 1px solid #e6e6f0;
+      padding: 12px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
 
-        /* Responsive */
-        @media (max-width:640px){.search input{width:120px}.card{flex:0 0 200px}}
+    .brand { display: flex; align-items: center; gap: 10px; }
+    .logo { width: 80px; height: 80px; object-fit: contain; }
+    .profile-btn { background: #eef2ff; padding: 6px 10px; border-radius: 8px; cursor: pointer; }
+
+    /* LAYOUT */
+    .container { max-width: 1100px; margin: 20px auto; padding: 0 20px; }
+    .section { margin-bottom: 40px; }
+    .cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 16px; }
+    .card { background: var(--card); border-radius: 12px; overflow: hidden; box-shadow: 0 6px 18px rgba(0,0,0,0.06); }
+    .card img { width: 100%; height: 150px; object-fit: cover; }
+    .card-content { padding: 14px; }
+    .card h3 { margin: 0 0 6px; }
+    .card p { margin: 4px 0; font-size: 13px; color: var(--muted); }
+    .posted-by { font-size: 12px; margin-top: 6px; }
+    .posted-by span { color: var(--accent); cursor: pointer; }
+
+    /* MODAL */
+    .modal { position: fixed; inset: 0; background: rgba(0,0,0,0.4); display: none; align-items: center; justify-content: center; }
+    .modal-content { background: #fff; padding: 20px; border-radius: 12px; width: 350px; max-height: 80vh; overflow: auto; }
+    
+    .add-space { background: #4f46e5; color: #fff; padding: 6px 12px; font-size: 0.9rem; border: none; border-radius: 6px; cursor: pointer; }
+    .category-tabs { display: flex; justify-content: center; align-items: center; gap: 16px; margin: 16px 0; }
+    .section-header { display: flex; align-items: center; gap: 8px; margin-bottom: 12px; }
+    .section-header h2 { margin: 0; font-size: 1.2rem; }
     </style>
-    <script>
-        function onSearch(e){e.preventDefault();const q=document.getElementById('q').value.trim();console.log('Search for',q);}
-    </script>
-    </style>
-    <script>
-        function onSearch(e){e.preventDefault();const q=document.getElementById('q').value.trim();console.log('Search for',q);}
-        function focusSearch(){const el=document.getElementById('q');if(el){el.focus();el.scrollIntoView({behavior:'smooth',block:'center'})}}
-    </script>
 </head>
+
 <body>
-    <nav class="navbar">
-        <div style="display:flex;align-items:center;">
-            <div class="brand">
-                <div class="logo" aria-hidden="true"></div>
-                <h1>CommonGround</h1>
-            </div>
-            <div class="nav-tabs" role="tablist" aria-label="Main tabs">
-                <a href="#home" class="active" role="tab">Home</a>
-                <a href="#thirdspaces" role="tab">Thirdspaces</a>
-                <a href="#events" role="tab">Events</a>
-                <a href="create.html" role="tab">Create Event</a>
-                <a href="#about" role="tab">About</a>
-            </div>
-        </div>
-        <div class="nav-actions">
-            <form class="search" onsubmit="onSearch(event)">
-                <svg class="search-icon" viewBox="0 0 24 24" width="18" height="18" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                    <path d="M21 21l-4.35-4.35" stroke="#6b7280" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                    <circle cx="11" cy="11" r="6" stroke="#6b7280" stroke-width="1.5" fill="none"/>
-                </svg>
-                <input id="q" type="search" placeholder="Search thirdspaces or events" aria-label="Search">
-                <button type="button" class="filter-btn" aria-expanded="false" aria-controls="filterPanel" onclick="toggleFilters(event)" title="Filters">
-                    <svg viewBox="0 0 24 24" width="16" height="16" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                        <path d="M4 6h16M7 12h10M10 18h4" stroke="#6b7280" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                    </svg>
-                </button>
-                <div class="filter-panel" id="filterPanel" role="region" aria-hidden="true">
-                    <label for="filter-cost">Cost</label>
-                    <select id="filter-cost">
-                        <option value="">Any</option>
-                        <option value="free">Free</option>
-                        <option value="$">$</option>
-                        <option value="$$">$$</option>
-                        <option value="$$$">$$$</option>
-                    </select>
 
-                    <label for="filter-people" style="margin-top:8px">People</label>
-                    <select id="filter-people">
-                        <option value="">Any</option>
-                        <option value="1-5">1–5</option>
-                        <option value="6-15">6–15</option>
-                        <option value="16-50">16–50</option>
-                        <option value="50+">50+</option>
-                    </select>
+<div class="navbar">
+  <div class="brand">
+    <img src="./logo.png" alt="CommonGround Logo" class="logo">
+    <h1>CommonGround</h1>
+  </div>
 
-                    <label for="filter-age" style="margin-top:8px">Age</label>
-                    <select id="filter-age">
-                        <option value="">All ages</option>
-                        <option value="18+">18+</option>
-                        <option value="21+">21+</option>
-                    </select>
+  <div class="category-tabs">
+    <button class="category-tab active" data-category="Creative" style="background-color: #0688d4; color: white; border-radius: 10px; padding: 10px;">Creative</button>
+    <button class="category-tab" data-category="Quiet" style="background-color: #0688d4; color: white; border-radius: 10px; padding: 10px;">Quiet</button>
+    <button class="category-tab" data-category="Active" style="background-color: #0688d4; color: white; border-radius: 10px; padding: 10px;">Active</button>
+    <button class="category-tab" data-category="Social" style="background-color: #0688d4; color: white; border-radius: 10px; padding: 10px;">Social</button>
+    <button class="category-tab" data-category="Other" style="background-color: #0688d4; color: white; border-radius: 10px; padding: 10px;">Other</button>
+  </div>
 
-                    <label for="filter-rating" style="margin-top:8px">Rating</label>
-                    <select id="filter-rating">
-                        <option value="">Any</option>
-                        <option value="4">4+ stars</option>
-                        <option value="3">3+ stars</option>
-                        <option value="2">2+ stars</option>
-                    </select>
+  <div class="profile-btn" id="myProfileBtn">My Profile</div>
+</div>
 
-                    <div style="display:flex;gap:8px;margin-top:10px">
-                        <button type="button" class="btn" onclick="applyFilters()">Apply</button>
-                        <button type="button" class="login-btn" onclick="clearFilters()">Clear</button>
-                    </div>
-                </div>
-                <button class="btn" type="submit">Search</button>
-            </form>
-            <a href="login.html"><button class="login-btn">Login</button></a>
-            <a href="profile.html" class="profile-link" aria-label="Profile">
-                <img src="images/avatar.jpg" alt="Profile" class="profile-pic">
-            </a>
-        </div>
-    </nav>
-
-    <main class="container" id="home">
-        <section class="section">
-            <h2>Thirdspaces Near Me</h2>
-            <div class="cards-row" role="list">
-                <article class="card" role="listitem">
-                    <div class="thumb">Cafe Commons</div>
-                    <h3>Cozy Cafe</h3>
-                    <p>Open now • Free Wi‑Fi • 0.4 mi</p>
-                </article>
-                <article class="card" role="listitem">
-                    <div class="thumb">Library Hub</div>
-                    <h3>Community Library</h3>
-                    <p>Study spaces • Events • 0.7 mi</p>
-                </article>
-                <article class="card" role="listitem">
-                    <div class="thumb">Park Table</div>
-                    <h3>Riverside Park</h3>
-                    <p>Outdoor seating • Dog friendly • 1.2 mi</p>
-                </article>
-                <article class="card" role="listitem">
-                    <div class="thumb">Studio</div>
-                    <h3>Makerspace</h3>
-                    <p>Workshops • Tools • 1.5 mi</p>
-                </article>
-            </div>
-        </section>
-
-        <section class="section">
-            <h2>Events Near Me</h2>
-            <div class="cards-row" role="list">
-                <article class="card" role="listitem">
-                    <div class="thumb">Music</div>
-                    <h3>Open Mic Night</h3>
-                    <p>Tonight • 7:30 PM • 0.6 mi</p>
-                </article>
-                <article class="card" role="listitem">
-                    <div class="thumb">Market</div>
-                    <h3>Farmers Market</h3>
-                    <p>Sat • Fresh produce • 1.1 mi</p>
-                </article>
-                <article class="card" role="listitem">
-                    <div class="thumb">Talk</div>
-                    <h3>Design Meetup</h3>
-                    <p>Wed • Networking • 0.9 mi</p>
-                </article>
-                <article class="card" role="listitem">
-                    <div class="thumb">Kids</div>
-                    <h3>Outdoor Yoga</h3>
-                    <p>Sun • Free • 2.0 mi</p>
-                </article>
-            </div>
-        </section>
-    </main>
-
-    <style>
-        /* Chatbot floating button + window */
-        .chatbot{position:fixed;right:20px;bottom:20px;width:56px;height:56px;border-radius:999px;background:var(--accent);display:inline-flex;align-items:center;justify-content:center;color:#fff;box-shadow:0 8px 24px rgba(79,70,229,0.18);border:0;cursor:pointer;z-index:60}
-        .chatbot svg{display:block}
-        .chat-window{position:fixed;right:20px;bottom:90px;width:340px;height:420px;background:#fff;border-radius:12px;box-shadow:0 12px 40px rgba(2,6,23,0.12);overflow:hidden;z-index:70;border:1px solid #e6e6f0;display:flex;flex-direction:column}
-        .chat-window header{padding:10px 12px;border-bottom:1px solid #eef2ff;display:flex;align-items:center;justify-content:space-between;background:linear-gradient(90deg, rgba(79,70,229,0.06), rgba(6,182,212,0.03))}
-        .chat-window .messages{flex:1;padding:12px;overflow:auto;background:#fbfbfe}
-        .chat-window .msg{margin:8px 0;max-width:80%;padding:8px 10px;border-radius:10px;font-size:14px}
-        .chat-window .msg.user{background:#e6eefc;margin-left:auto}
-        .chat-window .msg.assistant{background:#f3f4f6;margin-right:auto}
-        .chat-window footer{padding:8px;border-top:1px solid #f1f5f9;display:flex;gap:8px}
-        .chat-window input{flex:1;padding:8px;border:1px solid #e6e6f0;border-radius:8px;outline:none}
-        .chat-close{background:transparent;border:0;cursor:pointer;color:#374151;font-size:16px}
-    </style>
-
-    <!-- Chatbot UI -->
-    <button class="chatbot" id="chatbotBtn" aria-label="Open chat">
-        <svg viewBox="0 0 24 24" width="24" height="24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-            <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v10z" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-        </svg>
-    </button>
-
-    <div class="chat-window" id="chatWindow" style="display:none" role="region" aria-label="Chatbot window">
-        <header>
-            <strong>Assistant</strong>
-            <button class="chat-close" id="chatClose" aria-label="Close chat">✕</button>
-        </header>
-        <div class="messages" id="chatMessages"></div>
-        <footer>
-            <input id="chatInput" type="text" placeholder="Ask me anything..." aria-label="Chat input">
-            <button id="chatSend" class="btn">Send</button>
-        </footer>
+<main class="container">
+  <section class="section">
+    <div class="section-header">
+      <h2>Thirdspaces</h2>
+      <button class="add-space" type="button" onclick="window.location.href='./add-thirdspace.html'">Add a Thirdspace</button>
     </div>
+    <div class="cards" id="thirdspaceContainer"></div>
+  </section>
 
-<script src="app.js"></script>
+  <section class="section">
+    <div class="section-header">
+      <h2>Events</h2>
+      <button class="add-space" onclick="window.location.href='./add-event.html'">Post an Event</button>
+    </div>
+    <div class="cards" id="eventContainer"></div>
+  </section>
+</main>
+
+<div class="modal" id="profileModal">
+  <div class="modal-content" id="profileContent"></div>
+</div>
+
+<script>
+/* ================= USERS & DATA ================= */
+const users = [
+  { id:1, name:"Alex Rivera", bio:"Community builder & coffee lover", avatar:"https://randomuser.me/api/portraits/men/32.jpg" },
+  { id:2, name:"Jamie Chen", bio:"Outdoor enthusiast & event host", avatar:"https://randomuser.me/api/portraits/women/44.jpg" }
+];
+
+const currentUser = users[0];
+
+const thirdspaces = [
+    { "name": "Veterans Park", image:"https://images.unsplash.com/photo-1501339847302-ac426a4a7cbb", postedBy:1, description: "Great for pickeball sessions, picnics, walks, and volleyball." },
+    { "name": "New Brunswick Library", image:"https://images.unsplash.com/photo-1501339847302-ac426a4a7cbb", postedBy:1, description: "Good place for meet ups and browsing." }
+    // ... add your other data here
+];
+
+const events = [
+    { "event_id": 1, "title": "Pickleball Mixer", "image": "https://images.unsplash.com/photo-1501339847302-ac426a4a7cbb", "description": "Open play for all skill levels.", postedBy: 2 },
+    { "event_id": 2, "title": "Silent Reading Hour", "image": "https://images.unsplash.com/photo-1501339847302-ac426a4a7cbb", "description": "Bring your current read.", postedBy: 2 }
+];
+
+/* ================= RENDER LOGIC ================= */
+function getUser(id) { return users.find(u => u.id === id); }
+
+function renderThirdspaces() {
+  const container = document.getElementById("thirdspaceContainer");
+  container.innerHTML = "";
+  thirdspaces.forEach(space => {
+    const user = getUser(space.postedBy);
+    container.innerHTML += `
+      <div class="card">
+        <img src="${space.image}">
+        <div class="card-content">
+          <h3>${space.name}</h3>
+          <p>${space.description}</p>
+          <div class="posted-by">Posted by <span onclick="openProfile(${user.id})">${user.name}</span></div>
+        </div>
+      </div>`;
+  });
+}
+
+function renderEvents() {
+  const container = document.getElementById("eventContainer");
+  container.innerHTML = "";
+  events.forEach(event => {
+    const user = getUser(event.postedBy);
+    container.innerHTML += `
+      <div class="card">
+        <img src="${event.image}">
+        <div class="card-content">
+          <h3>${event.title}</h3>
+          <p>${event.description}</p>
+          <div class="posted-by">Posted by <span onclick="openProfile(${user.id})">${user.name}</span></div>
+        </div>
+      </div>`;
+  });
+}
+
+function openProfile(userId) {
+  const user = getUser(userId);
+  const modal = document.getElementById("profileModal");
+  const content = document.getElementById("profileContent");
+  content.innerHTML = `
+    <div style="text-align:center">
+      <img src="${user.avatar}" style="width:80px;border-radius:50%">
+      <h3>${user.name}</h3>
+      <p>${user.bio}</p>
+    </div>
+    <button onclick="closeProfile()">Close</button>`;
+  modal.style.display = "flex";
+}
+
+function closeProfile() { document.getElementById("profileModal").style.display = "none"; }
+
+document.getElementById("myProfileBtn").onclick = () => openProfile(currentUser.id);
+
+renderThirdspaces();
+renderEvents();
+</script>
 </body>
 </html>

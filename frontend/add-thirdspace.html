@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Add a Thirdspace</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <style>
+    body {
+      font-family: Inter, system-ui, -apple-system, sans-serif;
+      margin: 0;
+      padding: 20px;
+      background: #f7f7fb;
+      color: #111;
+    }
+    h1 {
+      font-size: 1.6rem;
+      margin-bottom: 1rem;
+      color: #072d6f;
+    }
+    form {
+      max-width: 600px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+    label {
+      display: flex;
+      flex-direction: column;
+      font-size: 0.9rem;
+      color: #333;
+    }
+    input[type="text"],
+    textarea,
+    select {
+      padding: 8px;
+      border: 1px solid #d1d5db;
+      border-radius: 6px;
+      font-size: 1rem;
+      margin-top: 4px;
+    }
+    textarea { resize: vertical; }
+    .checkbox-group,
+    .radio-group,
+    .vibe-group {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    .checkbox-group label,
+    .radio-group label,
+    .vibe-group label {
+      flex: 1 1 45%;
+      display: flex;
+      align-items: center;
+    }
+    .checkbox-group input,
+    .radio-group input {
+      margin-right: 6px;
+    }
+    input[type="range"] {
+      width: 100%;
+      margin-top: 6px;
+    }
+    .form-footer {
+      display: flex;
+      justify-content: flex-end;
+      gap: 10px;
+    }
+    button {
+      padding: 10px 16px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 1rem;
+    }
+    button.submit { background: #4f46e5; color: #fff; }
+    button.reset { background: transparent; border: 1px solid #6b7280; color: #6b7280; }
+    @media (max-width: 480px) {
+      .checkbox-group label,
+      .radio-group label,
+      .vibe-group label { flex: 1 1 100%; }
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Add a Thirdspace</h1>
+
+  <form id="thirdspaceForm" novalidate>
+    <!-- basics -->
+    <label for="name">
+      Space name <span aria-hidden="true" style="color:red">*</span>
+      <input id="name" name="name" type="text" required aria-required="true" />
+    </label>
+
+    <label for="category">
+      Category
+      <select id="category" name="category" required>
+        <option value="">Select one</option>
+        <option value="cafe">Cafe</option>
+        <option value="library">Library</option>
+        <option value="park">Public Park</option>
+        <option value="community">Community Center</option>
+        <option value="other">Other</option>
+      </select>
+    </label>
+
+    <label for="location">
+      Location / address <span aria-hidden="true" style="color:red">*</span>
+      <input id="location" name="location" type="text" required aria-required="true" />
+    </label>
+
+    <label for="description">
+      Description
+      <textarea id="description" name="description" rows="4"></textarea>
+    </label>
+
+    <label for="amenities">
+      Amenities (comma‑separated)
+      <input id="amenities" name="amenities" type="text" placeholder="Wi-Fi, Outdoor seating, Dog-friendly…" />
+    </label>
+
+    <!-- essentials -->
+    <fieldset>
+      <legend>The essentials</legend>
+      <div class="checkbox-group">
+        <label><input type="checkbox" name="essentials" value="wifi" />High‑speed Wi‑Fi</label>
+        <label><input type="checkbox" name="essentials" value="outlets" />Power outlets</label>
+        <label><input type="checkbox" name="essentials" value="outdoor" />Outdoor seating</label>
+        <label><input type="checkbox" name="essentials" value="restrooms" />All‑gender restrooms</label>
+      </div>
+    </fieldset>
+
+    <!-- vibe -->
+    <fieldset>
+      <legend>The vibe</legend>
+      <div class="vibe-group">
+        <label><input type="checkbox" name="vibe" value="silent" />Silent / library</label>
+        <label><input type="checkbox" name="vibe" value="studious" />Studious</label>
+        <label><input type="checkbox" name="vibe" value="balanced" />Balanced</label>
+        <label><input type="checkbox" name="vibe" value="social" />Social</label>
+        <label><input type="checkbox" name="vibe" value="high-energy" />High‑energy</label>
+      </div>
+      <label for="vibeslider">Energy slider</label>
+      <input id="vibeslider" name="vibeslider" type="range" min="1" max="5" value="3" aria-valuemin="1" aria-valuemax="5" aria-valuenow="3" />
+    </fieldset>
+
+    <!-- access/cost -->
+    <fieldset>
+      <legend>Access / cost</legend>
+      <div class="radio-group">
+        <label><input type="radio" name="cost" value="free" checked />Free</label>
+        <label><input type="radio" name="cost" value="purchase" />Purchase required</label>
+        <label><input type="radio" name="cost" value="student" />Student‑ID only</label>
+      </div>
+    </fieldset>
+
+    <!-- student context -->
+    <fieldset>
+      <legend>Student perks / transit</legend>
+      <label>
+        Student discount?
+        <select name="studentPerk">
+          <option value="">None</option>
+          <option value="discount">Discount</option>
+          <option value="free">Free entry</option>
+        </select>
+      </label>
+      <label>
+        Transit / walkability notes
+        <textarea name="transit" rows="2" placeholder="Campus bus, 10‑minute walk from College Ave…"></textarea>
+      </label>
+    </fieldset>
+
+    <label for="protip">
+      Pro‑tip (best spot to sit, secret menu item…)
+      <textarea id="protip" name="protip" rows="3"></textarea>
+    </label>
+
+    <div class="form-footer">
+      <button type="reset" class="reset">Reset</button>
+      <button type="submit" class="submit">Submit</button>
+    </div>
+  </form>
+
+  <script>
+    document.getElementById('thirdspaceForm').addEventListener('submit', function (e) {
+      e.preventDefault();
+      const form = e.target;
+      if (!form.checkValidity()) {
+        form.reportValidity();
+        return;
+      }
+      const data = {
+        name: form.name.value.trim(),
+        category: form.category.value,
+        location: form.location.value.trim(),
+        description: form.description.value.trim(),
+        amenities: form.amenities.value.split(',').map(s => s.trim()).filter(Boolean),
+        essentials: Array.from(form.elements['essentials'])
+                         .filter(i => i.checked).map(i => i.value),
+        vibe: Array.from(form.elements['vibe'])
+                   .filter(i => i.checked).map(i => i.value),
+        vibeslider: form.vibeslider.value,
+        cost: form.cost.value,
+        studentPerk: form.studentPerk.value,
+        transit: form.transit.value.trim(),
+        protip: form.protip.value.trim(),
+        submittedAt: new Date().toISOString()
+      };
+      console.log('thirdspace submission', JSON.stringify(data, null, 2));
+      // TODO: POST to backend endpoint
+      alert('Thank you! see console for JSON.');
+      form.reset();
+    });
+  </script>
+</body>
+</html>
