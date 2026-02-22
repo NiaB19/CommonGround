@@ -3,152 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="style.css">
 <title>CommonGround — Thirdspace Finder</title>
-
-<style>
-:root{
-  --bg:#4de8af;
-  --card:#ffffff;
-  --accent:#4f46e5;
-  --muted:#6b7280;
-}
-
-*{box-sizing:border-box}
-body{
-  margin:0;
-  font-family:monospace;
-  font-size: 18px;
-  background:var(--bg);
-  color:#111;
-}
-
-/* NAVBAR */
-.navbar{
-  background:#aaf4d7;
-  border-bottom:1px solid #e6e6f0;
-  padding:12px 20px;
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-}
-
-.brand {
-  display: flex;
-  align-items: center;
-  gap: 10px; /* space between logo and text */
-}
-
-.logo {
-  width: 80px;       /* adjust size as needed */
-  height: 80px;
-  object-fit: contain; 
-}
-
-.profile-btn{
-  background:#eef2ff;
-  padding:6px 10px;
-  border-radius:8px;
-  cursor:pointer;
-}
-
-/* LAYOUT */
-.container{
-  max-width:1100px;
-  margin:20px auto;
-  padding:0 20px;
-}
-
-.section{margin-bottom:40px}
-
-.cards{
-  display:grid;
-  grid-template-columns:repeat(auto-fill,minmax(260px,1fr));
-  gap:16px;
-}
-
-.card{
-  background:var(--card);
-  border-radius:12px;
-  overflow:hidden;
-  box-shadow:0 6px 18px rgba(0,0,0,0.06);
-}
-
-.card img{
-  width:100%;
-  height:150px;
-  object-fit:cover;
-}
-
-.card-content{padding:14px}
-
-.card h3{margin:0 0 6px}
-
-.card p{
-  margin:4px 0;
-  font-size:13px;
-  color:var(--muted);
-}
-
-.posted-by{
-  font-size:12px;
-  margin-top:6px;
-}
-
-.posted-by span{
-  color:var(--accent);
-  cursor:pointer;
-}
-
-/* MODAL */
-.modal{
-  position:fixed;
-  inset:0;
-  background:rgba(0,0,0,0.4);
-  display:none;
-  align-items:center;
-  justify-content:center;
-}
-
-.modal-content{
-  background:#fff;
-  padding:20px;
-  border-radius:12px;
-  width:350px;
-  max-height:80vh;
-  overflow:auto;
-}
-
-/* blue button used in a couple of places */
-.add-space {
-  background: #4f46e5;         /* blue */
-  color: #fff;
-  padding: 6px 12px;
-  font-size: 0.9rem;
-  border: none;
-  border-radius: 6px;
-  cursor: pointer;
-}
-.add-space:hover,
-.add-space:focus { background: #3730a3; }
-
-/* ensure the category row and button stay aligned */
-.category-tabs {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 16px;
-  margin: 16px 0;
-}
-
-/* header for each section – title + optional action button */
-.section-header {
-  display: flex;          /* keep title & button on one line */
-  align-items: center;
-  gap: 8px;               /* space between title and button */
-  margin-bottom: 12px;    /* optional extra breathing room */
-}
-.section-header h2 { margin: 0; font-size: 1.2rem; }
-</style>
 </head>
 
 <body>
@@ -185,7 +41,7 @@ body{
       <h2>Thirdspaces</h2>
       <button class="add-space" type="button" style="font-family: monospace;"
               onclick="window.location.href='./add-thirdspace.html'">
-        Add a Thirdspace <span style="color:#fff;">➕</span>
+        Add a Thirdspace
       </button>
     </div>
 
@@ -196,13 +52,17 @@ body{
     <div class="section-header">
       <h2>Events</h2>
       <button class="add-space" onclick="window.location.href='./add-event.html'" style="font-family: monospace;">
-        Post an Event <span style="color:#fff;">➕</span>
+        Post an Event
       </button>
     </div>
     <div class="cards" id="eventContainer"></div>
   </section>
 
 </main>
+
+<div class="detail-modal" id="detailModal">
+  <div class="detail-content" id="detailContent"></div>
+</div>
 
 <!-- PROFILE MODAL -->
 <div class="modal" id="profileModal">
@@ -258,11 +118,12 @@ const thirdspaces =
     image:"https://images.unsplash.com/photo-1585938389612-a552a28d6914?w=900&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8cGFya3xlbnwwfHwwfHx8Mg%3D%3D",
     postedBy:1,
     "lat": 40.3970518, "lng": -74.3573709,
-    "is_quiet": false,
-    "is_free": true,
-    "_kid-friendly": false,
-    "is_ada": true,
-    "solo_friendly": true,
+    "is_creative": false,
+    "is_quiet": true,
+    "is_active": false,
+    "is_social": true,
+    "is_other": true,
+    "money_required": "Free",
     "description": "Great for pickeball sessions, picnics, walks, and volleyball."
     },
 
@@ -271,11 +132,12 @@ const thirdspaces =
     image:"https://images.unsplash.com/photo-1521587760476-6c12a4b040da?w=900&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8bGlicmFyeXxlbnwwfHwwfHx8Mg%3D%3D",
     postedBy:2,
     "lat": 40.4913782, "lng": -74.4453930,
-    "is_quiet": false,
-    "is_free": true,
-    "_kid-friendly": true,
-    "is_ada": true,
-    "solo_friendly": false,
+    "is_creative": false,
+    "is_quiet": true,
+    "is_active": false,
+    "is_social": true,
+    "is_other": true,
+    "money_required": "Free",
     "description": "Good place for meet ups, browsing, and activities for kids"
     },
 
@@ -284,11 +146,12 @@ const thirdspaces =
     image:"https://images.unsplash.com/photo-1519331379826-f10be5486c6f?w=900&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8cGFya3xlbnwwfHwwfHx8Mg%3D%3D",
     postedBy:3,
     "lat": 40.5048264, "lng": -74.4595969,
-    "is_quiet": false,
-    "is_free": false,
-    "_kid-friendly": false,
-    "is_ada": true,
-    "solo_friendly": false,
+    "is_creative": false,
+    "is_quiet": true,
+    "is_active": false,
+    "is_social": true,
+    "is_other": true,
+    "money_required": "Free",
     "description": "Good place walks and looking at flowers"
     },
 
@@ -297,11 +160,12 @@ const thirdspaces =
     image:"https://images.unsplash.com/photo-1572953109213-3be62398eb95?w=900&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NHx8bXVzZXVtfGVufDB8fDB8fHwy",
     postedBy:4,
     "lat": 40.4986490, "lng": -74.4466806,
-    "is_quiet": false,
-    "is_free": true,
-    "_kid-friendly": false,
-    "is_ada": false,
-    "solo_friendly": false,
+    "is_creative": false,
+    "is_quiet": true,
+    "is_active": false,
+    "is_social": true,
+    "is_other": true,
+    "money_required": "Free",
     "description": "Good place for meet ups, browsing, and activities for kids"
     },
 
@@ -310,11 +174,12 @@ const thirdspaces =
     image:"https://images.unsplash.com/photo-1554118811-1e0d58224f24?w=900&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NHx8Y2FmZXxlbnwwfHwwfHx8Mg%3D%3D",
     postedBy:5,
     "lat": 40.486667, "lng": -74.444444,
+    "is_creative": false,
     "is_quiet": true,
-    "is_free": true,
-    "_kid-friendly": false,
-    "is_ada": true,
-    "solo_friendly": false,
+    "is_active": false,
+    "is_social": true,
+    "is_other": true,
+    "money_required": "Free",
     "description": "Good place for meet ups, browsing, and activities for kids"
     },
 
@@ -323,11 +188,12 @@ const thirdspaces =
     image:"https://images.unsplash.com/photo-1592859600972-1b0834d83747?w=900&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NXx8dHJhaWx8ZW58MHx8MHx8fDI%3D",
     postedBy:4,
     "lat": 40.5389923, "lng": -74.5721009,
-    "is_quiet": false,
-    "is_free": true,
-    "_kid-friendly": true,
-    "is_ada": true,
-    "solo_friendly": false,
+    "is_creative": false,
+    "is_quiet": true,
+    "is_active": false,
+    "is_social": true,
+    "is_other": true,
+    "money_required": "Free",
     "description": "Good place for meet ups, browsing, and activities for kids"
     },
 
@@ -336,11 +202,12 @@ const thirdspaces =
     image:"https://images.unsplash.com/photo-1558970439-add78fc68990?w=900&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NXx8dGhlYXRyZXxlbnwwfHwwfHx8Mg%3D%3D",
     postedBy:2,
     "lat": 40.493341, "lng": -74.44462,
-    "is_quiet": false,
-    "is_free": true,
-    "_kid-friendly": false,
-    "is_ada": true,
-    "solo_friendly": true,
+    "is_creative": false,
+    "is_quiet": true,
+    "is_active": false,
+    "is_social": true,
+    "is_other": true,
+    "money_required": "Free",
     "description": "Good place for meet ups, browsing, and activities for kids"
     },
 
@@ -349,11 +216,12 @@ const thirdspaces =
     image:"https://images.unsplash.com/photo-1717500252709-05a73fc4f1da?w=900&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8cGlsYXRlcyUyMHN0dWRpb3xlbnwwfHwwfHx8Mg%3D%3D",
     postedBy:3,
     "lat": 40.54207127548425, "lng": -74.3606030999999,
-    "is_quiet": false,
-    "is_free": false,
-    "_kid-friendly": false,
-    "is_ada": true,
-    "solo_friendly": false,
+    "is_creative": false,
+    "is_quiet": true,
+    "is_active": false,
+    "is_social": true,
+    "is_other": true,
+    "money_required": "Free",
     "description": "Good place for meet ups, browsing, and activities for kids"
     },
 
@@ -362,10 +230,12 @@ const thirdspaces =
     image:"https://images.unsplash.com/photo-1491245338813-c6832976196e?w=900&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8cGFpbnQlMjBhbmQlMjBzaXB8ZW58MHx8MHx8fDI%3D",
     postedBy:1,
     "lat": 40.508614, "lng": -74.372064,"is_quiet": false,
-    "is_free": false,
-    "_kid-friendly": false,
-    "is_ada": true,
-    "solo_friendly": false,
+    "is_creative": false,
+    "is_quiet": true,
+    "is_active": false,
+    "is_social": true,
+    "is_other": true,
+    "money_required": "Free",
     "description": "Good place for meet ups, browsing, and activities for kids"
     },
 
@@ -374,11 +244,12 @@ const thirdspaces =
     image:"https://images.unsplash.com/photo-1604573332746-dd5b20e82aa6?w=900&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NXx8cGxhemF8ZW58MHx8MHx8fDI%3D",
     postedBy:1,
     "lat": 40.350, "lng": -74.661,
-    "is_quiet": false,
-    "is_free": true,
-    "_kid-friendly": true,
-    "is_ada": true,
-    "solo_friendly": false,
+    "is_creative": false,
+    "is_quiet": true,
+    "is_active": false,
+    "is_social": true,
+    "is_other": true,
+    "money_required": "Free",
     "description": "Good place for meet ups, browsing, and activities for kids"
     },
 
@@ -387,11 +258,12 @@ const thirdspaces =
     image:"https://images.unsplash.com/photo-1567880905822-56f8e06fe630?w=900&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8Y2FmZXxlbnwwfHwwfHx8Mg%3D%3D",
     postedBy:4,
     "lat": 40.5294098, "lng": -74.5569183,
-    "is_quiet": false,
-    "is_free": true,
-    "_kid-friendly": false,
-    "is_ada": true,
-    "solo_friendly": true,
+    "is_creative": false,
+    "is_quiet": true,
+    "is_active": false,
+    "is_social": true,
+    "is_other": true,
+    "money_required": "Free",
     "description": "Good place for meet ups, browsing, and activities for kids"
     },
 
@@ -400,10 +272,12 @@ const thirdspaces =
     image:"https://images.unsplash.com/photo-1677188010559-0667a1ed33a0?w=900&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8Ym9hcmQlMjBnYW1lc3xlbnwwfHwwfHx8Mg%3D%3D",
     postedBy:2,
     "lat": 40.73263, "lng": -73.99141,"is_quiet": false,
-    "is_free": true,
-    "_kid-friendly": false,
-    "is_ada": false,
-    "solo_friendly": false,
+    "is_creative": false,
+    "is_quiet": true,
+    "is_active": false,
+    "is_social": true,
+    "is_other": true,
+    "money_required": "Free",
     "description": "Good place for meet ups, browsing, and activities for kids"
     },
 
@@ -412,11 +286,12 @@ const thirdspaces =
     image:"https://images.unsplash.com/photo-1625923780302-53edca7b85f5?w=900&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8ZmFybSUyMGtpZHN8ZW58MHx8MHx8fDI%3D",
     postedBy:5,
     "lat": 40.3629483, "lng": -74.2095475,
-    "is_quiet": false,
-    "is_free": false,
-    "_kid-friendly": false,
-    "is_ada": true,
-    "solo_friendly": false,
+    "is_creative": false,
+    "is_quiet": true,
+    "is_active": false,
+    "is_social": true,
+    "is_other": true,
+    "money_required": "Free",
     "description": "Good place for meet ups, browsing, and activities for kids"
     },
 
@@ -425,11 +300,12 @@ const thirdspaces =
     image:"https://media.istockphoto.com/id/587540100/photo/new-york-city-brooklyn-bridge-park.webp?a=1&b=1&s=612x612&w=0&k=20&c=aqtowMnjAggiJgWuMSBVUelXAlz5pS9cOu4IR_CosAM=",
     postedBy:3,
     "lat": 40.7401224, "lng": -74.0259351,
-    "is_quiet": false,
-    "is_free": true,
-    "_kid-friendly": true,
-    "is_ada": true,
-    "solo_friendly": false,
+    "is_creative": false,
+    "is_quiet": true,
+    "is_active": false,
+    "is_social": true,
+    "is_other": true,
+    "money_required": "Free",
     "description": "Good place for meet ups, browsing, and activities for kids"
     },
 
@@ -438,11 +314,12 @@ const thirdspaces =
     image:"https://images.unsplash.com/photo-1692887526675-be36d4159dfd?w=900&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NHx8bmF0dXJhbCUyMHNjdWxwdHVyZXN8ZW58MHx8MHx8fDI%3D",
     postedBy:4,
     "lat": 40.23678, "lng": -74.71889,
-    "is_quiet": false,
-    "is_free": true,
-    "_kid-friendly": false,
-    "is_ada": true,
-    "solo_friendly": true,
+    "is_creative": false,
+    "is_quiet": true,
+    "is_active": false,
+    "is_social": true,
+    "is_other": true,
+    "money_required": "Free",
     "description": "Good place for meet ups, browsing, and activities for kids"
     }
 ];
@@ -583,141 +460,189 @@ const events = [
     }
   ]
 
-function renderEvents(){
-  const container = document.getElementById("eventContainer");
-  container.innerHTML = "";
 
-  events.forEach(event=>{
-    const user = getUser(event.postedBy);
-
-    container.innerHTML += `
-      <div class="card">
-        <img src="${event.image}">
-        <div class="card-content">
-          <h3>${event.title}</h3>
-          <p>${event.description}</p>
-          <div class="posted-by">
-            Posted by <span onclick="openProfile(${user.id})">${user.name}</span>
+  function renderEvents(){
+    const container = document.getElementById("eventContainer");
+    container.innerHTML = "";
+  
+    events.forEach(event=>{
+      const user = getUser(event.postedBy);
+  
+      container.innerHTML += `
+        <div class="card">
+          <img src="${event.image}">
+          <div class="card-content">
+            <h3>${event.title}</h3>
+            <div class="tag-container">
+              <span class="tag">${event.type}</span>
+            </div>
+            <p>${event.description}</p>
+            <div class="posted-by">
+              Posted by <span onclick="openProfile(${user.id})">${user.name}</span>
+            </div>
           </div>
-          <br>
-          <button class="like-btn">❤️ Like <span class="like-count"></span></button>
         </div>
-      </div>
-    `;
-  });
-
-  setupLikeButtons(); // <-- add here too
-}
+      `;
+    });
+  }
 ///-------------  
 
 /* ================= RENDER ================= */
 
-function getUser(id){
-  return users.find(u=>u.id===id);
+function getUser(id) {
+  return users.find(u => u.id === id) || users[0];
 }
 
-function renderThirdspaces(){
+// Render Thirdspaces
+function renderThirdspaces() {
   const container = document.getElementById("thirdspaceContainer");
+  if (!container) return;
   container.innerHTML = "";
 
-  thirdspaces.forEach(space=>{
+  thirdspaces.forEach((space, index) => {
     const user = getUser(space.postedBy);
+    
+    // Generate Red Tags
+    let tagsHTML = `<div class="tag-container">`;
+    if(space.is_creative) tagsHTML += `<span class="tag">Creative</span>`;
+    if(space.is_quiet)    tagsHTML += `<span class="tag">Quiet</span>`;
+    if(space.is_active)   tagsHTML += `<span class="tag">Active</span>`;
+    if(space.is_social)   tagsHTML += `<span class="tag">Social</span>`;
+    if(space.is_other)    tagsHTML += `<span class="tag">Other</span>`;
+    tagsHTML += `</div>`;
 
     container.innerHTML += `
-      <div class="card">
-        <img src="${space.image}">
+      <div class="card" onclick="openDetail('space', ${index})">
+        <img src="${space.image}" alt="${space.name}">
         <div class="card-content">
           <h3>${space.name}</h3>
+          ${tagsHTML}
           <p>${space.description}</p>
           <div class="posted-by">
-            Posted by <span onclick="openProfile(${user.id})">${user.name}</span>
+            Posted by <span onclick="event.stopPropagation(); openProfile(${user.id})">${user.name}</span>
           </div>
         </div>
-      </div>
-    `;
+      </div>`;
   });
 }
 
+// Render Events
+function renderEvents() {
+  const container = document.getElementById("eventContainer");
+  if (!container) return;
+  container.innerHTML = "";
 
+  events.forEach((ev, index) => {
+    const user = getUser(ev.postedBy);
 
-/* ================= PROFILE ================= */
+    container.innerHTML += `
+      <div class="card" onclick="openDetail('event', ${index})">
+        <img src="${ev.image}" alt="${ev.title}">
+        <div class="card-content">
+          <h3>${ev.title}</h3>
+          <div class="tag-container"><span class="tag">${ev.type}</span></div>
+          <p>${ev.description}</p>
+          <div class="posted-by">
+            Posted by <span onclick="event.stopPropagation(); openProfile(${user.id})">${user.name}</span>
+          </div>
+        </div>
+      </div>`;
+  });
+}
 
+/* ================= MODAL & INTERACTION LOGIC ================= */
+
+// Combined detail opener for both Spaces and Events
+function openDetail(type, index) {
+  const modal = document.getElementById("detailModal");
+  const content = document.getElementById("detailContent");
+  let data;
+
+  if (type === 'space') {
+    data = thirdspaces[index];
+    content.innerHTML = `
+      <button class="close-btn" onclick="closeDetail()" style="float:right; cursor:pointer; border:none; background:none; font-size:20px;">×</button>
+      <img src="${data.image}" style="width:100%; border-radius:10px; height:220px; object-fit:cover;">
+      <h2 style="margin-top:15px;">${data.name}</h2>
+      <p><strong>Cost:</strong> ${data.money_required || "Free"}</p>
+      <p><strong>About:</strong> ${data.description}</p>
+      <hr>
+      <p style="font-size:0.8em; color:gray;">Location: ${data.lat}, ${data.lng}</p>
+    `;
+  } else {
+    data = events[index];
+    content.innerHTML = `
+      <button class="close-btn" onclick="closeDetail()" style="float:right; cursor:pointer; border:none; background:none; font-size:20px;">×</button>
+      <img src="${data.image}" style="width:100%; border-radius:10px; height:220px; object-fit:cover;">
+      <h2 style="margin-top:15px;">${data.title}</h2>
+      <div class="tag-container"><span class="tag">${data.type}</span></div>
+      <p><strong>Where:</strong> ${data.location_name}</p>
+      <p><strong>When:</strong> ${data.date} at ${data.time}</p>
+      <p>${data.description}</p>
+      <button class="add-space" style="width:100%;" onclick="alert('RSVP Sent!')">RSVP Now</button>
+    `;
+  }
+
+  modal.style.display = "flex";
+  document.body.style.overflow = "hidden"; // Stop background scroll
+}
+
+function closeDetail() {
+  document.getElementById("detailModal").style.display = "none";
+  document.body.style.overflow = "auto";
+}
+
+// Profile Modal Logic
 function openProfile(userId) {
   const modal = document.getElementById("profileModal");
   const content = document.getElementById("profileContent");
-
-
-function createTag(text, color="#f0f0f0") {
-  return `<span style="
-    display:inline-block;
-    background-color:${color};
-    color:#333;
-    border-radius:12px;
-    padding:4px 10px;
-    margin:2px;
-    font-size:0.9em;
-  ">${text}</span>`;
-}
-  const now = new Date();
-
-  // User events
-  const userEvents = events.filter(e => e.postedBy === userId);
-  const pastEvents = userEvents.filter(e => new Date(e.date) < now);
-  const upcomingEvents = userEvents.filter(e => new Date(e.date) >= now);
-  const likedEvents = userEvents.filter(e => user.likedEvents?.includes(e.id));
-
-  // User spaces
-  const userSpaces = thirdspaces.filter(s => s.postedBy === userId);
-  const pastSpaces = userSpaces.filter(s => s.date && new Date(s.date) < now);
-  const upcomingSpaces = userSpaces.filter(s => s.date && new Date(s.date) >= now);
-
-  // Helper to create tag HTML
-  const tag = text => `<span style="
-      display:inline-block;
-      background-color:#f0f0f0;
-      color:#333;
-      border-radius:12px;
-      padding:4px 10px;
-      margin:2px;
-      font-size:0.9em;
-  ">${text}</span>`;
-
-  const renderList = list => list.length ? list.map(i => `<p>• ${i.name}</p>`).join("") : "<p>None yet</p>";
+  const user = getUser(userId);
 
   content.innerHTML = `
-    <button onclick="closeProfile()">X</button>
+    <button onclick="closeProfile()" style="float:right; cursor:pointer; border:none; background:none; font-size:20px;">×</button>
     <div style="text-align:center">
-      <img src="${user.avatar}" style="width:80px;border-radius:50%">
+      <img src="${user.avatar}" style="width:100px; height:100px; border-radius:50%; object-fit:cover; border:3px solid #0688d4;">
       <h3>${user.name}</h3>
-      <p>${user.bio || ""}</p>
-      <div>
-        ${user.gender ? tag(user.gender) : ""}
-        ${user.age ? tag(user.age) : ""}
-        ${user.interests?.map(tag).join("") || ""}
-      </div>
+      <p><em>${user.bio}</em></p>
     </div>
     <hr>
-    <h4>Liked Events</h4>
-    ${renderList(likedEvents)}
-    <h4>Past Events</h4>
-    ${renderList(pastEvents)}
-    <h4>Upcoming Events</h4>
-    ${renderList(upcomingEvents)}
+    <h4>Activity</h4>
+    <p>Member since 2024</p>
   `;
-
   modal.style.display = "flex";
 }
 
-function closeProfile(){
-  document.getElementById("profileModal").style.display="none";
+function closeProfile() {
+  document.getElementById("profileModal").style.display = "none";
 }
 
-document.getElementById("myProfileBtn").onclick = ()=>openProfile(currentUser.id);
+// Add Space Modal Logic
+function openAddSpaceModal() {
+  document.getElementById('addSpaceModal').style.display = 'flex';
+}
 
-/* INITIAL */
+function closeAddSpaceModal() {
+  document.getElementById('addSpaceModal').style.display = 'none';
+}
+
+// Handle Background Clicks to close all modals
+window.onclick = function(event) {
+  const detailModal = document.getElementById("detailModal");
+  const profileModal = document.getElementById("profileModal");
+  const addSpaceModal = document.getElementById("addSpaceModal");
+
+  if (event.target === detailModal) closeDetail();
+  if (event.target === profileModal) closeProfile();
+  if (event.target === addSpaceModal) closeAddSpaceModal();
+}
+
+/* ================= INITIALIZE ================= */
 renderThirdspaces();
 renderEvents();
-setupLikeButtons();
+
+document.getElementById("myProfileBtn").onclick = () => openProfile(currentUser.id);
+
+
 
 </script>
 
