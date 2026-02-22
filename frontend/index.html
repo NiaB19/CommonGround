@@ -609,30 +609,79 @@ function renderThirdspaces(){
 
 /* ================= PROFILE ================= */
 
-function openProfile(userId){
-  const user = getUser(userId);
+function openProfile(userId) {
   const modal = document.getElementById("profileModal");
   const content = document.getElementById("profileContent");
 
-  const userSpaces = thirdspaces.filter(s=>s.postedBy===userId);
-  const userEvents = events.filter(e=>e.postedBy===userId);
+  const user = {
+  name: "Alex Rivera",
+  avatar: "https://static.vecteezy.com/system/resources/thumbnails/047/649/410/small/an-asian-man-with-closed-arms-in-pink-dress-with-isolated-on-transparent-background-cut-out-free-png.png",
+  bio: "Love exploring and trying new things!",
+  age: 28,
+  gender: "Male",
+  interests: ["Music", "Hiking", "Photography"],
+  skills: ["Guitar", "Cooking"],
+};
+
+function createTag(text, color="#f0f0f0") {
+  return `<span style="
+    display:inline-block;
+    background-color:${color};
+    color:#333;
+    border-radius:12px;
+    padding:4px 10px;
+    margin:2px;
+    font-size:0.9em;
+  ">${text}</span>`;
+}
+  const now = new Date();
+
+  // User events
+  const userEvents = events.filter(e => e.postedBy === userId);
+  const pastEvents = userEvents.filter(e => new Date(e.date) < now);
+  const upcomingEvents = userEvents.filter(e => new Date(e.date) >= now);
+  const likedEvents = userEvents.filter(e => user.likedEvents?.includes(e.id));
+
+  // User spaces
+  const userSpaces = thirdspaces.filter(s => s.postedBy === userId);
+  const pastSpaces = userSpaces.filter(s => s.date && new Date(s.date) < now);
+  const upcomingSpaces = userSpaces.filter(s => s.date && new Date(s.date) >= now);
+
+  // Helper to create tag HTML
+  const tag = text => `<span style="
+      display:inline-block;
+      background-color:#f0f0f0;
+      color:#333;
+      border-radius:12px;
+      padding:4px 10px;
+      margin:2px;
+      font-size:0.9em;
+  ">${text}</span>`;
+
+  const renderList = list => list.length ? list.map(i => `<p>• ${i.name}</p>`).join("") : "<p>None yet</p>";
 
   content.innerHTML = `
+    <button onclick="closeProfile()">X</button>
     <div style="text-align:center">
       <img src="${user.avatar}" style="width:80px;border-radius:50%">
       <h3>${user.name}</h3>
-      <p>${user.bio}</p>
+      <p>${user.bio || ""}</p>
+      <div>
+        ${user.gender ? tag(user.gender) : ""}
+        ${user.age ? tag(user.age) : ""}
+        ${user.interests?.map(tag).join("") || ""}
+      </div>
     </div>
     <hr>
-    <h4>Thirdspaces Posted</h4>
-    ${userSpaces.map(s=>`<p>• ${s.name}</p>`).join("") || "<p>None yet</p>"}
-    <h4>Events Posted</h4>
-    ${userEvents.map(e=>`<p>• ${e.name}</p>`).join("") || "<p>None yet</p>"}
-    <br>
-    <button onclick="closeProfile()">Close</button>
+    <h4>Liked Events</h4>
+    ${renderList(likedEvents)}
+    <h4>Past Events</h4>
+    ${renderList(pastEvents)}
+    <h4>Upcoming Events</h4>
+    ${renderList(upcomingEvents)}
   `;
 
-  modal.style.display="flex";
+  modal.style.display = "flex";
 }
 
 function closeProfile(){
