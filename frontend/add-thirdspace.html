@@ -133,7 +133,7 @@
         <label><input type="checkbox" name="Atmosphere" value="social" />Social</label>
         <label><input type="checkbox" name="Atmosphere" value="high-energy" />High‑energy</label>
       </div>
-      <label for="energyslider">Energy slider</label>
+      <label for="vibeslider">Energy slider</label>
       <input id="vibeslider" name="vibeslider" type="range" min="1" max="5" value="3" aria-valuemin="1" aria-valuemax="5" aria-valuenow="3" />
     </fieldset>
 
@@ -187,8 +187,7 @@
       location: form.location.value.trim(),
       description: form.description.value.trim(),
       amenities: form.amenities.value.split(',').map(s => s.trim()).filter(Boolean),
-      essentials: Array.from(form.elements['essentials']).filter(i => i.checked).map(i => i.value),
-      vibe: Array.from(form.elements['vibe']).filter(i => i.checked).map(i => i.value),
+      atmosphere: Array.from(form.elements['Atmosphere'] || []).filter(i => i.checked).map(i => i.value),
       vibeslider: form.vibeslider.value,
       cost: form.cost.value,
       studentPerk: form.studentPerk.value,
