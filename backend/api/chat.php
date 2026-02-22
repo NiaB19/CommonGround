@@ -1,51 +1,59 @@
 <?php
-// backend/api/chat.php
-require_once __DIR__ . '/../vendor/autoload.php';
+// 1. KILL ANY HIDDEN SPACES OR WARNINGS
+ob_start();
+
+// 2. HEADERS
 header("Access-Control-Allow-Origin: *");
-header("Content-Type: application/json");
+header("Access-Control-Allow-Methods: POST, OPTIONS");
+header("Access-Control-Allow-Headers: Content-Type");
+header('Content-Type: application/json');
 
-// 1. Get User Input & Load Third-Space Data
-$input = json_decode(file_get_contents('php://input'), true);
-$userMessage = $input['message'] ?? 'Hello';
-$spacesData = file_get_contents('../data/spaces.json');
+if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') exit;
 
-// 2. Set up the AI Client
-$apiKey = 'AIzaSyA9U7PwrG8IHguI0aGQKCM5sCA6oab354o'; // Get from AI Studio
-$client = Gemini::client($apiKey);
+// 3. SILENCE DISPLAY ERRORS (keeps them out of the JSON)
+error_reporting(E_ALL);
+ini_set('display_errors', 0);
 
-// 3. System Instruction: Give the AI the "Social Compass"
-$systemInstruction = "
-You are 'The Rutgers Local,' a friendly, helpful, and slightly witty student guide. 
-Your goal is to help people find 'Third Spaces' (social spots that aren't home or work).
-
-RULES:
-1. Use the JSON data provided below to give REAL recommendations.
-2. DO NOT just list facts. Explain WHY a place is cool. (e.g., instead of 'It is ADA accessible,' say 'It's super easy to get around if you have a stroller or a wheelchair.')
-3. If someone asks for a vibe (like 'quiet' or 'social'), prioritize spots that match.
-4. Keep it conversational. Use occasional student slang like 'chill,' 'vibe,' or 'spot.'
-5. If a place is in your data, talk about it like you've been there.
-
-DATA: " . $spacesData;
 try {
-    // 1. Initialize the model
-    // Note: Use 'gemini-1.5-flash' for the fastest performance
-    $model = $client->generativeModel(model: 'gemini-2.5-flash');
-
-    // 2. Combine the instructions and the user message
-    $prompt = $systemInstruction . "\n\nUser says: " . $userMessage;
-
-    // 3. Generate the real response
-    $result = $model->generateContent($prompt);
-    $realAnswer = $result->text();
+    // 4. PATHS (Matching your terminal: /frontend/backend/api/chat.php)
+    $rootDir = dirname(__DIR__, 3); 
+    $autoload = $rootDir . '/vendor/autoload.php';
     
+    if (!file_exists($autoload)) {
+        throw new Exception("Vendor folder not found at: " . $autoload);
+    }
+    require_once $autoload;
+
+    // 5. LOAD ENV
+    if (file_exists($rootDir . '/.env')) {
+        $dotenv = Dotenv\Dotenv::createImmutable($rootDir);
+        $dotenv->load();
+    }
+
+    // 6. INPUT
+    $input = json_decode(file_get_contents('php://input'), true);
+    $userMessage = $input['message'] ?? '';
+    $apiKey = $_ENV['GEMINI_API_KEY'] ?? getenv('GEMINI_API_KEY');
+
+    if (!$apiKey) throw new Exception("API Key missing in .env");
+
+    // 7. GEMINI CALL
+    $client = Gemini::client($apiKey);
+    $result = $client->generativeModel(model: 'gemini-1.5-flash')->generateContent($userMessage);
+
+    // 8. WIPE BUFFER & SEND CLEAN JSON
+    ob_end_clean(); 
     echo json_encode([
-        "status" => "success", 
-        "answer" => $realAnswer
+        "status" => "success",
+        "response" => $result->text()
     ]);
 
 } catch (Exception $e) {
+    // WIPE BUFFER & SEND ERROR JSON
+    if (ob_get_length()) ob_end_clean();
     echo json_encode([
         "status" => "error",
         "message" => $e->getMessage()
     ]);
 }
+exit;
