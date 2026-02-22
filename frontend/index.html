@@ -838,15 +838,12 @@ window.onclick = function(event) {
 /* ================= INITIALIZE ================= */
 document.getElementById("myProfileBtn").onclick = () => openProfile(currentUser.id);
 
-<<<<<<< HEAD
-<<<<<<< HEAD
+
 document.querySelectorAll(".category-tab").forEach((tab) => {
   tab.addEventListener("click", () => setCategoryFilter(tab.dataset.category));
 });
 
-=======
-=======
->>>>>>> 3292ccf634cd01aa2ee2e85af433ef011580eccd
+
 // Load new spaces from server and add to hardcoded list
 fetch('/api/spaces')
   .then(r => r.json())
