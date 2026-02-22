@@ -53,10 +53,6 @@
     </style>
     <script>
         function onSearch(e){e.preventDefault();const q=document.getElementById('q').value.trim();console.log('Search for',q);}
-    </script>
-    </style>
-    <script>
-        function onSearch(e){e.preventDefault();const q=document.getElementById('q').value.trim();console.log('Search for',q);}
         function focusSearch(){const el=document.getElementById('q');if(el){el.focus();el.scrollIntoView({behavior:'smooth',block:'center'})}}
     </script>
 </head>
@@ -69,7 +65,7 @@
             </div>
             <div class="nav-tabs" role="tablist" aria-label="Main tabs">
                 <a href="#home" class="active" role="tab">Home</a>
-                <a href="#thirdspaces" role="tab">Thirdspaces</a>
+                <a href="./add-thirdspace.html" role="tab">Thirdspaces</a>
                 <a href="#events" role="tab">Events</a>
                 <a href="create.html" role="tab">Create Event</a>
                 <a href="#about" role="tab">About</a>
@@ -223,6 +219,61 @@
         </footer>
     </div>
 
-<script src="app.js"></script>
+    <script>
+        (function(){
+            const btn=document.getElementById('chatbotBtn');
+            const win=document.getElementById('chatWindow');
+            const closeBtn=document.getElementById('chatClose');
+            const send=document.getElementById('chatSend');
+            const input=document.getElementById('chatInput');
+            const msgs=document.getElementById('chatMessages');
+
+            function appendMessage(text, who){
+                const d=document.createElement('div');
+                d.className='msg '+who;
+                d.textContent=text;
+                msgs.appendChild(d);
+                msgs.scrollTop = msgs.scrollHeight;
+            }
+
+            function simulateReply(userText){
+                const typing = document.createElement('div');
+                typing.className='msg assistant';
+                typing.textContent='Typing...';
+                msgs.appendChild(typing);
+                msgs.scrollTop = msgs.scrollHeight;
+                setTimeout(()=>{
+                    msgs.removeChild(typing);
+                    // Simple simulated AI response — replace with real API call if available
+                    const reply = 'AI: ' + (userText || 'Hi — how can I help?');
+                    appendMessage(reply, 'assistant');
+                }, 900 + Math.random()*700);
+            }
+
+            btn.addEventListener('click', ()=>{ win.style.display = (win.style.display === 'none') ? 'flex' : 'none'; if(win.style.display!=='none'){ input.focus(); }});
+            closeBtn.addEventListener('click', ()=>{ win.style.display='none'; });
+
+            send.addEventListener('click', ()=>{
+                const v=input.value.trim(); if(!v) return; appendMessage(v,'user'); input.value=''; simulateReply(v);
+            });
+            input.addEventListener('keydown',(e)=>{ if(e.key==='Enter'){ e.preventDefault(); send.click(); }});
+
+            // welcome message
+            appendMessage('Hello — I am your assistant. Ask me about nearby thirdspaces or events.', 'assistant');
+        })();
+    </script>
+
+    <script>
+        document.getElementById('thirdspaceForm').addEventListener('submit', function (e) {
+            e.preventDefault();
+            const form = e.target;
+            if (!form.checkValidity()) { form.reportValidity(); return; }
+            // …build your data object and POST it…
+            console.log('thirdspace submission', JSON.stringify(data, null,2));
+            // redirect home
+            window.location.href = 'index.html';
+        });
+    </script>
+
 </body>
 </html>
