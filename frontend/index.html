@@ -122,6 +122,37 @@ body{
   max-height:80vh;
   overflow:auto;
 }
+
+/* blue button used in a couple of places */
+.add-space {
+  background: #4f46e5;         /* blue */
+  color: #fff;
+  padding: 6px 12px;
+  font-size: 0.9rem;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+.add-space:hover,
+.add-space:focus { background: #3730a3; }
+
+/* ensure the category row and button stay aligned */
+.category-tabs {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 16px;
+  margin: 16px 0;
+}
+
+/* header for each section – title + optional action button */
+.section-header {
+  display: flex;          /* keep title & button on one line */
+  align-items: center;
+  gap: 8px;               /* small space between them */
+  margin-bottom: 12px;    /* <-- add some space below the header */
+}
+.section-header h2 { margin: 0; font-size: 1.2rem; }
 </style>
 </head>
 
