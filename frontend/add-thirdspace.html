@@ -8,161 +8,211 @@
     body {
       font-family: Inter, system-ui, -apple-system, sans-serif;
       margin: 0;
-      padding: 40px 20px;
-      background: #1e1e1e; /* Dark background to match the "Frame" in your image */
+      padding: 20px;
+      background: #f7f7fb;
       color: #111;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
     }
-
     h1 {
-      font-size: 1.8rem;
-      margin-bottom: 2rem;
-      color: #ffffff; /* White text for the dark background */
-      text-align: center; /* Center align title */
-      font-weight: 700;
+      font-size: 1.6rem;
+      margin-bottom: 1rem;
+      color: #072d6f;
     }
-
-    /* The "Box" around the survey */
-    .form-container {
-      background: #e0e0e0; /* Light grey box from your wireframe */
-      width: 100%;
-      max-width: 500px;
-      padding: 40px;
-      border-radius: 24px; /* Soft rounded corners */
-      box-shadow: 0 10px 25px rgba(0,0,0,0.2);
-      box-sizing: border-box;
-    }
-
     form {
+      max-width: 600px;
+      margin: 0 auto;
       display: flex;
       flex-direction: column;
-      gap: 1.2rem;
+      gap: 1rem;
     }
-
     label {
       display: flex;
       flex-direction: column;
       font-size: 0.9rem;
-      font-weight: 600;
       color: #333;
     }
-
     input[type="text"],
     textarea,
     select {
-      padding: 12px;
-      border: 1px solid #ccc;
-      border-radius: 8px;
+      padding: 8px;
+      border: 1px solid #d1d5db;
+      border-radius: 6px;
       font-size: 1rem;
-      margin-top: 6px;
-      background: #fff;
+      margin-top: 4px;
     }
-
-    fieldset {
-      border: 1px solid #ccc;
-      border-radius: 8px;
-      padding: 15px;
-      margin: 0;
-    }
-
-    legend {
-      font-weight: bold;
-      padding: 0 5px;
-    }
-
-    .checkbox-group, .vibe-group, .radio-group {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
+    textarea { resize: vertical; }
+    .checkbox-group,
+    .radio-group,
+    .vibe-group {
+      display: flex;
+      flex-wrap: wrap;
       gap: 8px;
-      margin-top: 8px;
     }
-
+    .checkbox-group label,
+    .radio-group label,
+    .vibe-group label {
+      flex: 1 1 45%;
+      display: flex;
+      align-items: center;
+    }
+    .checkbox-group input,
+    .radio-group input {
+      margin-right: 6px;
+    }
+    input[type="range"] {
+      width: 100%;
+      margin-top: 6px;
+    }
     .form-footer {
       display: flex;
-      justify-content: center;
-      gap: 15px;
-      margin-top: 10px;
+      justify-content: flex-end;
+      gap: 10px;
     }
-
     button {
-      padding: 12px 24px;
+      padding: 10px 16px;
       border: none;
-      border-radius: 30px;
+      border-radius: 8px;
       cursor: pointer;
       font-size: 1rem;
-      font-weight: 600;
-      transition: opacity 0.2s;
     }
-
-    button.submit { background: #000; color: #fff; width: 100%; }
-    button.reset { background: transparent; color: #666; font-size: 0.8rem; text-decoration: underline; }
-    button:hover { opacity: 0.8; }
-
+    button.submit { background: #4f46e5; color: #fff; }
+    button.reset { background: transparent; border: 1px solid #6b7280; color: #6b7280; }
     @media (max-width: 480px) {
-      .form-container { padding: 20px; }
-      .checkbox-group { grid-template-columns: 1fr; }
+      .checkbox-group label,
+      .radio-group label,
+      .vibe-group label { flex: 1 1 100%; }
     }
   </style>
 </head>
 <body>
 
-  <h1>Add a third space</h1>
+  <h1>Add a Thirdspace</h1>
 
-  <div class="form-container">
-    <form id="thirdspaceForm" novalidate>
-      <label for="name">
-        Space name
-        <input id="name" name="name" type="text" required />
-      </label>
+  <form id="thirdspaceForm" novalidate>
+    <!-- basics -->
+    <label for="name">
+      Space name <span aria-hidden="true" style="color:#4f46e5">*</span>
+      <input id="name" name="name" type="text" required aria-required="true" />
+    </label>
 
-      <label for="category">
-        Category
-        <select id="category" name="category" required>
-          <option value="">Select one</option>
-          <option value="cafe">Cafe</option>
-          <option value="library">Library</option>
-          <option value="park">Public Park</option>
-          <option value="community">Community Center</option>
+    <label for="category">
+      Category
+      <select id="category" name="category" required>
+        <option value="">Select one</option>
+        <option value="Creative">Creative</option>
+        <option value="Quiet">Quiet</option>
+        <option value="Active">Active</option>
+        <option value="Social">Social</option>
+        <option value="other">Other</option>
+      </select>
+    </label>
+
+    <label for="location">
+      Location / address <span aria-hidden="true" style="color:#4f46e5">*</span>
+      <input id="location" name="location" type="text" required aria-required="true" />
+    </label>
+
+    <label for="description">
+      Description
+      <textarea id="description" name="description" rows="4"></textarea>
+    </label>
+
+    <label for="amenities">
+      Amenities (comma‑separated)
+      <input id="amenities" name="amenities" type="text" placeholder="Wi-Fi, Outdoor seating, Dog-friendly…" />
+    </label>
+
+
+
+    <!-- vibe -->
+    <fieldset>
+      <legend>The Atmosphere</legend>
+      <div class="checkbox-group">
+        <label><input type="checkbox" name="Atmosphere" value="silent" />Silent / library</label>
+        <label><input type="checkbox" name="Atmosphere" value="studious" />Studious</label>
+        <label><input type="checkbox" name="Atmosphere" value="balanced" />Balanced</label>
+        <label><input type="checkbox" name="Atmosphere" value="social" />Social</label>
+        <label><input type="checkbox" name="Atmosphere" value="high-energy" />High‑energy</label>
+      </div>
+      <label for="vibeslider">Energy slider</label>
+      <input id="vibeslider" name="vibeslider" type="range" min="1" max="5" value="3" aria-valuemin="1" aria-valuemax="5" aria-valuenow="3" />
+    </fieldset>
+
+    <!-- access/cost -->
+    <fieldset>
+      <legend>Access / cost</legend>
+      <div class="radio-group">
+        <label><input type="radio" name="cost" value="free" checked />Free</label>
+        <label><input type="radio" name="cost" value="purchase" />Purchase required</label>
+        <label><input type="radio" name="cost" value="student" />Student‑ID only</label>
+      </div>
+    </fieldset>
+
+    <!-- student context -->
+    <fieldset>
+      <legend>Student perks / transit</legend>
+      <label>
+        Student discount?
+        <select name="studentPerk">
+          <option value="">None</option>
+          <option value="discount">Discount</option>
+          <option value="free">Free entry</option>
         </select>
       </label>
-
-      <label for="location">
-        Location / address
-        <input id="location" name="location" type="text" required />
+      <label>
+        Transit / walkability notes
+        <textarea name="transit" rows="2" placeholder="Campus bus, 10‑minute walk from College Ave…"></textarea>
       </label>
+    </fieldset>
 
-      <fieldset>
-        <legend>The vibe</legend>
-        <div class="vibe-group">
-          <label><input type="checkbox" name="vibe" value="silent" /> Silent</label>
-          <label><input type="checkbox" name="vibe" value="social" /> Social</label>
-          <label><input type="checkbox" name="vibe" value="studious" /> Studious</label>
-          <label><input type="checkbox" name="vibe" value="energy" /> High-energy</label>
-        </div>
-      </fieldset>
+    <label for="protip">
+      Pro‑tip (best spot to sit, secret menu item…)
+      <textarea id="protip" name="protip" rows="3"></textarea>
+    </label>
 
-      <label for="protip">
-        Pro‑tip
-        <textarea id="protip" name="protip" rows="2" placeholder="Best spot to sit..."></textarea>
-      </label>
-
-      <div class="form-footer">
-        <button type="submit" class="submit">Submit Space</button>
-      </div>
-      <div style="text-align: center;">
-        <button type="reset" class="reset">Clear all fields</button>
-      </div>
-    </form>
-  </div>
+    <div class="form-footer">
+      <button type="reset" class="reset">Reset</button>
+      <button type="submit" class="submit">Submit</button>
+    </div>
+  </form>
 
   <script>
-    document.getElementById('thirdspaceForm').addEventListener('submit', function (e) {
-      e.preventDefault();
-      alert('Space submitted! Check the console for data.');
-      console.log('Form data processed.');
-    });
-  </script>
+  document.getElementById('thirdspaceForm').addEventListener('submit', async function (e) {
+    e.preventDefault();
+    const form = e.target;
+    if (!form.checkValidity()) { form.reportValidity(); return; }
+
+    const data = {
+      name: form.name.value.trim(),
+      category: form.category.value,
+      location: form.location.value.trim(),
+      description: form.description.value.trim(),
+      amenities: form.amenities.value.split(',').map(s => s.trim()).filter(Boolean),
+      atmosphere: Array.from(form.elements['Atmosphere'] || []).filter(i => i.checked).map(i => i.value),
+      vibeslider: form.vibeslider.value,
+      cost: form.cost.value,
+      studentPerk: form.studentPerk.value,
+      transit: form.transit.value.trim(),
+      protip: form.protip.value.trim(),
+      submittedAt: new Date().toISOString()
+    };
+
+    try {
+      const response = await fetch('/api/spaces', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data)
+      });
+      const result = await response.json();
+      if (result.status === 'success') {
+        alert('Space added! Redirecting...');
+        window.location.href = '/';
+      } else {
+        alert('Error: ' + result.message);
+      }
+    } catch (err) {
+      alert('Network error. Is the server running?');
+    }
+  });
+</script>
 </body>
 </html>

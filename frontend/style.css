@@ -158,11 +158,17 @@
       border-radius: 6px;
       font-weight: bold;
       text-transform: uppercase;
-      /* Uniform Red Theme */
+      /* Default red theme for general tags */
       background: #ffe2e2; /* Light red background */
       color: #ba0000;      /* Deep red text */
       border: 1px solid #ffc1c1;
     }
+
+    /* specialized tag colors by category */
+    .tag-gender { background:#fde68a; color:#92400e; border-color:#fcd34d; }
+    .tag-identity { background:#c7d2fe; color:#3730a3; border-color:#a78bfa; }
+    .tag-academic { background:#bfdbfe; color:#1e40af; border-color:#93c5fd; }
+    .tag-interest { background:#fde9e9; color:#a71919; border-color:#fca5a5; }
   
   /* Card Hover Effect */
   .card {

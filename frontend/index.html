@@ -161,7 +161,7 @@ body{
   </div>
 <!-- CATEGORY FILTER TABS -->
 <div class="category-tabs" style="display:flex;justify-content:center;gap:16px;margin:16px 0;">
-  <button class="category-tab" data-category="Creative" title="Creative" style="margin-right: 10px; width: 100px; font-size: 16px; background-color: #0688d4; color: whitesmoke; font-family:monospace; border-color: black; padding: 10px; border-radius: 10px">
+  <button class="category-tab active" data-category="Creative" title="Creative" style="margin-right: 10px; width: 100px; font-size: 16px; background-color: #0688d4; color: whitesmoke; font-family:monospace; border-color: black; padding: 10px; border-radius: 10px">
     Creative
   </button>
   <button class="category-tab" data-category="Quiet" title="Quiet" style="margin-right: 10px; width: 100px; font-size: 16px; background-color: #0688d4; color: whitesmoke; font-family:monospace; border-color: black; padding: 10px; border-radius: 10px">
@@ -289,9 +289,9 @@ const thirdspaces =
     image:"https://images.unsplash.com/photo-1519331379826-f10be5486c6f?w=900&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8cGFya3xlbnwwfHwwfHx8Mg%3D%3D",
     postedBy:3,
     "lat": 40.5048264, "lng": -74.4595969,
-    "is_creative": true,
+    "is_creative": false,
     "is_quiet": true,
-    "is_active": false,
+    "is_active": true,
     "is_social": true,
     "is_other": true,
     "money_required": "Free",
@@ -303,9 +303,9 @@ const thirdspaces =
     image:"https://images.unsplash.com/photo-1572953109213-3be62398eb95?w=900&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NHx8bXVzZXVtfGVufDB8fDB8fHwy",
     postedBy:4,
     "lat": 40.4986490, "lng": -74.4466806,
-    "is_quiet": false,
+    "is_quiet": true,
     "is_free": true,
-    "_kid-friendly": false,
+    "_kid-friendly": true,
     "is_ada": false,
     "solo_friendly": false,
     "description": "Good place for meet ups, browsing, and activities for kids"
@@ -317,7 +317,7 @@ const thirdspaces =
     postedBy:5,
     "lat": 40.486667, "lng": -74.444444,
     "is_quiet": true,
-    "is_active": true,
+    "is_active": false,
     "is_social": true,
     "is_other": true,
     "money_required": "Free",
@@ -342,11 +342,12 @@ const thirdspaces =
     image:"https://images.unsplash.com/photo-1558970439-add78fc68990?w=900&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NXx8dGhlYXRyZXxlbnwwfHwwfHx8Mg%3D%3D",
     postedBy:2,
     "lat": 40.493341, "lng": -74.44462,
-    "is_quiet": false,
-    "is_free": true,
-    "_kid-friendly": false,
-    "is_ada": true,
-    "solo_friendly": true,
+    "is_creative": false,
+    "is_quiet": true,
+    "is_active": false,
+    "is_social": true,
+    "is_other": true,
+    "money_required": "Free",
     "description": "Good place for meet ups, browsing, and activities for kids"
     },
 
@@ -357,7 +358,7 @@ const thirdspaces =
     "lat": 40.54207127548425, "lng": -74.3606030999999,
     "is_quiet": false,
     "is_free": false,
-    "_kid-friendly": false,
+    "_kid-friendly": true,
     "is_ada": true,
     "solo_friendly": false,
     "description": "Good place for meet ups, browsing, and activities for kids"
@@ -369,7 +370,7 @@ const thirdspaces =
     postedBy:1,
     "lat": 40.508614, "lng": -74.372064,"is_quiet": false,
     "is_free": false,
-    "_kid-friendly": false,
+    "_kid-friendly": true,
     "is_ada": true,
     "solo_friendly": false,
     "description": "Good place for meet ups, browsing, and activities for kids"
@@ -393,7 +394,7 @@ const thirdspaces =
     image:"https://images.unsplash.com/photo-1567880905822-56f8e06fe630?w=900&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8Y2FmZXxlbnwwfHwwfHx8Mg%3D%3D",
     postedBy:4,
     "lat": 40.5294098, "lng": -74.5569183,
-    "is_quiet": false,
+    "is_quiet": true,
     "is_free": true,
     "_kid-friendly": false,
     "is_ada": true,
@@ -409,7 +410,7 @@ const thirdspaces =
     "is_free": true,
     "_kid-friendly": false,
     "is_ada": false,
-    "solo_friendly": false,
+    "solo_friendly": true,
     "description": "Good place for meet ups, browsing, and activities for kids"
     },
 
@@ -446,36 +447,12 @@ const thirdspaces =
     "lat": 40.23678, "lng": -74.71889,
     "is_quiet": false,
     "is_free": true,
-    "_kid-friendly": false,
+    "_kid-friendly": true,
     "is_ada": true,
     "solo_friendly": true,
     "description": "Good place for meet ups, browsing, and activities for kids"
     }
 ];
-
-[
-{
-  name:"Cafe Commons",
-  description:"Cozy cafe with WiFi",
-  image:"https://images.unsplash.com/photo-1501339847302-ac426a4a7cbb",
-  postedBy:1
-},
-{
-  name:"Riverside Park",
-  description:"Dog friendly outdoor space",
-  image:"https://images.unsplash.com/photo-1506744038136-46273834b3fb",
-  postedBy:2
-}
-];
-
-// const events = [
-// {
-//   name:"Open Mic Night",
-//   description:"Live music & community vibes",
-//   image:"https://images.unsplash.com/photo-1497032628192-86f99bcd76bc",
-//   postedBy:2
-// }
-// ];
 
 
 ///------------------------------------------------------
@@ -489,6 +466,7 @@ const events = [
       "time": "10:00 AM",
       "type": "Sports",
       "description": "Open play for all skill levels. Meet at the courts!",
+      "target_communities": ["Active","Interests"],
       postedBy: 2
     },
   
@@ -501,6 +479,7 @@ const events = [
       "time": "2:00 PM",
       "type": "Social",
       "description": "Bring your current read and enjoy some quiet company.",
+      "target_communities": ["Quiet","Academic/Career"],
       postedBy: 1
     },
   
@@ -513,6 +492,7 @@ const events = [
       "time": "11:00 AM",
       "type": "Education",
       "description": "A guided tour of the local fossil collection.",
+      "target_communities": ["Women-only"],
       postedBy: 2
     },
   
@@ -525,6 +505,7 @@ const events = [
       "time": "11:00 AM",
       "type": "Education",
       "description": "A guided tour of the local fossil collection.",
+      "target_communities": ["LGBTQ+","Academic/Career"],
       postedBy: 4
     },
   
@@ -549,6 +530,7 @@ const events = [
       "time": "11:00 AM",
       "type": "Entertainment",
       "description": "A guided tour of the local fossil collection.",
+      "target_communities": ["Interests","LGBTQ+"],
       postedBy: 5
     },
   
@@ -632,30 +614,26 @@ function getUser(id){
   return users.find(u=>u.id===id);
 }
 
-// Render Thirdspaces (filtered by current category when a nav link is selected)
+// Render Thirdspaces
 function renderThirdspaces() {
   const container = document.getElementById("thirdspaceContainer");
   if (!container) return;
   container.innerHTML = "";
 
-  const prop = currentCategoryFilter ? categoryToProp[currentCategoryFilter] : null;
-  const toShow = thirdspaces
-    .map((space, originalIndex) => ({ space, originalIndex }))
-    .filter(({ space }) => !prop || space[prop] === true);
-
-  toShow.forEach(({ space, originalIndex }) => {
+  thirdspaces.forEach((space, index) => {
     const user = getUser(space.postedBy);
-
+    
+    // Generate Red Tags
     let tagsHTML = `<div class="tag-container">`;
-    if (space.is_creative) tagsHTML += `<span class="tag">Creative</span>`;
-    if (space.is_quiet) tagsHTML += `<span class="tag">Quiet</span>`;
-    if (space.is_active) tagsHTML += `<span class="tag">Active</span>`;
-    if (space.is_social) tagsHTML += `<span class="tag">Social</span>`;
-    if (space.is_other) tagsHTML += `<span class="tag">Other</span>`;
+    if(space.is_creative) tagsHTML += `<span class="tag">Creative</span>`;
+    if(space.is_quiet)    tagsHTML += `<span class="tag">Quiet</span>`;
+    if(space.is_active)   tagsHTML += `<span class="tag">Active</span>`;
+    if(space.is_social)   tagsHTML += `<span class="tag">Social</span>`;
+    if(space.is_other)    tagsHTML += `<span class="tag">Other</span>`;
     tagsHTML += `</div>`;
 
     container.innerHTML += `
-      <div class="card" onclick="openDetail('space', ${originalIndex})">
+      <div class="card" onclick="openDetail('space', ${index})">
         <img src="${space.image}" alt="${space.name}">
         <div class="card-content">
           <h3>${space.name}</h3>
@@ -669,15 +647,6 @@ function renderThirdspaces() {
   });
 }
 
-// Category tab click: filter thirdspaces; clicking same tab again clears filter
-function setCategoryFilter(category) {
-  currentCategoryFilter = currentCategoryFilter === category ? null : category;
-  document.querySelectorAll(".category-tab").forEach((tab) => {
-    tab.classList.toggle("active", tab.dataset.category === currentCategoryFilter);
-  });
-  renderThirdspaces();
-}
-
 // Render Events
 function renderEvents() {
   const container = document.getElementById("eventContainer");
@@ -687,12 +656,28 @@ function renderEvents() {
   events.forEach((ev, index) => {
     const user = getUser(ev.postedBy);
 
+    // build tags row including target communities
+    let tagsHTML = `<div class="tag-container"><span class="tag">${ev.type}</span>`;
+    if(ev.target_communities) {
+      ev.target_communities.forEach(tc=>{
+        // determine color class based on keywords (women, lgbt, academic, interests, etc.)
+        let extraClass = '';
+        const lower = tc.toLowerCase();
+        if(lower.includes('women') || lower.includes('gender')) extraClass = 'tag-gender';
+        else if(lower.includes('lgbt') || lower.includes('identity')) extraClass = 'tag-identity';
+        else if(lower.includes('academic')) extraClass = 'tag-academic';
+        else if(lower.includes('interest')) extraClass = 'tag-interest';
+        tagsHTML += `<span class="tag ${extraClass}">${tc}</span>`;
+      });
+    }
+    tagsHTML += `</div>`;
+
     container.innerHTML += `
       <div class="card" onclick="openDetail('event', ${index})">
         <img src="${ev.image}" alt="${ev.title}">
         <div class="card-content">
           <h3>${ev.title}</h3>
-          <div class="tag-container"><span class="tag">${ev.type}</span></div>
+          ${tagsHTML}
           <p>${ev.description}</p>
           <div class="posted-by">
             Posted by <span onclick="event.stopPropagation(); openProfile(${user.id})">${user.name}</span>
@@ -723,13 +708,25 @@ function openDetail(type, index) {
     `;
   } else {
     data = events[index];
+    // build additional tags for target communities
+    let detailTags = `<div class="tag-container"><span class="tag">${data.type}</span>`;
+    if(data.target_communities) {
+      data.target_communities.forEach(tc=>{
+        let extraClass = '';
+        const lower = tc.toLowerCase();
+        if(lower.includes('women') || lower.includes('gender')) extraClass = 'tag-gender';
+        else if(lower.includes('lgbt') || lower.includes('identity')) extraClass = 'tag-identity';
+        else if(lower.includes('academic')) extraClass = 'tag-academic';
+        else if(lower.includes('interest')) extraClass = 'tag-interest';
+        detailTags += `<span class="tag ${extraClass}">${tc}</span>`;
+      });
+    }
+    detailTags += `</div>`;
     content.innerHTML = `
       <button class="close-btn" onclick="closeDetail()" style="float:right; cursor:pointer; border:none; background:none; font-size:20px;">×</button>
       <img src="${data.image}" style="width:100%; border-radius:10px; height:220px; object-fit:cover;">
       <h2 style="margin-top:15px;">${data.title}</h2>
-      <div class="tag-container"><span class="tag">${data.type}</span></div>
-      <p><strong>Where:</strong> ${data.location_name}</p>
-      <p><strong>When:</strong> ${data.date} at ${data.time}</p>
+      ${detailTags}
       <p>${data.description}</p>
       <button class="add-space" style="width:100%;" onclick="alert('RSVP Sent!')">RSVP Now</button>
     `;
@@ -838,12 +835,6 @@ window.onclick = function(event) {
 /* ================= INITIALIZE ================= */
 document.getElementById("myProfileBtn").onclick = () => openProfile(currentUser.id);
 
-
-document.querySelectorAll(".category-tab").forEach((tab) => {
-  tab.addEventListener("click", () => setCategoryFilter(tab.dataset.category));
-});
-
-
 // Load new spaces from server and add to hardcoded list
 fetch('/api/spaces')
   .then(r => r.json())
@@ -874,11 +865,25 @@ fetch('/api/spaces')
   });
 
 // CATEGORY FILTER
+let activeCategory = null; // null means no filter
+
 document.querySelectorAll('.category-tab').forEach(btn => {
     btn.addEventListener('click', function() {
+        const category = this.dataset.category.toLowerCase();
+
+        // if user clicked the same tab again, clear filter
+        if (activeCategory === category) {
+            activeCategory = null;
+            document.querySelectorAll('.category-tab').forEach(b => b.style.opacity = '1');
+            document.querySelectorAll('#thirdspaceContainer .card, #eventContainer .card')
+                    .forEach(c => c.style.display = '');
+            return;
+        }
+
+        activeCategory = category;
         document.querySelectorAll('.category-tab').forEach(b => b.style.opacity = '0.6');
         this.style.opacity = '1';
-        const category = this.dataset.category.toLowerCase();
+
         document.querySelectorAll('#thirdspaceContainer .card').forEach((card, i) => {
             const space = thirdspaces[i];
             if (!space) return;
