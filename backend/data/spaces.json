@@ -1,122 +1,271 @@
 [
-{
-  "name": "Veterans Park",
-  "lat": 40.4507, "lng": 74.4720,
-  "tags": ["Quiet", "Free", "ADA", "Solo-Friendly", "Eco-Friendly", "Kid-friendly"],
-  "is_alcoholic": false,
-  "description": "Great for pickeball sessions, picnics, walks, and volleyball."
-},
-
-
-{ 
-  "name": "New Brunswick Free Public Library",
-  "lat": 40.4914, "lng": -74.4458,
-  "tags": ["Quiet", "Free", "ADA", "Solo-Friendly", "Eco-Friendly", "Kid-friendly"],
-  "is_alcoholic": false,
-  "description": "Good place for meet ups, browsing, and activities for kids"
-},
- 
-{
-  "name": "New Brunswick Free Public Library",
-  "lat": 40.4914, "lng": -74.4458,
-  "tags": ["Quiet", "Free", "ADA", "Solo-Friendly", "Eco-Friendly", "Kid-friendly"],
-  "is_alcoholic": false,
-  "description": "Good place for meet ups, browsing, and activities for kids"
-},
-
-{
-  "name": "New Brunswick Free Public Library",
-  "lat": 40.4914, "lng": -74.4458,
-  "tags": ["Quiet", "Free", "ADA", "Solo-Friendly", "Eco-Friendly", "Kid-friendly"],
-  "is_alcoholic": false,
-  "description": "Good place for meet ups, browsing, and activities for kids"
-},
-
-{
-  "name": "New Brunswick Free Public Library",
-  "lat": 40.4914, "lng": -74.4458,
-  "tags": ["Quiet", "Free", "ADA", "Solo-Friendly", "Eco-Friendly", "Kid-friendly"],
-  "is_alcoholic": false,
-  "description": "Good place for meet ups, browsing, and activities for kids"
-},
-
-{
-  "name": "New Brunswick Free Public Library",
-  "lat": 40.4914, "lng": -74.4458,
-  "tags": ["Quiet", "Free", "ADA", "Solo-Friendly", "Eco-Friendly", "Kid-friendly"],
-  "is_alcoholic": false,
-  "description": "Good place for meet ups, browsing, and activities for kids"
-},
-
-{
-  "name": "New Brunswick Free Public Library",
-  "lat": 40.4914, "lng": -74.4458,
-  "tags": ["Quiet", "Free", "ADA", "Solo-Friendly", "Eco-Friendly", "Kid-friendly"],
-  "is_alcoholic": false,
-  "description": "Good place for meet ups, browsing, and activities for kids"
-},
-
-{
-  "name": "New Brunswick Free Public Library",
-  "lat": 40.4914, "lng": -74.4458,
-  "tags": ["Quiet", "Free", "ADA", "Solo-Friendly", "Eco-Friendly", "Kid-friendly"],
-  "is_alcoholic": false,
-  "description": "Good place for meet ups, browsing, and activities for kids"
-},
-
-{
-  "name": "New Brunswick Free Public Library",
-  "lat": 40.4914, "lng": -74.4458,
-  "tags": ["Quiet", "Free", "ADA", "Solo-Friendly", "Eco-Friendly", "Kid-friendly"],
-  "is_alcoholic": false,
-  "description": "Good place for meet ups, browsing, and activities for kids"
-},
-
-{
-  "name": "New Brunswick Free Public Library",
-  "lat": 40.4914, "lng": -74.4458,
-  "tags": ["Quiet", "Free", "ADA", "Solo-Friendly", "Eco-Friendly", "Kid-friendly"],
-  "is_alcoholic": false,
-  "description": "Good place for meet ups, browsing, and activities for kids"
-},
-
-{
-  "name": "New Brunswick Free Public Library",
-  "lat": 40.4914, "lng": -74.4458,
-  "tags": ["Quiet", "Free", "ADA", "Solo-Friendly", "Eco-Friendly", "Kid-friendly"],
-  "is_alcoholic": false,
-  "description": "Good place for meet ups, browsing, and activities for kids"
-},
-
-{
-  "name": "New Brunswick Free Public Library",
-  "lat": 40.4914, "lng": -74.4458,
-  "tags": ["Quiet", "Free", "ADA", "Solo-Friendly", "Eco-Friendly", "Kid-friendly"],
-  "is_alcoholic": false,
-  "description": "Good place for meet ups, browsing, and activities for kids"
-},
-
-{
-  "name": "New Brunswick Free Public Library",
-  "lat": 40.4914, "lng": -74.4458,
-  "tags": ["Quiet", "Free", "ADA", "Solo-Friendly", "Eco-Friendly", "Kid-friendly"],
-  "is_alcoholic": false,
-  "description": "Good place for meet ups, browsing, and activities for kids"
-},
-
-{
-  "name": "New Brunswick Free Public Library",
-  "lat": 40.4914, "lng": -74.4458,
-  "tags": ["Quiet", "Free", "ADA", "Solo-Friendly", "Eco-Friendly", "Kid-friendly"],
-  "is_alcoholic": false,
-  "description": "Good place for meet ups, browsing, and activities for kids"
-},
-
-{
-  "name": "New Brunswick Free Public Library",
-  "lat": 40.4914, "lng": -74.4458,
-  "tags": ["Quiet", "Free", "ADA", "Solo-Friendly", "Eco-Friendly", "Kid-friendly"],
-  "is_alcoholic": false,
-  "description": "Good place for meet ups, browsing, and activities for kids"
-}
+  {
+    "name": "Veterans Park",
+    "lat": 40.4507,
+    "lng": 74.472,
+    "tags": [
+      "Quiet",
+      "Free",
+      "ADA",
+      "Solo-Friendly",
+      "Eco-Friendly",
+      "Kid-friendly"
+    ],
+    "is_alcoholic": false,
+    "description": "Great for pickeball sessions, picnics, walks, and volleyball."
+  },
+  {
+    "name": "New Brunswick Free Public Library",
+    "lat": 40.4914,
+    "lng": -74.4458,
+    "tags": [
+      "Quiet",
+      "Free",
+      "ADA",
+      "Solo-Friendly",
+      "Eco-Friendly",
+      "Kid-friendly"
+    ],
+    "is_alcoholic": false,
+    "description": "Good place for meet ups, browsing, and activities for kids"
+  },
+  {
+    "name": "New Brunswick Free Public Library",
+    "lat": 40.4914,
+    "lng": -74.4458,
+    "tags": [
+      "Quiet",
+      "Free",
+      "ADA",
+      "Solo-Friendly",
+      "Eco-Friendly",
+      "Kid-friendly"
+    ],
+    "is_alcoholic": false,
+    "description": "Good place for meet ups, browsing, and activities for kids"
+  },
+  {
+    "name": "New Brunswick Free Public Library",
+    "lat": 40.4914,
+    "lng": -74.4458,
+    "tags": [
+      "Quiet",
+      "Free",
+      "ADA",
+      "Solo-Friendly",
+      "Eco-Friendly",
+      "Kid-friendly"
+    ],
+    "is_alcoholic": false,
+    "description": "Good place for meet ups, browsing, and activities for kids"
+  },
+  {
+    "name": "New Brunswick Free Public Library",
+    "lat": 40.4914,
+    "lng": -74.4458,
+    "tags": [
+      "Quiet",
+      "Free",
+      "ADA",
+      "Solo-Friendly",
+      "Eco-Friendly",
+      "Kid-friendly"
+    ],
+    "is_alcoholic": false,
+    "description": "Good place for meet ups, browsing, and activities for kids"
+  },
+  {
+    "name": "New Brunswick Free Public Library",
+    "lat": 40.4914,
+    "lng": -74.4458,
+    "tags": [
+      "Quiet",
+      "Free",
+      "ADA",
+      "Solo-Friendly",
+      "Eco-Friendly",
+      "Kid-friendly"
+    ],
+    "is_alcoholic": false,
+    "description": "Good place for meet ups, browsing, and activities for kids"
+  },
+  {
+    "name": "New Brunswick Free Public Library",
+    "lat": 40.4914,
+    "lng": -74.4458,
+    "tags": [
+      "Quiet",
+      "Free",
+      "ADA",
+      "Solo-Friendly",
+      "Eco-Friendly",
+      "Kid-friendly"
+    ],
+    "is_alcoholic": false,
+    "description": "Good place for meet ups, browsing, and activities for kids"
+  },
+  {
+    "name": "New Brunswick Free Public Library",
+    "lat": 40.4914,
+    "lng": -74.4458,
+    "tags": [
+      "Quiet",
+      "Free",
+      "ADA",
+      "Solo-Friendly",
+      "Eco-Friendly",
+      "Kid-friendly"
+    ],
+    "is_alcoholic": false,
+    "description": "Good place for meet ups, browsing, and activities for kids"
+  },
+  {
+    "name": "New Brunswick Free Public Library",
+    "lat": 40.4914,
+    "lng": -74.4458,
+    "tags": [
+      "Quiet",
+      "Free",
+      "ADA",
+      "Solo-Friendly",
+      "Eco-Friendly",
+      "Kid-friendly"
+    ],
+    "is_alcoholic": false,
+    "description": "Good place for meet ups, browsing, and activities for kids"
+  },
+  {
+    "name": "New Brunswick Free Public Library",
+    "lat": 40.4914,
+    "lng": -74.4458,
+    "tags": [
+      "Quiet",
+      "Free",
+      "ADA",
+      "Solo-Friendly",
+      "Eco-Friendly",
+      "Kid-friendly"
+    ],
+    "is_alcoholic": false,
+    "description": "Good place for meet ups, browsing, and activities for kids"
+  },
+  {
+    "name": "New Brunswick Free Public Library",
+    "lat": 40.4914,
+    "lng": -74.4458,
+    "tags": [
+      "Quiet",
+      "Free",
+      "ADA",
+      "Solo-Friendly",
+      "Eco-Friendly",
+      "Kid-friendly"
+    ],
+    "is_alcoholic": false,
+    "description": "Good place for meet ups, browsing, and activities for kids"
+  },
+  {
+    "name": "New Brunswick Free Public Library",
+    "lat": 40.4914,
+    "lng": -74.4458,
+    "tags": [
+      "Quiet",
+      "Free",
+      "ADA",
+      "Solo-Friendly",
+      "Eco-Friendly",
+      "Kid-friendly"
+    ],
+    "is_alcoholic": false,
+    "description": "Good place for meet ups, browsing, and activities for kids"
+  },
+  {
+    "name": "New Brunswick Free Public Library",
+    "lat": 40.4914,
+    "lng": -74.4458,
+    "tags": [
+      "Quiet",
+      "Free",
+      "ADA",
+      "Solo-Friendly",
+      "Eco-Friendly",
+      "Kid-friendly"
+    ],
+    "is_alcoholic": false,
+    "description": "Good place for meet ups, browsing, and activities for kids"
+  },
+  {
+    "name": "New Brunswick Free Public Library",
+    "lat": 40.4914,
+    "lng": -74.4458,
+    "tags": [
+      "Quiet",
+      "Free",
+      "ADA",
+      "Solo-Friendly",
+      "Eco-Friendly",
+      "Kid-friendly"
+    ],
+    "is_alcoholic": false,
+    "description": "Good place for meet ups, browsing, and activities for kids"
+  },
+  {
+    "name": "New Brunswick Free Public Library",
+    "lat": 40.4914,
+    "lng": -74.4458,
+    "tags": [
+      "Quiet",
+      "Free",
+      "ADA",
+      "Solo-Friendly",
+      "Eco-Friendly",
+      "Kid-friendly"
+    ],
+    "is_alcoholic": false,
+    "description": "Good place for meet ups, browsing, and activities for kids"
+  },
+  {
+    "name": "n",
+    "category": "cafe",
+    "location": "r",
+    "lat": 0,
+    "lng": 0,
+    "description": "",
+    "amenities": [],
+    "essentials": [],
+    "vibe": [],
+    "vibe_slider": 3,
+    "is_free": true,
+    "cost_type": "free",
+    "student_perk": "",
+    "transit": "",
+    "protip": "",
+    "is_quiet": false,
+    "is_ada": false,
+    "solo_friendly": false,
+    "submittedAt": "2026-02-22T13:20:56.887Z",
+    "id": 1771766456887
+  },
+  {
+    "name": "n",
+    "category": "cafe",
+    "location": "n",
+    "lat": 0,
+    "lng": 0,
+    "description": "",
+    "amenities": [],
+    "essentials": [],
+    "vibe": [],
+    "vibe_slider": 3,
+    "is_free": true,
+    "cost_type": "free",
+    "student_perk": "",
+    "transit": "",
+    "protip": "",
+    "is_quiet": false,
+    "is_ada": false,
+    "solo_friendly": false,
+    "submittedAt": "2026-02-22T13:31:56.353Z",
+    "id": 1771767116353
+  }
 ]
