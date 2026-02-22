@@ -149,8 +149,8 @@ body{
 .section-header {
   display: flex;          /* keep title & button on one line */
   align-items: center;
-  gap: 8px;               /* small space between them */
-  margin-bottom: 12px;    /* <-- add some space below the header */
+  gap: 8px;               /* space between title and button */
+  margin-bottom: 12px;    /* optional extra breathing room */
 }
 .section-header h2 { margin: 0; font-size: 1.2rem; }
 </style>
@@ -199,7 +199,12 @@ body{
   </section>
 
   <section class="section">
-    <h2>Events</h2>
+    <div class="section-header">
+      <h2>Events</h2>
+      <button class="add-space" onclick="window.location.href='./add-event.html'">
+        Post an Event
+      </button>
+    </div>
     <div class="cards" id="eventContainer"></div>
   </section>
 
