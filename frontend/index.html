@@ -60,10 +60,6 @@
 
 </main>
 
-<div class="detail-modal" id="detailModal">
-  <div class="detail-content" id="detailContent"></div>
-</div>
-
 <!-- PROFILE MODAL -->
 <div class="modal" id="profileModal">
   <div class="modal-content" id="profileContent"></div>
@@ -123,7 +119,6 @@ const thirdspaces =
     "is_active": false,
     "is_social": true,
     "is_other": true,
-    "money_required": "Free",
     "description": "Great for pickeball sessions, picnics, walks, and volleyball."
     },
 
@@ -137,7 +132,6 @@ const thirdspaces =
     "is_active": false,
     "is_social": true,
     "is_other": true,
-    "money_required": "Free",
     "description": "Good place for meet ups, browsing, and activities for kids"
     },
 
@@ -151,7 +145,6 @@ const thirdspaces =
     "is_active": false,
     "is_social": true,
     "is_other": true,
-    "money_required": "Free",
     "description": "Good place walks and looking at flowers"
     },
 
@@ -165,7 +158,6 @@ const thirdspaces =
     "is_active": false,
     "is_social": true,
     "is_other": true,
-    "money_required": "Free",
     "description": "Good place for meet ups, browsing, and activities for kids"
     },
 
@@ -179,7 +171,6 @@ const thirdspaces =
     "is_active": false,
     "is_social": true,
     "is_other": true,
-    "money_required": "Free",
     "description": "Good place for meet ups, browsing, and activities for kids"
     },
 
@@ -193,7 +184,6 @@ const thirdspaces =
     "is_active": false,
     "is_social": true,
     "is_other": true,
-    "money_required": "Free",
     "description": "Good place for meet ups, browsing, and activities for kids"
     },
 
@@ -207,7 +197,6 @@ const thirdspaces =
     "is_active": false,
     "is_social": true,
     "is_other": true,
-    "money_required": "Free",
     "description": "Good place for meet ups, browsing, and activities for kids"
     },
 
@@ -221,7 +210,6 @@ const thirdspaces =
     "is_active": false,
     "is_social": true,
     "is_other": true,
-    "money_required": "Free",
     "description": "Good place for meet ups, browsing, and activities for kids"
     },
 
@@ -235,7 +223,6 @@ const thirdspaces =
     "is_active": false,
     "is_social": true,
     "is_other": true,
-    "money_required": "Free",
     "description": "Good place for meet ups, browsing, and activities for kids"
     },
 
@@ -249,7 +236,6 @@ const thirdspaces =
     "is_active": false,
     "is_social": true,
     "is_other": true,
-    "money_required": "Free",
     "description": "Good place for meet ups, browsing, and activities for kids"
     },
 
@@ -263,7 +249,6 @@ const thirdspaces =
     "is_active": false,
     "is_social": true,
     "is_other": true,
-    "money_required": "Free",
     "description": "Good place for meet ups, browsing, and activities for kids"
     },
 
@@ -277,7 +262,6 @@ const thirdspaces =
     "is_active": false,
     "is_social": true,
     "is_other": true,
-    "money_required": "Free",
     "description": "Good place for meet ups, browsing, and activities for kids"
     },
 
@@ -291,7 +275,6 @@ const thirdspaces =
     "is_active": false,
     "is_social": true,
     "is_other": true,
-    "money_required": "Free",
     "description": "Good place for meet ups, browsing, and activities for kids"
     },
 
@@ -305,7 +288,6 @@ const thirdspaces =
     "is_active": false,
     "is_social": true,
     "is_other": true,
-    "money_required": "Free",
     "description": "Good place for meet ups, browsing, and activities for kids"
     },
 
@@ -319,7 +301,6 @@ const thirdspaces =
     "is_active": false,
     "is_social": true,
     "is_other": true,
-    "money_required": "Free",
     "description": "Good place for meet ups, browsing, and activities for kids"
     }
 ];
@@ -489,162 +470,135 @@ const events = [
 
 /* ================= RENDER ================= */
 
-function getUser(id) {
-  return users.find(u => u.id === id) || users[0];
+function getUser(id){
+  return users.find(u=>u.id===id);
 }
 
-// Render Thirdspaces
-function renderThirdspaces() {
+
+
+function renderThirdspaces(){
   const container = document.getElementById("thirdspaceContainer");
-  if (!container) return;
   container.innerHTML = "";
 
-  thirdspaces.forEach((space, index) => {
+  thirdspaces.forEach(space=>{
     const user = getUser(space.postedBy);
-    
-    // Generate Red Tags
+
+    // Build the tags HTML based on true/false values
     let tagsHTML = `<div class="tag-container">`;
     if(space.is_creative) tagsHTML += `<span class="tag">Creative</span>`;
-    if(space.is_quiet)    tagsHTML += `<span class="tag">Quiet</span>`;
-    if(space.is_active)   tagsHTML += `<span class="tag">Active</span>`;
-    if(space.is_social)   tagsHTML += `<span class="tag">Social</span>`;
-    if(space.is_other)    tagsHTML += `<span class="tag">Other</span>`;
+    if(space.is_quiet) tagsHTML += `<span class="tag">Quiet</span>`;
+    if(space.is_active) tagsHTML += `<span class="tag">A</span>`;
+    if(space.solo_friendly) tagsHTML += `<span class="tag">Solo-Friendly</span>`;
+    if(space["_kid-friendly"]) tagsHTML += `<span class="tag">Kid-Friendly</span>`;
     tagsHTML += `</div>`;
 
     container.innerHTML += `
-      <div class="card" onclick="openDetail('space', ${index})">
-        <img src="${space.image}" alt="${space.name}">
+      <div class="card">
+        <img src="${space.image}">
         <div class="card-content">
           <h3>${space.name}</h3>
           ${tagsHTML}
           <p>${space.description}</p>
           <div class="posted-by">
-            Posted by <span onclick="event.stopPropagation(); openProfile(${user.id})">${user.name}</span>
+            Posted by <span onclick="openProfile(${user.id})">${user.name}</span>
           </div>
         </div>
-      </div>`;
+      </div>
+    `;
   });
 }
 
-// Render Events
-function renderEvents() {
-  const container = document.getElementById("eventContainer");
-  if (!container) return;
-  container.innerHTML = "";
 
-  events.forEach((ev, index) => {
-    const user = getUser(ev.postedBy);
+/* ================= PROFILE ================= */
 
-    container.innerHTML += `
-      <div class="card" onclick="openDetail('event', ${index})">
-        <img src="${ev.image}" alt="${ev.title}">
-        <div class="card-content">
-          <h3>${ev.title}</h3>
-          <div class="tag-container"><span class="tag">${ev.type}</span></div>
-          <p>${ev.description}</p>
-          <div class="posted-by">
-            Posted by <span onclick="event.stopPropagation(); openProfile(${user.id})">${user.name}</span>
-          </div>
-        </div>
-      </div>`;
-  });
-}
-
-/* ================= MODAL & INTERACTION LOGIC ================= */
-
-// Combined detail opener for both Spaces and Events
-function openDetail(type, index) {
-  const modal = document.getElementById("detailModal");
-  const content = document.getElementById("detailContent");
-  let data;
-
-  if (type === 'space') {
-    data = thirdspaces[index];
-    content.innerHTML = `
-      <button class="close-btn" onclick="closeDetail()" style="float:right; cursor:pointer; border:none; background:none; font-size:20px;">×</button>
-      <img src="${data.image}" style="width:100%; border-radius:10px; height:220px; object-fit:cover;">
-      <h2 style="margin-top:15px;">${data.name}</h2>
-      <p><strong>Cost:</strong> ${data.money_required || "Free"}</p>
-      <p><strong>About:</strong> ${data.description}</p>
-      <hr>
-      <p style="font-size:0.8em; color:gray;">Location: ${data.lat}, ${data.lng}</p>
-    `;
-  } else {
-    data = events[index];
-    content.innerHTML = `
-      <button class="close-btn" onclick="closeDetail()" style="float:right; cursor:pointer; border:none; background:none; font-size:20px;">×</button>
-      <img src="${data.image}" style="width:100%; border-radius:10px; height:220px; object-fit:cover;">
-      <h2 style="margin-top:15px;">${data.title}</h2>
-      <div class="tag-container"><span class="tag">${data.type}</span></div>
-      <p><strong>Where:</strong> ${data.location_name}</p>
-      <p><strong>When:</strong> ${data.date} at ${data.time}</p>
-      <p>${data.description}</p>
-      <button class="add-space" style="width:100%;" onclick="alert('RSVP Sent!')">RSVP Now</button>
-    `;
-  }
-
-  modal.style.display = "flex";
-  document.body.style.overflow = "hidden"; // Stop background scroll
-}
-
-function closeDetail() {
-  document.getElementById("detailModal").style.display = "none";
-  document.body.style.overflow = "auto";
-}
-
-// Profile Modal Logic
 function openProfile(userId) {
   const modal = document.getElementById("profileModal");
   const content = document.getElementById("profileContent");
-  const user = getUser(userId);
+
+  const user = {
+  name: "Alex Rivera",
+  avatar: "https://static.vecteezy.com/system/resources/thumbnails/047/649/410/small/an-asian-man-with-closed-arms-in-pink-dress-with-isolated-on-transparent-background-cut-out-free-png.png",
+  bio: "Love exploring and trying new things!",
+  age: 28,
+  gender: "Male",
+  interests: ["Music", "Hiking", "Photography"],
+  skills: ["Guitar", "Cooking"],
+};
+
+
+function createTag(text, color="#f0f0f0") {
+  return `<span style="
+    display:inline-block;
+    background-color:${color};
+    color:#333;
+    border-radius:12px;
+    padding:4px 10px;
+    margin:2px;
+    font-size:0.9em;
+  ">${text}</span>`;
+}
+  const now = new Date();
+
+  // User events
+  const userEvents = events.filter(e => e.postedBy === userId);
+  const pastEvents = userEvents.filter(e => new Date(e.date) < now);
+  const upcomingEvents = userEvents.filter(e => new Date(e.date) >= now);
+  const likedEvents = userEvents.filter(e => user.likedEvents?.includes(e.id));
+
+  // User spaces
+  const userSpaces = thirdspaces.filter(s => s.postedBy === userId);
+  const pastSpaces = userSpaces.filter(s => s.date && new Date(s.date) < now);
+  const upcomingSpaces = userSpaces.filter(s => s.date && new Date(s.date) >= now);
+
+  // Helper to create tag HTML
+  const tag = text => `<span style="
+      display:inline-block;
+      background-color:#f0f0f0;
+      color:#333;
+      border-radius:12px;
+      padding:4px 10px;
+      margin:2px;
+      font-size:0.9em;
+  ">${text}</span>`;
+
+  const renderList = list => list.length ? list.map(i => `<p>• ${i.name}</p>`).join("") : "<p>None yet</p>";
 
   content.innerHTML = `
-    <button onclick="closeProfile()" style="float:right; cursor:pointer; border:none; background:none; font-size:20px;">×</button>
+    <button onclick="closeProfile()">X</button>
     <div style="text-align:center">
-      <img src="${user.avatar}" style="width:100px; height:100px; border-radius:50%; object-fit:cover; border:3px solid #0688d4;">
+      <img src="${user.avatar}" style="width:80px;border-radius:50%">
       <h3>${user.name}</h3>
-      <p><em>${user.bio}</em></p>
+      <p>${user.bio || ""}</p>
+      <div>
+        ${user.gender ? tag(user.gender) : ""}
+        ${user.age ? tag(user.age) : ""}
+        ${user.interests?.map(tag).join("") || ""}
+      </div>
     </div>
     <hr>
-    <h4>Activity</h4>
-    <p>Member since 2024</p>
+    <h4>Liked Events</h4>
+    ${renderList(likedEvents)}
+    <h4>Past Events</h4>
+    ${renderList(pastEvents)}
+    <h4>Upcoming Events</h4>
+    ${renderList(upcomingEvents)}
   `;
+
   modal.style.display = "flex";
 }
 
-function closeProfile() {
-  document.getElementById("profileModal").style.display = "none";
+function closeProfile(){
+  document.getElementById("profileModal").style.display="none";
 }
 
-// Add Space Modal Logic
-function openAddSpaceModal() {
-  document.getElementById('addSpaceModal').style.display = 'flex';
-}
+document.getElementById("myProfileBtn").onclick = ()=>openProfile(currentUser.id);
 
-function closeAddSpaceModal() {
-  document.getElementById('addSpaceModal').style.display = 'none';
-}
-
-// Handle Background Clicks to close all modals
-window.onclick = function(event) {
-  const detailModal = document.getElementById("detailModal");
-  const profileModal = document.getElementById("profileModal");
-  const addSpaceModal = document.getElementById("addSpaceModal");
-
-  if (event.target === detailModal) closeDetail();
-  if (event.target === profileModal) closeProfile();
-  if (event.target === addSpaceModal) closeAddSpaceModal();
-}
-
-/* ================= INITIALIZE ================= */
+/* INITIAL */
 renderThirdspaces();
 renderEvents();
 
-document.getElementById("myProfileBtn").onclick = () => openProfile(currentUser.id);
-
-
-
 </script>
+
 
 </body>
 </html>
