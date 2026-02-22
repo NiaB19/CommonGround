@@ -32,22 +32,16 @@ body{
   align-items:center;
 }
 
-.brand{
-  display:flex;
-  align-items:center;
-  gap:10px;
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 10px; /* space between logo and text */
 }
 
-.logo{
-  width:36px;
-  height:36px;
-  border-radius:8px;
-  background:linear-gradient(135deg,#4f46e5,#06b6d4);
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  color:#fff;
-  font-weight:bold;
+.logo {
+  width: 80px;       /* adjust size as needed */
+  height: 80px;
+  object-fit: contain; 
 }
 
 .profile-btn{
@@ -161,7 +155,7 @@ body{
 
 <div class="navbar">
   <div class="brand">
-    <div class="logo">CG</div>
+    <img src="./logo.png" alt="CommonGround Logo" class="logo">
     <h1>CommonGround</h1>
   </div>
 <!-- CATEGORY FILTER TABS -->
