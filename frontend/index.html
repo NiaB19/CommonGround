@@ -217,8 +217,7 @@ const users = [
   id:1,
   name:"Alex Rivera",
   bio:"Community builder & coffee lover",
-  avatar:"https://images.unsplash.com/photo-1534614971-6be99a7a3ffd?w=900&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8d2hpdGUlMjBtYWxlfGVufDB8fDB8fHwy"
-},
+  avatar:"https://images.unsplash.com/photo-1534614971-6be99a7a3ffd?w=900&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8d2hpdGUlMjBtYWxlfGVufDB8fDB8fHwy"},
 {
   id:2,
   name:"Jamie Chen",
@@ -584,30 +583,26 @@ const events = [
   ]
 
 function renderEvents(){
-  const container = document.getElementById("eventContainer");
-  container.innerHTML = "";
-
-  events.forEach(event=>{
-    const user = getUser(event.postedBy);
-
-    container.innerHTML += `
-      <div class="card">
-        <img src="${event.image}">
-        <div class="card-content">
-          <h3>${event.title}</h3>
-          <p>${event.description}</p>
-          <div class="posted-by">
-            Posted by <span onclick="openProfile(${user.id})">${user.name}</span>
+    const container = document.getElementById("eventContainer");
+    container.innerHTML = "";
+  
+    events.forEach(event=>{
+      const user = getUser(event.postedBy);
+  
+      container.innerHTML += `
+        <div class="card">
+          <img src="${event.image}">
+          <div class="card-content">
+            <h3>${event.title}</h3>
+            <p>${event.description}</p>
+            <div class="posted-by">
+              Posted by <span onclick="openProfile(${user.id})">${user.name}</span>
+            </div>
           </div>
-          <br>
-          <button class="like-btn">❤️ Like <span class="like-count"></span></button>
         </div>
-      </div>
-    `;
-  });
-
-  setupLikeButtons(); // <-- add here too
-}
+      `;
+    });
+  }
 ///-------------  
 
 /* ================= RENDER ================= */
@@ -717,7 +712,6 @@ document.getElementById("myProfileBtn").onclick = ()=>openProfile(currentUser.id
 /* INITIAL */
 renderThirdspaces();
 renderEvents();
-setupLikeButtons();
 
 </script>
 
