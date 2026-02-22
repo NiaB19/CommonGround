@@ -14,33 +14,35 @@
     }
 
     async function askGemini(userText) {
-        // 1. Add thinking bubble
-        const typing = document.createElement('div');
-        typing.className = 'msg assistant';
-        typing.textContent = 'Thinking...';
-        msgs.appendChild(typing);
+    // 1. Add thinking bubble
+    const typing = document.createElement('div');
+    typing.className = 'msg assistant';
+    typing.textContent = 'Thinking...';
+    msgs.appendChild(typing);
 
-        try {
-            // 2. Point to your PHP file
-          const response = await fetch('../backend/api/chat.php', {
+    try {
+        // Use the correct path to your PHP script
+        const response = await fetch('http://localhost:8000/frontend/backend/api/chat.php', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ message: userText })
 });
 
-            const data = await response.json();
-            msgs.removeChild(typing); // Remove thinking
+        const data = await response.json();
+        msgs.removeChild(typing); 
 
-            if (data.status === 'success') {
-                appendMessage(data.answer, 'assistant');
-            } else {
-                appendMessage("Error: " + data.message, 'assistant');
-            }
-        } catch (error) {
-            if (typing.parentNode) msgs.removeChild(typing);
-            appendMessage("Check terminal: Is PHP server running?", 'assistant');
+        if (data.status === 'success') {
+            // CHANGE 'data.answer' TO 'data.response' TO MATCH YOUR PHP
+            appendMessage(data.response, 'assistant'); 
+        } else {
+            appendMessage("Error: " + data.message, 'assistant');
         }
+    } catch (error) {
+        if (typing.parentNode) msgs.removeChild(typing);
+        appendMessage("Network error. Is the server running?", 'assistant');
+        console.error(error);
     }
+}
 
     // Controls
     btn.onclick = () => { win.style.display = 'flex'; };
