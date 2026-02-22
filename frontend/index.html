@@ -5,140 +5,121 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="stylesheet" href="style.css">
 <title>CommonGround — Thirdspace Finder</title>
+</head>
+
+<body>
+
+<!-- CHAT BUTTON -->
+<button id="chatbotBtn">🍀</button>
+
+<!-- CHAT WINDOW -->
+<div id="chatWindow">
+  <div id="chatHeader">
+    <span>Groundie 🌱</span>
+    <button id="chatClose" style="background:none;border:none;color:white;font-size:18px;cursor:pointer">✕</button>
+  </div>
+  <div id="chatMessages"></div>
+  <div id="chatInputArea">
+    <input id="chatInput" type="text" placeholder="Ask me anything...">
+    <button id="chatSend">Send</button>
+  </div>
+</div>
 
 <style>
-:root{
-  --bg:#4de8af;
-  --card:#ffffff;
-  --accent:#4f46e5;
-  --muted:#6b7280;
-}
-
-*{box-sizing:border-box}
-body{
-  margin:0;
-  font-family:monospace;
-  font-size: 18px;
-  background:var(--bg);
-  color:#111;
-}
-
-/* NAVBAR */
-.navbar{
-  background:#aaf4d7;
-  border-bottom:1px solid #e6e6f0;
-  padding:12px 20px;
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-}
-
-.brand {
-  display: flex;
-  align-items: center;
-  gap: 10px; /* space between logo and text */
-}
-
-.logo {
-  width: 80px;       /* adjust size as needed */
-  height: 80px;
-  object-fit: contain; 
-}
-
-.profile-btn{
-  background:#eef2ff;
-  padding:6px 10px;
-  border-radius:8px;
-  cursor:pointer;
-}
-
-/* LAYOUT */
-.container{
-  max-width:1100px;
-  margin:20px auto;
-  padding:0 20px;
-}
-
-.section{margin-bottom:40px}
-
-.cards{
-  display:grid;
-  grid-template-columns:repeat(auto-fill,minmax(260px,1fr));
-  gap:16px;
-}
-
-.card{
-  background:var(--card);
-  border-radius:12px;
-  overflow:hidden;
-  box-shadow:0 6px 18px rgba(0,0,0,0.06);
-}
-
-.card img{
-  width:100%;
-  height:150px;
-  object-fit:cover;
-}
-
-.card-content{padding:14px}
-
-.card h3{margin:0 0 6px}
-
-.card p{
-  margin:4px 0;
-  font-size:13px;
-  color:var(--muted);
-}
-
-.posted-by{
-  font-size:12px;
-  margin-top:6px;
-}
-
-.posted-by span{
-  color:var(--accent);
-  cursor:pointer;
-}
-
-/* MODAL */
-.modal{
-  position:fixed;
-  inset:0;
-  background:rgba(0,0,0,0.4);
-  display:none;
-  align-items:center;
-  justify-content:center;
-}
-
-.modal-content{
-  background:#fff;
-  padding:20px;
-  border-radius:12px;
-  width:350px;
-  max-height:80vh;
-  overflow:auto;
-}
-
-/* blue button used in a couple of places */
-.add-space {
-  background: #4f46e5;         /* blue */
-  color: #fff;
-  padding: 6px 12px;
-  font-size: 0.9rem;
+/* CLOVER CHAT BUTTON */
+#chatbotBtn {
+  position: fixed;
+  bottom: 28px;
+  left: 28px;
+  background: transparent;
   border: none;
-  border-radius: 6px;
+  font-size: 42px;
   cursor: pointer;
+  z-index: 4000;
+  transition: transform 0.2s ease;
+  padding: 0;
+  line-height: 1;
 }
-.add-space:hover,
-.add-space:focus { background: #3730a3; }
+#chatbotBtn:hover {
+  transform: scale(1.15) rotate(15deg);
+}
 
-/* ensure the category row and button stay aligned */
-.category-tabs {
+/* CHAT WINDOW */
+#chatWindow {
+  display: none;
+  flex-direction: column;
+  position: fixed;
+  bottom: 104px;
+  left: 28px;
+  width: 320px;
+  height: 420px;
+  background: #fff;
+  border-radius: 16px;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.18);
+  z-index: 4000;
+  overflow: hidden;
+}
+#chatHeader {
+  background: linear-gradient(135deg, #2bb585, #4de8af);
+  color: white;
+  padding: 14px 16px;
+  font-weight: bold;
+  font-family: monospace;
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
-  gap: 16px;
-  margin: 16px 0;
+}
+#chatMessages {
+  flex: 1;
+  overflow-y: auto;
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  font-family: monospace;
+  font-size: 0.85rem;
+}
+.msg {
+  max-width: 80%;
+  padding: 8px 12px;
+  border-radius: 12px;
+  line-height: 1.4;
+}
+.msg.user {
+  background: #4de8af;
+  color: #111;
+  align-self: flex-end;
+  border-bottom-right-radius: 4px;
+}
+.msg.assistant {
+  background: #f0f0f0;
+  color: #111;
+  align-self: flex-start;
+  border-bottom-left-radius: 4px;
+}
+#chatInputArea {
+  display: flex;
+  padding: 10px;
+  border-top: 1px solid #eee;
+  gap: 6px;
+}
+#chatInput {
+  flex: 1;
+  padding: 8px 10px;
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  font-family: monospace;
+  font-size: 0.85rem;
+}
+#chatSend {
+  background: #2bb585;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  padding: 8px 12px;
+  cursor: pointer;
+  font-family: monospace;
+  font-weight: bold;
 }
 
 /* header for each section – title + optional action button */
@@ -156,38 +137,25 @@ body{
   margin: 0 0 16px 0;
 }
 </style>
-</head>
 
-<body>
+<script src="app.js"></script>
 
 <div class="navbar">
   <div class="brand">
-    <img src="./logo.png" alt="CommonGround Logo" class="logo">
+    <a href="/"><img src="./logo.png" alt="CommonGround Logo" class="logo"></a>
     <h1>CommonGround</h1>
   </div>
-<!-- CATEGORY FILTER TABS -->
-<div class="category-tabs" style="display:flex;justify-content:center;gap:16px;margin:16px 0;">
-  <button class="category-tab active" data-category="Creative" title="Creative" style="margin-right: 10px; width: 100px; font-size: 16px; background-color: #0688d4; color: whitesmoke; font-family:monospace; border-color: black; padding: 10px; border-radius: 10px">
-    Creative
-  </button>
-  <button class="category-tab" data-category="Quiet" title="Quiet" style="margin-right: 10px; width: 100px; font-size: 16px; background-color: #0688d4; color: whitesmoke; font-family:monospace; border-color: black; padding: 10px; border-radius: 10px">
-    Quiet
-  </button>
-  <button class="category-tab" data-category="Active" title="Active" style="margin-right: 10px; width: 100px; font-size: 16px; background-color: #0688d4; color: whitesmoke; font-family:monospace; border-color: black; padding: 10px; border-radius: 10px">
-    Active
-  </button>
-  <button class="category-tab" data-category="Social" title="Social" style="margin-right: 10px; width: 100px; font-size: 16px; background-color: #0688d4; color: whitesmoke; font-family:monospace; border-color: black; padding: 10px; border-radius: 10px">
-    Social
-  </button>
-  <button class="category-tab" data-category="Other" title="Other" style="margin-right: 10px; width: 100px; height: 43px; font-size: 16px; background-color: #0688d4; color: whitesmoke; font-family:monospace; border-color: black; padding: 10px; border-radius: 10px;">
-    Other
-</div>
-  <button class="profile-btn" id="myProfileBtn" type="button" aria-label="Open my profile">My Profile</button>
-</div>
 
-<!-- quick profile summary for logged in user -->
-<div id="currentUserProfile" style="padding:10px 20px; background:#eef2ff; display:flex; align-items:center; gap:10px;">
-  <!-- populated by script -->
+  <div class="category-tabs">
+    <button class="category-tab" data-category="all">All</button>
+    <button class="category-tab" data-category="Creative">Creative</button>
+    <button class="category-tab" data-category="Quiet">Quiet</button>
+    <button class="category-tab" data-category="Active">Active</button>
+    <button class="category-tab" data-category="Social">Social</button>
+    <button class="category-tab" data-category="Other">Other</button>
+  </div>
+
+  <div class="profile-btn" id="myProfileBtn">My Profile</div>
 </div>
 
 <main class="container">
@@ -195,9 +163,8 @@ body{
   <section class="section">
     <div class="section-header">
       <h2>Thirdspaces</h2>
-      <button class="add-space" type="button" style="font-family: monospace;"
-              onclick="window.location.href='./add-thirdspace.html'">
-        Add a Thirdspace
+      <button class="add-space" type="button" onclick="window.location.href='/add-thirdspace.html'">
+        Add a Thirdspace ➕
       </button>
     </div>
     <p class="section-description">Discover local spots where people connect, unwind, and belong, beyond home and work.</p>
@@ -208,8 +175,8 @@ body{
   <section class="section">
     <div class="section-header">
       <h2>Events</h2>
-      <button class="add-space" onclick="window.location.href='./add-event.html'" style="font-family: monospace;">
-        Post an Event
+      <button class="add-space" onclick="window.location.href='/add-event.html'">
+        Post an Event ➕
       </button>
     </div>
     <p class="section-description">Find and host events at local thirdspaces, filtered by the communities and interests that matter to you.</p>
@@ -222,398 +189,58 @@ body{
   <div class="detail-content" id="detailContent"></div>
 </div>
 
-<!-- PROFILE MODAL -->
-<div class="modal" id="profileModal">
-  <div class="modal-content" id="profileContent"></div>
+<div id="profileModal" style="position:fixed;inset:0;background:rgba(0,0,0,0.55);display:none;align-items:center;justify-content:center;z-index:5000;">
+  <div id="profileContent" style="background:#fff;border-radius:18px;width:92%;max-width:460px;max-height:85vh;overflow-y:auto;padding:28px;font-family:monospace;position:relative;box-shadow:0 20px 60px rgba(0,0,0,0.25);"></div>
 </div>
 
 <script>
 /* ================= USERS ================= */
-
 const users = [
-{
-  id:1,
-  name:"Alex Rivera",
-  bio:"Community builder & coffee lover",
-  avatar:"https://images.unsplash.com/photo-1534614971-6be99a7a3ffd?w=900&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8d2hpdGUlMjBtYWxlfGVufDB8fDB8fHwy",
-  gender:"Male",
-  age:27
-},
-{
-  id:2,
-  name:"Jamie Chen",
-  bio:"Outdoor enthusiast & event host",
-  avatar:"https://images.unsplash.com/photo-1616325629936-99a9013c29c6?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8YXNpYW4lMjBsYWR5fGVufDB8fDB8fHww",
-  gender:"Female",
-  age:24
-},
-{
-  id:3,
-  name:"Arthur Murray",
-  bio:"Part-time author who loves to talk books",
-  avatar:"https://images.unsplash.com/photo-1531384441138-2736e62e0919?q=80&w=387&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-  gender:"Male",
-  age:32
-},
-{
-  id:4,
-  name:"Melissa Miller",
-  bio:"Movie lover and film expert",
-  avatar:"https://images.unsplash.com/photo-1567173152334-40c73f5f6d58?q=80&w=400&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-  gender:"Female",
-  age:29
-},
-{
-  id:5,
-  name:"Martin Rodriguez",
-  bio:"Cooking enthusiast and amateur chef",
-  avatar:"https://plus.unsplash.com/premium_photo-1661722605170-f950f82fe53e?q=80&w=870&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-  gender:"Male",
-  age:35
-}
-
-
+  { id:1, name:"Alex Rivera",    bio:"Community builder & coffee lover",         avatar:"https://images.unsplash.com/photo-1534614971-6be99a7a3ffd?w=900&auto=format&fit=crop&q=60" },
+  { id:2, name:"Jamie Chen",     bio:"Outdoor enthusiast & event host",           avatar:"https://images.unsplash.com/photo-1616325629936-99a9013c29c6?w=600&auto=format&fit=crop&q=60" },
+  { id:3, name:"Arthur Murray",  bio:"Part-time author who loves to talk books",  avatar:"https://images.unsplash.com/photo-1531384441138-2736e62e0919?q=80&w=387&auto=format&fit=crop" },
+  { id:4, name:"Melissa Miller", bio:"Movie lover and film expert",               avatar:"https://images.unsplash.com/photo-1567173152334-40c73f5f6d58?q=80&w=400&auto=format&fit=crop" },
+  { id:5, name:"Martin Rodriguez", bio:"Cooking enthusiast and amateur chef",     avatar:"https://plus.unsplash.com/premium_photo-1661722605170-f950f82fe53e?q=80&w=870&auto=format&fit=crop" }
 ];
-
 const currentUser = users[0];
 
 /* ================= DATA ================= */
-
-const thirdspaces = 
-[
-    {
-    "name": "Veterans Park",
-    image:"https://images.unsplash.com/photo-1585938389612-a552a28d6914?w=900&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8cGFya3xlbnwwfHwwfHx8Mg%3D%3D",
-    postedBy:1,
-    "lat": 40.3970518, "lng": -74.3573709,
-    "is_quiet": false,
-    "is_free": true,
-    "_kid-friendly": false,
-    "is_ada": true,
-    "solo_friendly": true,
-    "description": "Great for pickeball sessions, picnics, walks, and volleyball."
-    },
-
-    {
-    "name": "New Brunswick Free Public Library",
-    image:"https://images.unsplash.com/photo-1521587760476-6c12a4b040da?w=900&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8bGlicmFyeXxlbnwwfHwwfHx8Mg%3D%3D",
-    postedBy:2,
-    "lat": 40.4913782, "lng": -74.4453930,
-    "is_quiet": false,
-    "is_free": true,
-    "_kid-friendly": true,
-    "is_ada": true,
-    "solo_friendly": false,
-    "description": "Good place for meet ups, browsing, and activities for kids"
-    },
-
-    {
-    "name": "Buccleuch Park",
-    image:"https://images.unsplash.com/photo-1519331379826-f10be5486c6f?w=900&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8cGFya3xlbnwwfHwwfHx8Mg%3D%3D",
-    postedBy:3,
-    "lat": 40.5048264, "lng": -74.4595969,
-    "is_creative": false,
-    "is_quiet": true,
-    "is_active": true,
-    "is_social": true,
-    "is_other": true,
-    "money_required": "Free",
-    "description": "Good place walks and looking at flowers"
-    },
-
-    {
-    "name": "Rutgers Geology Museum",
-    image:"https://images.unsplash.com/photo-1572953109213-3be62398eb95?w=900&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NHx8bXVzZXVtfGVufDB8fDB8fHwy",
-    postedBy:4,
-    "lat": 40.4986490, "lng": -74.4466806,
-    "is_quiet": true,
-    "is_free": true,
-    "_kid-friendly": true,
-    "is_ada": false,
-    "solo_friendly": false,
-    "description": "Good place for meet ups, browsing, and activities for kids"
-    },
-
-    {
-    "name": "Semicolon Cafe",
-    image:"https://images.unsplash.com/photo-1554118811-1e0d58224f24?w=900&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NHx8Y2FmZXxlbnwwfHwwfHx8Mg%3D%3D",
-    postedBy:5,
-    "lat": 40.486667, "lng": -74.444444,
-    "is_quiet": true,
-    "is_active": false,
-    "is_social": true,
-    "is_other": true,
-    "money_required": "Free",
-    "description": "Good place for meet ups, browsing, and activities for kids"
-    },
-
-    {
-    "name": "Delaware & Raritan Canal State Park Trail",
-    image:"https://images.unsplash.com/photo-1592859600972-1b0834d83747?w=900&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NXx8dHJhaWx8ZW58MHx8MHx8fDI%3D",
-    postedBy:4,
-    "lat": 40.5389923, "lng": -74.5721009,
-    "is_quiet": false,
-    "is_free": true,
-    "_kid-friendly": true,
-    "is_ada": true,
-    "solo_friendly": false,
-    "description": "Good place for meet ups, browsing, and activities for kids"
-    },
-
-    {
-    "name": "State Theatre New Jersey",
-    image:"https://images.unsplash.com/photo-1558970439-add78fc68990?w=900&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NXx8dGhlYXRyZXxlbnwwfHwwfHx8Mg%3D%3D",
-    postedBy:2,
-    "lat": 40.493341, "lng": -74.44462,
-    "is_creative": false,
-    "is_quiet": true,
-    "is_active": false,
-    "is_social": true,
-    "is_other": true,
-    "money_required": "Free",
-    "description": "Good place for meet ups, browsing, and activities for kids"
-    },
-
-    {
-    "name": "Sentirsi Pilates Studio",
-    image:"https://images.unsplash.com/photo-1717500252709-05a73fc4f1da?w=900&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8cGlsYXRlcyUyMHN0dWRpb3xlbnwwfHwwfHx8Mg%3D%3D",
-    postedBy:3,
-    "lat": 40.54207127548425, "lng": -74.3606030999999,
-    "is_quiet": false,
-    "is_free": false,
-    "_kid-friendly": true,
-    "is_ada": true,
-    "solo_friendly": false,
-    "description": "Good place for meet ups, browsing, and activities for kids"
-    },
-
-    {
-    "name": "The Canvas & Grapes Experience",
-    image:"https://images.unsplash.com/photo-1491245338813-c6832976196e?w=900&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8cGFpbnQlMjBhbmQlMjBzaXB8ZW58MHx8MHx8fDI%3D",
-    postedBy:1,
-    "lat": 40.508614, "lng": -74.372064,"is_quiet": false,
-    "is_free": false,
-    "_kid-friendly": true,
-    "is_ada": true,
-    "solo_friendly": false,
-    "description": "Good place for meet ups, browsing, and activities for kids"
-    },
-
-    {
-    "name": "Palmer Square",
-    image:"https://images.unsplash.com/photo-1604573332746-dd5b20e82aa6?w=900&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NXx8cGxhemF8ZW58MHx8MHx8fDI%3D",
-    postedBy:1,
-    "lat": 40.350, "lng": -74.661,
-    "is_quiet": false,
-    "is_free": true,
-    "_kid-friendly": true,
-    "is_ada": true,
-    "solo_friendly": false,
-    "description": "Good place for meet ups, browsing, and activities for kids"
-    },
-
-    {
-    "name": "Pink Pistachio Cafe",
-    image:"https://images.unsplash.com/photo-1567880905822-56f8e06fe630?w=900&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8Y2FmZXxlbnwwfHwwfHx8Mg%3D%3D",
-    postedBy:4,
-    "lat": 40.5294098, "lng": -74.5569183,
-    "is_quiet": true,
-    "is_free": true,
-    "_kid-friendly": false,
-    "is_ada": true,
-    "solo_friendly": true,
-    "description": "Good place for meet ups, browsing, and activities for kids"
-    },
-
-    {
-    "name": "Hex and Company",
-    image:"https://images.unsplash.com/photo-1677188010559-0667a1ed33a0?w=900&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8Ym9hcmQlMjBnYW1lc3xlbnwwfHwwfHx8Mg%3D%3D",
-    postedBy:2,
-    "lat": 40.73263, "lng": -73.99141,"is_quiet": false,
-    "is_free": true,
-    "_kid-friendly": false,
-    "is_ada": false,
-    "solo_friendly": true,
-    "description": "Good place for meet ups, browsing, and activities for kids"
-    },
-
-    {
-    "name": "Marlboro Meadows Farm",
-    image:"https://images.unsplash.com/photo-1625923780302-53edca7b85f5?w=900&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8ZmFybSUyMGtpZHN8ZW58MHx8MHx8fDI%3D",
-    postedBy:5,
-    "lat": 40.3629483, "lng": -74.2095475,
-    "is_quiet": false,
-    "is_free": false,
-    "_kid-friendly": false,
-    "is_ada": true,
-    "solo_friendly": false,
-    "description": "Good place for meet ups, browsing, and activities for kids"
-    },
-
-    {
-    "name": "Pier C Park",
-    image:"https://media.istockphoto.com/id/587540100/photo/new-york-city-brooklyn-bridge-park.webp?a=1&b=1&s=612x612&w=0&k=20&c=aqtowMnjAggiJgWuMSBVUelXAlz5pS9cOu4IR_CosAM=",
-    postedBy:3,
-    "lat": 40.7401224, "lng": -74.0259351,
-    "is_quiet": false,
-    "is_free": true,
-    "_kid-friendly": true,
-    "is_ada": true,
-    "solo_friendly": false,
-    "description": "Good place for meet ups, browsing, and activities for kids"
-    },
-
-    {
-    "name": "Grounds For Sculpture",
-    image:"https://images.unsplash.com/photo-1692887526675-be36d4159dfd?w=900&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NHx8bmF0dXJhbCUyMHNjdWxwdHVyZXN8ZW58MHx8MHx8fDI%3D",
-    postedBy:4,
-    "lat": 40.23678, "lng": -74.71889,
-    "is_quiet": false,
-    "is_free": true,
-    "_kid-friendly": true,
-    "is_ada": true,
-    "solo_friendly": true,
-    "description": "Good place for meet ups, browsing, and activities for kids"
-    }
+const thirdspaces = [
+  { name:"Veterans Park",                      image:"https://images.unsplash.com/photo-1585938389612-a552a28d6914?w=900&auto=format&fit=crop&q=60", postedBy:1, lat:40.3970518, lng:-74.3573709, is_creative:false, is_quiet:false, is_active:true,  is_social:true,  is_other:false, money_required:"Free",         description:"Great for pickleball sessions, picnics, walks, and volleyball." },
+  { name:"New Brunswick Free Public Library",  image:"https://images.unsplash.com/photo-1521587760476-6c12a4b040da?w=900&auto=format&fit=crop&q=60", postedBy:2, lat:40.4913782, lng:-74.4453930, is_creative:false, is_quiet:true,  is_active:false, is_social:true,  is_other:false, money_required:"Free",         description:"Good place for meetups, browsing, and activities for kids." },
+  { name:"Buccleuch Park",                     image:"https://images.unsplash.com/photo-1519331379826-f10be5486c6f?w=900&auto=format&fit=crop&q=60", postedBy:3, lat:40.5048264, lng:-74.4595969, is_creative:true,  is_quiet:true,  is_active:false, is_social:true,  is_other:true,  money_required:"Free",         description:"Good for walks and looking at flowers." },
+  { name:"Rutgers Geology Museum",             image:"https://images.unsplash.com/photo-1572953109213-3be62398eb95?w=900&auto=format&fit=crop&q=60", postedBy:4, lat:40.4986490, lng:-74.4466806, is_creative:false, is_quiet:true,  is_active:false, is_social:false, is_other:true,  money_required:"Free",         description:"Fascinating fossil and mineral collection. Great solo visit." },
+  { name:"Semicolon Cafe",                     image:"https://images.unsplash.com/photo-1554118811-1e0d58224f24?w=900&auto=format&fit=crop&q=60", postedBy:5, lat:40.486667,  lng:-74.444444,  is_creative:false, is_quiet:true,  is_active:false, is_social:true,  is_other:false, money_required:"Purchase",     description:"Cozy cafe perfect for reading, studying, or a quiet solo hangout." },
+  { name:"Delaware & Raritan Canal Trail",     image:"https://images.unsplash.com/photo-1592859600972-1b0834d83747?w=900&auto=format&fit=crop&q=60", postedBy:4, lat:40.5389923, lng:-74.5721009, is_creative:false, is_quiet:true,  is_active:true,  is_social:false, is_other:false, money_required:"Free",         description:"Scenic trail along the canal. Great for walking and cycling." },
+  { name:"State Theatre New Jersey",           image:"https://images.unsplash.com/photo-1558970439-add78fc68990?w=900&auto=format&fit=crop&q=60", postedBy:2, lat:40.493341,  lng:-74.44462,   is_creative:true,  is_quiet:false, is_active:false, is_social:true,  is_other:false, money_required:"Varies",       description:"Catch live performances ranging from concerts to comedy." },
+  { name:"Sentirsi Pilates Studio",            image:"https://images.unsplash.com/photo-1717500252709-05a73fc4f1da?w=900&auto=format&fit=crop&q=60", postedBy:3, lat:40.5420712, lng:-74.3606031, is_creative:false, is_quiet:false, is_active:true,  is_social:false, is_other:false, money_required:"Purchase",     description:"Welcoming pilates studio with beginner-friendly classes." },
+  { name:"The Canvas & Grapes Experience",     image:"https://images.unsplash.com/photo-1491245338813-c6832976196e?w=900&auto=format&fit=crop&q=60", postedBy:1, lat:40.508614,  lng:-74.372064,  is_creative:true,  is_quiet:false, is_active:false, is_social:true,  is_other:false, money_required:"Purchase",     description:"Paint-and-sip studio. Fun for groups and creative meetups." },
+  { name:"Palmer Square",                      image:"https://images.unsplash.com/photo-1604573332746-dd5b20e82aa6?w=900&auto=format&fit=crop&q=60", postedBy:1, lat:40.350,     lng:-74.661,     is_creative:false, is_quiet:false, is_active:false, is_social:true,  is_other:true,  money_required:"Free",         description:"Lively open square with shops, events, and outdoor seating." },
+  { name:"Pink Pistachio Cafe",                image:"https://images.unsplash.com/photo-1567880905822-56f8e06fe630?w=900&auto=format&fit=crop&q=60", postedBy:4, lat:40.5294098, lng:-74.5569183, is_creative:false, is_quiet:true,  is_active:false, is_social:true,  is_other:false, money_required:"Purchase",     description:"Charming cafe with a great atmosphere for solo visits." },
+  { name:"Hex and Company",                    image:"https://images.unsplash.com/photo-1677188010559-0667a1ed33a0?w=900&auto=format&fit=crop&q=60", postedBy:2, lat:40.73263,   lng:-73.99141,   is_creative:true,  is_quiet:false, is_active:false, is_social:true,  is_other:false, money_required:"Purchase",     description:"Board game cafe perfect for group hangouts." },
+  { name:"Marlboro Meadows Farm",              image:"https://images.unsplash.com/photo-1625923780302-53edca7b85f5?w=900&auto=format&fit=crop&q=60", postedBy:5, lat:40.3629483, lng:-74.2095475, is_creative:false, is_quiet:true,  is_active:true,  is_social:false, is_other:true,  money_required:"Purchase",     description:"A peaceful farm setting for outdoor activities." },
+  { name:"Pier C Park",                        image:"https://media.istockphoto.com/id/587540100/photo/new-york-city-brooklyn-bridge-park.webp?a=1&b=1&s=612x612&w=0&k=20&c=aqtowMnjAggiJgWuMSBVUelXAlz5pS9cOu4IR_CosAM=", postedBy:3, lat:40.7401224, lng:-74.0259351, is_creative:false, is_quiet:false, is_active:true,  is_social:true,  is_other:false, money_required:"Free", description:"Beautiful waterfront park with stunning NYC views." },
+  { name:"Grounds For Sculpture",             image:"https://images.unsplash.com/photo-1692887526675-be36d4159dfd?w=900&auto=format&fit=crop&q=60", postedBy:4, lat:40.23678,   lng:-74.71889,   is_creative:true,  is_quiet:true,  is_active:false, is_social:false, is_other:false, money_required:"Purchase",     description:"Stunning sculpture park — magical to explore alone or with others." }
 ];
 
-
-///------------------------------------------------------
 const events = [
-    {
-      "event_id": 1,
-      image:"https://images.unsplash.com/photo-1723004714201-cf224222b897?w=900&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTR8fHBpY2tsZWJhbGx8ZW58MHx8MHx8fDI%3D",
-      "title": "Pickleball Mixer",
-      "location_name": "Veterans Park",
-      "date": "2026-03-01",
-      "time": "10:00 AM",
-      "type": "Sports",
-      "description": "Open play for all skill levels. Meet at the courts!",
-      "target_communities": ["Active","Interests"],
-      postedBy: 2
-    },
-  
-    {
-      "event_id": 2,
-      image:"https://images.unsplash.com/photo-1631888720524-677830236f3e?w=900&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8OHx8cmVhZGluZyUyMHdpdGglMjBwZW9wbGV8ZW58MHx8MHx8fDI%3D",
-      "title": "Silent Reading Hour",
-      "location_name": "New Brunswick Free Public Library",
-      "date": "2026-03-01",
-      "time": "2:00 PM",
-      "type": "Social",
-      "description": "Bring your current read and enjoy some quiet company.",
-      "target_communities": ["Quiet","Academic/Career"],
-      postedBy: 1
-    },
-  
-    {
-      "event_id": 3,
-      image:"https://images.unsplash.com/photo-1666956175288-848f477c5788?w=900&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTN8fGhhdmluZyUyMHRlYSUyMGF0JTIwY2FmZXxlbnwwfHwwfHx8Mg%3D%3D",
-      "title": "Tea Party",
-      "location_name": "Rutgers Geology Museum",
-      "date": "2026-03-02",
-      "time": "11:00 AM",
-      "type": "Education",
-      "description": "A guided tour of the local fossil collection.",
-      "target_communities": ["Women-only"],
-      postedBy: 2
-    },
-  
-    {
-      "event_id": 4,
-      image:"https://images.unsplash.com/photo-1760351065294-b069f6bcadc4?w=900&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NHx8c3R1ZHklMjB3aXRoJTIwZnJpZW5kc3xlbnwwfHwwfHx8Mg%3D%3D",
-      "title": "Lofi Study Session",
-      "location_name": "Semicolon Cafe",
-      "date": "2026-03-02",
-      "time": "11:00 AM",
-      "type": "Education",
-      "description": "A guided tour of the local fossil collection.",
-      "target_communities": ["LGBTQ+","Academic/Career"],
-      postedBy: 4
-    },
-  
-    {
-      "event_id": 5,
-      image:"https://images.unsplash.com/photo-1768777271184-75bbe5815a79?w=900&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTJ8fG11c2ljJTIwcGxheWluZ3xlbnwwfHwwfHx8Mg%3D%3D",
-      "title": "Weekly Jazz Night",
-      "location_name": "Palmer Square",
-      "date": "2026-03-02",
-      "time": "11:00 AM",
-      "type": "Education",
-      "description": "A guided tour of the local fossil collection.",
-      postedBy: 3
-    },
-  
-    {
-      "event_id": 6,
-      "title": "Who wants to come biking with me?",
-      image:"https://images.unsplash.com/photo-1629626495452-37bfe96e142b?w=900&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8YmlraW5nfGVufDB8fDB8fHwy",
-      "location_name": "Delaware & Raritan Canal State Park Trail",
-      "date": "2026-03-02",
-      "time": "11:00 AM",
-      "type": "Entertainment",
-      "description": "A guided tour of the local fossil collection.",
-      "target_communities": ["Interests","LGBTQ+"],
-      postedBy: 5
-    },
-  
-    {
-      "event_id": 7,
-      image:"https://images.unsplash.com/photo-1677188010559-0667a1ed33a0?w=900&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8Ym9hcmQlMjBnYW1lJTIwbmlnaHR8ZW58MHx8MHx8fDI%3D",
-      "title": "Board Game Night",
-      "location_name": "Hex and Company",
-      "date": "2026-03-02",
-      "time": "11:00 AM",
-      "type": "Social",
-      "description": "There's this board game that I've been wanting to play. Let's do it!",
-      postedBy: 2
-    },
-  
-    {
-      "event_id": 8,
-      image:"https://images.unsplash.com/photo-1752649936285-cd6ae1bb70fd?w=900&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NXx8cGFpbnRpbmclMjB3aXRoJTIwZnJpZW5kc3xlbnwwfHwwfHx8Mg%3D%3D",
-      "title": "I really want to try this new painting class, need a partner",
-      "location_name": "The Canvas & Grapes Experience",
-      "date": "2026-03-02",
-      "time": "11:00 AM",
-      "type": "Creative",
-      "description": "A guided tour of the local fossil collection.",
-      postedBy: 2
-    },
-  
-    {
-      "event_id": 9,
-      image:"https://images.unsplash.com/photo-1761839256951-10c4468c3621?w=900&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTJ8fGZhcm0lMjB3aXRoJTIwZnJpZW5kc3xlbnwwfHwwfHx8Mg%3D%3D",
-      "title": "Going to the farm to pick up some fresh produce, anyone wants to join?",
-      "location_name": "Farmers Market",
-      "date": "2026-03-02",
-      "time": "11:00 AM",
-      "type": "Sports",
-      "description": "A guided tour of the local fossil collection.",
-      postedBy: 2
-    }
-  ]
+  { event_id:1, image:"https://images.unsplash.com/photo-1723004714201-cf224222b897?w=900&auto=format&fit=crop&q=60", title:"Pickleball Mixer",                                              location_name:"Veterans Park",                       date:"2026-03-01", time:"10:00 AM", type:"Sports",        description:"Open play for all skill levels. Meet at the courts!", postedBy:2 },
+  { event_id:2, image:"https://images.unsplash.com/photo-1631888720524-677830236f3e?w=900&auto=format&fit=crop&q=60", title:"Silent Reading Hour",                                           location_name:"New Brunswick Free Public Library",   date:"2026-03-01", time:"2:00 PM",  type:"Social",        description:"Bring your current read and enjoy some quiet company.", postedBy:1 },
+  { event_id:3, image:"https://images.unsplash.com/photo-1666956175288-848f477c5788?w=900&auto=format&fit=crop&q=60", title:"Tea Party",                                                     location_name:"Semicolon Cafe",                      date:"2026-03-02", time:"11:00 AM", type:"Social",        description:"A cozy tea gathering for anyone who loves a warm cup and good conversation.", postedBy:2 },
+  { event_id:4, image:"https://images.unsplash.com/photo-1760351065294-b069f6bcadc4?w=900&auto=format&fit=crop&q=60", title:"Lofi Study Session",                                            location_name:"Semicolon Cafe",                      date:"2026-03-02", time:"11:00 AM", type:"Education",     description:"Work on your own projects in good company. Quiet, focused atmosphere.", postedBy:4 },
+  { event_id:5, image:"https://images.unsplash.com/photo-1768777271184-75bbe5815a79?w=900&auto=format&fit=crop&q=60", title:"Weekly Jazz Night",                                             location_name:"Palmer Square",                       date:"2026-03-02", time:"7:00 PM",  type:"Creative",      description:"Live jazz under the stars. All welcome, no cover charge.", postedBy:3 },
+  { event_id:6, image:"https://images.unsplash.com/photo-1629626495452-37bfe96e142b?w=900&auto=format&fit=crop&q=60", title:"Who wants to come biking with me?",                             location_name:"Delaware & Raritan Canal Trail",      date:"2026-03-03", time:"9:00 AM",  type:"Sports",        description:"A casual group ride along the canal. All paces welcome!", postedBy:5 },
+  { event_id:7, image:"https://images.unsplash.com/photo-1677188010559-0667a1ed33a0?w=900&auto=format&fit=crop&q=60", title:"Board Game Night",                                              location_name:"Hex and Company",                     date:"2026-03-04", time:"6:00 PM",  type:"Social",        description:"There's this board game I've been wanting to play. Let's do it!", postedBy:2 },
+  { event_id:8, image:"https://images.unsplash.com/photo-1752649936285-cd6ae1bb70fd?w=900&auto=format&fit=crop&q=60", title:"I really want to try this new painting class, need a partner", location_name:"The Canvas & Grapes Experience",      date:"2026-03-05", time:"2:00 PM",  type:"Creative",      description:"Drop-in painting session. Beginners absolutely welcome!", postedBy:2 },
+  { event_id:9, image:"https://images.unsplash.com/photo-1761839256951-10c4468c3621?w=900&auto=format&fit=crop&q=60", title:"Going to the farm, anyone want to join?",                       location_name:"Marlboro Meadows Farm",               date:"2026-03-06", time:"10:00 AM", type:"Sports",        description:"Picking up fresh produce and enjoying the outdoors. Very chill!", postedBy:2 }
+];
 
-// old renderEvents definition removed (replaced by updated version later)
-
-
-/* ================= RENDER ================= */
-
-// Category filter: null = show all, otherwise "Creative" | "Quiet" | "Active" | "Social" | "Other"
-let currentCategoryFilter = null;
-const categoryToProp = {
-  Creative: "is_creative",
-  Quiet: "is_quiet",
-  Active: "is_active",
-  Social: "is_social",
-  Other: "is_other"
-};
-
-function getUser(id){
-  return users.find(u=>u.id===id);
+/* ================= HELPERS ================= */
+function getUser(id) {
+  return users.find(u => u.id === id) || users[0];
 }
 
-// Render Thirdspaces
+/* ================= RENDER THIRDSPACES ================= */
 function renderThirdspaces() {
   const container = document.getElementById("thirdspaceContainer");
   if (!container) return;
@@ -621,14 +248,13 @@ function renderThirdspaces() {
 
   thirdspaces.forEach((space, index) => {
     const user = getUser(space.postedBy);
-    
-    // Generate Red Tags
+
     let tagsHTML = `<div class="tag-container">`;
-    if(space.is_creative) tagsHTML += `<span class="tag">Creative</span>`;
-    if(space.is_quiet)    tagsHTML += `<span class="tag">Quiet</span>`;
-    if(space.is_active)   tagsHTML += `<span class="tag">Active</span>`;
-    if(space.is_social)   tagsHTML += `<span class="tag">Social</span>`;
-    if(space.is_other)    tagsHTML += `<span class="tag">Other</span>`;
+    if (space.is_creative) tagsHTML += `<span class="tag">Creative</span>`;
+    if (space.is_quiet)    tagsHTML += `<span class="tag">Quiet</span>`;
+    if (space.is_active)   tagsHTML += `<span class="tag">Active</span>`;
+    if (space.is_social)   tagsHTML += `<span class="tag">Social</span>`;
+    if (space.is_other)    tagsHTML += `<span class="tag">Other</span>`;
     tagsHTML += `</div>`;
 
     container.innerHTML += `
@@ -639,14 +265,14 @@ function renderThirdspaces() {
           ${tagsHTML}
           <p>${space.description}</p>
           <div class="posted-by">
-            Posted by <span class="posted-by-name" data-user="${user.id}" onclick="openProfileHandler(event, ${user.id})">${user.name}</span>
+            Posted by <span onclick="event.stopPropagation(); openProfile(${user.id})">${user.name}</span>
           </div>
         </div>
       </div>`;
   });
 }
 
-// Render Events
+/* ================= RENDER EVENTS ================= */
 function renderEvents() {
   const container = document.getElementById("eventContainer");
   if (!container) return;
@@ -655,90 +281,53 @@ function renderEvents() {
   events.forEach((ev, index) => {
     const user = getUser(ev.postedBy);
 
-    // build tags row including target communities
-    let tagsHTML = `<div class="tag-container"><span class="tag">${ev.type}</span>`;
-    if(ev.target_communities) {
-      ev.target_communities.forEach(tc=>{
-        // determine color class based on keywords (women, lgbt, academic, interests, etc.)
-        let extraClass = '';
-        const lower = tc.toLowerCase();
-        if(lower.includes('women') || lower.includes('gender')) extraClass = 'tag-gender';
-        else if(lower.includes('lgbt') || lower.includes('identity')) extraClass = 'tag-identity';
-        else if(lower.includes('academic')) extraClass = 'tag-academic';
-        else if(lower.includes('interest')) extraClass = 'tag-interest';
-        tagsHTML += `<span class="tag ${extraClass}">${tc}</span>`;
-      });
-    }
-    tagsHTML += `</div>`;
-
     container.innerHTML += `
       <div class="card" onclick="openDetail('event', ${index})">
         <img src="${ev.image}" alt="${ev.title}">
         <div class="card-content">
           <h3>${ev.title}</h3>
-          ${tagsHTML}
+          <div class="tag-container"><span class="tag">${ev.type}</span></div>
           <p>${ev.description}</p>
           <div class="posted-by">
-            Posted by <span class="posted-by-name" data-user="${user.id}" onclick="openProfileHandler(event, ${user.id})">${user.name}</span>
+            Posted by <span onclick="event.stopPropagation(); openProfile(${user.id})">${user.name}</span>
           </div>
         </div>
       </div>`;
   });
 }
 
-/* ================= MODAL & INTERACTION LOGIC ================= */
-
-// helper to open profile from inline click handlers
-function openProfileHandler(e, userId) {
-  if (e && e.stopPropagation) e.stopPropagation();
-  openProfile(userId);
-}
-
-// Combined detail opener for both Spaces and Events
+/* ================= DETAIL MODAL ================= */
 function openDetail(type, index) {
-  const modal = document.getElementById("detailModal");
+  const modal   = document.getElementById("detailModal");
   const content = document.getElementById("detailContent");
-  let data;
 
   if (type === 'space') {
-    data = thirdspaces[index];
+    const data = thirdspaces[index];
     content.innerHTML = `
-      <button class="close-btn" onclick="closeDetail()" style="float:right; cursor:pointer; border:none; background:none; font-size:20px;">×</button>
-      <img src="${data.image}" style="width:100%; border-radius:10px; height:220px; object-fit:cover;">
-      <h2 style="margin-top:15px;">${data.name}</h2>
+      <button onclick="closeDetail()" style="float:right;cursor:pointer;border:none;background:none;font-size:22px;">×</button>
+      <img src="${data.image}" style="width:100%;border-radius:10px;height:220px;object-fit:cover;">
+      <h2 style="margin-top:15px;font-family:'Playfair Display',serif;">${data.name}</h2>
       <p><strong>Cost:</strong> ${data.money_required || "Free"}</p>
       <p><strong>About:</strong> ${data.description}</p>
       <hr>
-      <p style="font-size:0.8em; color:gray;">Location: ${data.lat}, ${data.lng}</p>
+      <p style="font-size:0.8em;color:gray;">📍 ${data.lat}, ${data.lng}</p>
     `;
   } else {
-    data = events[index];
-    // build additional tags for target communities
-    let detailTags = `<div class="tag-container"><span class="tag">${data.type}</span>`;
-    if(data.target_communities) {
-      data.target_communities.forEach(tc=>{
-        let extraClass = '';
-        const lower = tc.toLowerCase();
-        if(lower.includes('women') || lower.includes('gender')) extraClass = 'tag-gender';
-        else if(lower.includes('lgbt') || lower.includes('identity')) extraClass = 'tag-identity';
-        else if(lower.includes('academic')) extraClass = 'tag-academic';
-        else if(lower.includes('interest')) extraClass = 'tag-interest';
-        detailTags += `<span class="tag ${extraClass}">${tc}</span>`;
-      });
-    }
-    detailTags += `</div>`;
+    const data = events[index];
     content.innerHTML = `
-      <button class="close-btn" onclick="closeDetail()" style="float:right; cursor:pointer; border:none; background:none; font-size:20px;">×</button>
-      <img src="${data.image}" style="width:100%; border-radius:10px; height:220px; object-fit:cover;">
-      <h2 style="margin-top:15px;">${data.title}</h2>
-      ${detailTags}
+      <button onclick="closeDetail()" style="float:right;cursor:pointer;border:none;background:none;font-size:22px;">×</button>
+      <img src="${data.image}" style="width:100%;border-radius:10px;height:220px;object-fit:cover;">
+      <h2 style="margin-top:15px;font-family:'Playfair Display',serif;">${data.title}</h2>
+      <div class="tag-container"><span class="tag">${data.type}</span></div>
+      <p><strong>📍 Where:</strong> ${data.location_name}</p>
+      <p><strong>🗓 When:</strong> ${data.date} at ${data.time}</p>
       <p>${data.description}</p>
-      <button class="add-space" style="width:100%;" onclick="alert('RSVP Sent!')">RSVP Now</button>
+      <button class="add-space" style="width:100%;margin-top:12px;" onclick="alert('RSVP confirmed! See you there 🌱')">RSVP Now</button>
     `;
   }
 
   modal.style.display = "flex";
-  document.body.style.overflow = "hidden"; // Stop background scroll
+  document.body.style.overflow = "hidden";
 }
 
 function closeDetail() {
@@ -746,162 +335,135 @@ function closeDetail() {
   document.body.style.overflow = "auto";
 }
 
-// Profile Modal Logic
+/* ================= PROFILE MODAL ================= */
 function openProfile(userId) {
-  const modal = document.getElementById("profileModal");
+  const modal   = document.getElementById("profileModal");
   const content = document.getElementById("profileContent");
-  const user = getUser(userId);
-  const isMe = userId === currentUser.id;
+  const user    = getUser(userId);
+  if (!user) return;
 
-  function createTag(text, color="#f0f0f0") {
-    return `<span style="
-      display:inline-block;
-      background-color:${color};
-      color:#333;
-      border-radius:12px;
-      padding:4px 10px;
-      margin:2px;
-      font-size:0.9em;
-    ">${text}</span>`;
-  }
-
-  const now = new Date();
-
-  // event & space lists
-  const userEvents = events.filter(e => e.postedBy === userId);
-  const pastEvents = userEvents.filter(e => new Date(e.date) < now);
+  const now            = new Date();
+  const userEvents     = events.filter(e => e.postedBy === userId);
+  const pastEvents     = userEvents.filter(e => new Date(e.date) < now);
   const upcomingEvents = userEvents.filter(e => new Date(e.date) >= now);
-  const likedEvents = userEvents.filter(e => user.likedEvents?.includes(e.id));
-  const userSpaces = thirdspaces.filter(s => s.postedBy === userId);
-  const pastSpaces = userSpaces.filter(s => s.date && new Date(s.date) < now);
-  const upcomingSpaces = userSpaces.filter(s => s.date && new Date(s.date) >= now);
+  const userSpaces     = thirdspaces.filter(s => s.postedBy === userId);
 
-  const renderList = list => list.length ? list.map(i => {
-    // events use "title" while spaces use "name"
-    const label = i.title || i.name || "(untitled)";
-    return `<p>• ${label}</p>`;
-  }).join("") : "<p>None yet</p>";
+  const renderList = list => list.length
+    ? list.map(i => `<div style="background:#f7f7fb;border-radius:8px;padding:8px 12px;margin-bottom:6px;font-size:0.85rem;">📌 ${i.title || i.name}</div>`).join("")
+    : `<p style="color:#aaa;font-style:italic;font-size:0.85rem;margin:0;">None yet</p>`;
 
-  function renderView() {
-    content.innerHTML = `
-      <button onclick="closeProfile()">X</button>
-      <div style="text-align:center">
-        <img src="${user.avatar}" style="width:80px;border-radius:50%">
-        <h3>${user.name}</h3>
-        <p>${user.bio || ""}</p>
-        <div>
-          ${user.gender ? createTag(user.gender) : ""}
-          ${user.age ? createTag(user.age) : ""}
-          ${user.interests?.map(createTag).join("") || ""}
-        </div>
+  const isCurrentUser = userId === currentUser.id;
+  content.innerHTML = `
+    <button onclick="closeProfile()" style="position:absolute;top:14px;right:16px;cursor:pointer;border:none;background:#f0f0f0;border-radius:50%;width:32px;height:32px;font-size:18px;line-height:32px;color:#555;">×</button>
+
+    <!-- Banner + Avatar -->
+    <div style="background:linear-gradient(135deg,#4de8af,#2bb585);border-radius:12px;height:80px;margin:-28px -28px 0;"></div>
+    <div style="text-align:center;margin-top:-46px;margin-bottom:12px;">
+      <img src="${user.avatar}" style="width:90px;height:90px;border-radius:50%;object-fit:cover;border:4px solid #fff;box-shadow:0 4px 12px rgba(0,0,0,0.15);">
+    </div>
+
+    <div style="text-align:center;margin-bottom:16px;">
+      <h3 style="margin:0 0 4px;font-size:1.2rem;">${user.name}</h3>
+      ${isCurrentUser ? `<span style="background:#4de8af;color:#065;font-size:11px;padding:2px 8px;border-radius:20px;font-weight:bold;">YOU</span>` : ''}
+      <p style="color:#666;font-style:italic;font-size:0.88rem;margin:6px 0 0;">${user.bio}</p>
+    </div>
+
+    <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-bottom:18px;text-align:center;">
+      <div style="background:#f7f7fb;border-radius:10px;padding:10px;">
+        <div style="font-size:1.4rem;font-weight:bold;color:#ba0000;">${upcomingEvents.length}</div>
+        <div style="font-size:0.72rem;color:#888;">Upcoming</div>
       </div>
-      ${isMe ? '<button id="editProfileBtn">Edit Profile</button>' : ''}
-      <hr>
-      <h4>Liked Events</h4>
-      ${renderList(likedEvents)}
-      <h4>Past Events</h4>
-      ${renderList(pastEvents)}
-      <h4>Upcoming Events</h4>
-      ${renderList(upcomingEvents)}
-    `;
-    if (isMe) {
-      document.getElementById('editProfileBtn').onclick = () => {
-        user.editing = true;
-        openProfile(userId);
-      };
-    }
-  }
+      <div style="background:#f7f7fb;border-radius:10px;padding:10px;">
+        <div style="font-size:1.4rem;font-weight:bold;color:#ba0000;">${pastEvents.length}</div>
+        <div style="font-size:0.72rem;color:#888;">Past Events</div>
+      </div>
+      <div style="background:#f7f7fb;border-radius:10px;padding:10px;">
+        <div style="font-size:1.4rem;font-weight:bold;color:#ba0000;">${userSpaces.length}</div>
+        <div style="font-size:0.72rem;color:#888;">Spaces</div>
+      </div>
+    </div>
 
-  function renderEdit() {
-    content.innerHTML = `
-      <button onclick="closeProfile()">X</button>
-      <h3>Edit Profile</h3>
-      <label>Gender:<br><input id="editGender" value="${user.gender||''}"></label><br>
-      <label>Age:<br><input id="editAge" type="number" value="${user.age||''}"></label><br>
-      <button id="saveProfileBtn">Save</button>
-      <button id="cancelProfileBtn">Cancel</button>
-    `;
-    document.getElementById('saveProfileBtn').onclick = () => {
-      user.gender = document.getElementById('editGender').value.trim();
-      user.age = parseInt(document.getElementById('editAge').value) || user.age;
-      user.editing = false;
-      openProfile(userId);
-    };
-    document.getElementById('cancelProfileBtn').onclick = () => {
-      user.editing = false;
-      openProfile(userId);
-    };
-  }
+    <h4 style="color:#333;margin:0 0 8px;font-size:0.9rem;">🗓 Upcoming Events</h4>
+    <div style="margin-bottom:14px;">${renderList(upcomingEvents)}</div>
 
-  // choose view or edit
-  if (isMe && user.editing) renderEdit(); else renderView();
+    <h4 style="color:#333;margin:0 0 8px;font-size:0.9rem;">📅 Past Events</h4>
+    <div style="margin-bottom:14px;">${renderList(pastEvents)}</div>
+
+    <h4 style="color:#333;margin:0 0 8px;font-size:0.9rem;">📍 Spaces Posted</h4>
+    <div>${renderList(userSpaces)}</div>
+  `;
 
   modal.style.display = "flex";
 }
 
-function closeProfile(){
-  document.getElementById("profileModal").style.display="none";
+function closeProfile() {
+  document.getElementById("profileModal").style.display = "none";
 }
 
-// Add Space Modal Logic
-function openAddSpaceModal() {
-  document.getElementById('addSpaceModal').style.display = 'flex';
+/* ================= CLOSE ON BACKGROUND CLICK ================= */
+window.onclick = function(e) {
+  if (e.target === document.getElementById("detailModal"))  closeDetail();
+  if (e.target === document.getElementById("profileModal")) closeProfile();
 }
 
-function closeAddSpaceModal() {
-  document.getElementById('addSpaceModal').style.display = 'none';
-}
+/* ================= CATEGORY FILTER ================= */
+document.querySelectorAll('.category-tab').forEach(btn => {
+  btn.addEventListener('click', function() {
+    document.querySelectorAll('.category-tab').forEach(b => b.style.opacity = '0.6');
+    this.style.opacity = '1';
+    const category = this.dataset.category.toLowerCase();
 
-// Handle Background Clicks to close all modals
-window.onclick = function(event) {
-  const detailModal = document.getElementById("detailModal");
-  const profileModal = document.getElementById("profileModal");
-  const addSpaceModal = document.getElementById("addSpaceModal");
+    document.querySelectorAll('#thirdspaceContainer .card').forEach((card, i) => {
+      const space = thirdspaces[i];
+      if (!space) return;
+      const match = category === 'all' ||
+        (category === 'creative' && space.is_creative) ||
+        (category === 'quiet'    && space.is_quiet)    ||
+        (category === 'active'   && space.is_active)   ||
+        (category === 'social'   && space.is_social)   ||
+        (category === 'other'    && space.is_other);
+      card.style.display = match ? '' : 'none';
+    });
 
-  if (event.target === detailModal) closeDetail();
-  if (event.target === profileModal) closeProfile();
-  if (event.target === addSpaceModal) closeAddSpaceModal();
-}
+    // Map navbar tabs to event types
+    const eventTypeMap = {
+      'creative': ['creative', 'arts', 'music'],
+      'social':   ['social', 'mixer'],
+      'active':   ['sports', 'fitness'],
+      'quiet':    ['education', 'study', 'workshop'],
+      'other':    ['other', 'workshop']
+    };
+
+    document.querySelectorAll('#eventContainer .card').forEach((card, i) => {
+      const ev = events[i];
+      if (!ev) return;
+      const evType = ev.type.toLowerCase();
+      const allowed = eventTypeMap[category] || [];
+      const match = category === 'all' || evType === category || allowed.includes(evType);
+      card.style.display = match ? '' : 'none';
+    });
+  });
+});
 
 /* ================= INITIALIZE ================= */
-const profileBtn = document.getElementById("myProfileBtn");
-if (profileBtn) {
-  profileBtn.onclick = () => openProfile(currentUser.id);
-  profileBtn.addEventListener('keyup', e => {
-    if (e.key === 'Enter' || e.key === ' ') {
-      openProfile(currentUser.id);
-    }
-  });
-}
+document.getElementById("myProfileBtn").onclick = () => openProfile(currentUser.id);
 
-// render current user summary
-function renderCurrentUserProfile() {
-  const div = document.getElementById('currentUserProfile');
-  if (!div) return;
-  const u = currentUser;
-  div.innerHTML = `
-    <img src="${u.avatar}" style="width:40px;height:40px;border-radius:50%;object-fit:cover;">
-    <span style="font-weight:bold;">${u.name}</span>
-    <span style="flex:1;font-size:0.9em;color:#555;">${u.gender || ''} ${u.age?'- '+u.age:''}</span>
-    `;}
-
-renderCurrentUserProfile();
-
-// Load new spaces from server and add to hardcoded list
+// Load server-submitted spaces and merge
 fetch('/api/spaces')
+  .then(r => r.json())
   .then(data => {
     if (data.spaces && data.spaces.length > 0) {
       data.spaces.forEach(s => {
         if (!thirdspaces.find(t => t.name === s.name)) {
           thirdspaces.push({
             ...s,
-            image: 'https://images.unsplash.com/photo-1585938389612-a552a28d6914?w=900&auto=format&fit=crop&q=60',
+            image: s.image || 'https://images.unsplash.com/photo-1585938389612-a552a28d6914?w=900&auto=format&fit=crop&q=60',
             postedBy: 1,
             is_creative: s.vibe?.includes('creative') || false,
-            is_quiet: s.vibe?.includes('silent') || false,
-            is_active: false,
-            is_social: s.vibe?.includes('social') || false,
-            is_other: true,
+            is_quiet:    s.vibe?.includes('silent')   || false,
+            is_active:   false,
+            is_social:   s.vibe?.includes('social')   || false,
+            is_other:    true,
             money_required: s.is_free ? 'Free' : 'Paid'
           });
         }
@@ -914,67 +476,7 @@ fetch('/api/spaces')
     renderThirdspaces();
     renderEvents();
   });
-
-// CATEGORY FILTER
-let activeCategory = null; // null means no filter
-
-document.querySelectorAll('.category-tab').forEach(btn => {
-    btn.addEventListener('click', function() {
-        const category = this.dataset.category.toLowerCase();
-
-        // if user clicked the same tab again, clear filter
-        if (activeCategory === category) {
-            activeCategory = null;
-            document.querySelectorAll('.category-tab').forEach(b => b.style.opacity = '1');
-            document.querySelectorAll('#thirdspaceContainer .card, #eventContainer .card')
-                    .forEach(c => c.style.display = '');
-            return;
-        }
-
-        activeCategory = category;
-        document.querySelectorAll('.category-tab').forEach(b => b.style.opacity = '0.6');
-        this.style.opacity = '1';
-
-        document.querySelectorAll('#thirdspaceContainer .card').forEach((card, i) => {
-            const space = thirdspaces[i];
-            if (!space) return;
-            const match = category === 'all' ||
-                (category === 'creative' && space.is_creative) ||
-                (category === 'quiet'    && space.is_quiet)    ||
-                (category === 'active'   && space.is_active)   ||
-                (category === 'social'   && space.is_social)   ||
-                (category === 'other'    && space.is_other);
-            card.style.display = match ? '' : 'none';
-        });
-        document.querySelectorAll('#eventContainer .card').forEach((card, i) => {
-            const ev = events[i];
-            if (!ev) return;
-            const match = category === 'all' ||
-                ev.type.toLowerCase() === category ||
-                (category === 'active' && ev.type === 'Sports');
-            card.style.display = match ? '' : 'none';
-        });
-    });
-});
-
 </script>
 
-<!-- CHAT BUTTON -->
-<button id="chatbotBtn">💬</button>
-
-<!-- CHAT WINDOW -->
-<div id="chatWindow">
-  <div id="chatHeader">
-    <span>Groundie 🌱</span>
-    <button id="chatClose" style="background:none;border:none;color:white;font-size:18px;cursor:pointer">✕</button>
-  </div>
-  <div id="chatMessages"></div>
-  <div id="chatInputArea">
-    <input id="chatInput" type="text" placeholder="Ask me anything...">
-    <button id="chatSend">Send</button>
-  </div>
-</div>
-
-<script src="app.js"></script>
 </body>
 </html>
